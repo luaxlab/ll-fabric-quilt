@@ -1,4 +1,4 @@
-# Little Logistics: Quilt Edition
+![Little Logistics: Quilt Edition](doc/logo.png)
 
 ### Download
 
