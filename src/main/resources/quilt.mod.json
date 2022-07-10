@@ -1,0 +1,43 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "de.luaxlab",
+		"id": "littlelogistics",
+		"version": "${version}",
+		"metadata": {
+			"name": "Little Logistics: Quilt Edition",
+			"description": "What a cute little logistics mod thingy...",
+			"contributors": {
+				"LuaX (luaxlab)": "Porting",
+				"Murad Akhundov": "Lead",
+				"EDToaster": "Lead"
+			},
+			"contact": {
+				"homepage": "https://luaxlab.github.io/mod/littlelogistics",
+				"issues": "https://github.com/luaxlab/ll-fabric-quilt/issues",
+				"sources": "https://github.com/luaxlab/ll-fabric-quilt"
+			},
+			"icon": "icon.png",
+			"license": "LGPL-3.0-or-later"
+		},
+		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"init": "de.luaxlab.shipping.common.core.ModCommon",
+			"client_init": "de.luaxlab.shipping.client.ModClient"
+		},
+		"depends": [
+			{
+				"id": "quilt_loader",
+				"versions": ">=0.17.0-"
+			},
+			{
+				"id": "quilted_fabric_api",
+				"versions": ">=2.0.0-"
+			},
+			{
+				"id": "minecraft",
+				"versions": ">=1.19"
+			}
+		]
+	}
+}
