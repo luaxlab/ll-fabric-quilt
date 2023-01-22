@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "littlelogistics:item/automatic_tee_junction_rail"
+  }
+}

@@ -1,0 +1,182 @@
+package de.luaxlab.shipping.common.entity.vessel.barge;
+
+
+import de.luaxlab.shipping.common.entity.vessel.VesselEntity;
+import de.luaxlab.shipping.common.util.Train;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+
+import javax.annotation.Nonnull;
+import java.util.Optional;
+
+public abstract class AbstractBargeEntity extends VesselEntity {
+    public AbstractBargeEntity(EntityType<? extends AbstractBargeEntity> type, Level world) {
+        super(type, world);
+        this.blocksBuilding = true;
+        linkingHandler.train = new Train<>(this);
+    }
+
+    public AbstractBargeEntity(EntityType<? extends AbstractBargeEntity> type, Level worldIn, double x, double y, double z) {
+        this(type, worldIn);
+        this.setPos(x, y, z);
+        this.setDeltaMovement(Vec3.ZERO);
+        this.xo = x;
+        this.yo = y;
+        this.zo = z;
+    }
+
+    @Override
+    protected boolean canAddPassenger(Entity passenger) {
+        return false;
+    }
+
+
+    public abstract Item getDropItem();
+
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (!this.level.isClientSide) {
+            doInteract(player);
+        }
+        // don't interact *and* use current item
+        return InteractionResult.CONSUME;
+    }
+
+    abstract protected void doInteract(Player player);
+
+    public boolean hasWaterOnSides(){
+        return super.hasWaterOnSides();
+    }
+
+    @Override
+    public void setDominated(VesselEntity entity) {
+        linkingHandler.dominated = Optional.of(entity);
+    }
+
+    @Override
+    public void setDominant(VesselEntity entity) {
+        this.setTrain(entity.getTrain());
+        linkingHandler.dominant = Optional.of(entity);
+    }
+
+    @Override
+    public void removeDominated() {
+        if(!this.isAlive()){
+            return;
+        }
+        linkingHandler.dominated = Optional.empty();
+        linkingHandler.train.setTail(this);
+    }
+
+    @Override
+    public void removeDominant() {
+        if(!this.isAlive()){
+            return;
+        }
+        linkingHandler.dominant = Optional.empty();
+        this.setTrain(new Train(this));
+    }
+
+    @Override
+    public void setTrain(Train<VesselEntity> train) {
+        linkingHandler.train = train;
+        train.setTail(this);
+        linkingHandler.dominated.ifPresent(dominated -> {
+            // avoid recursion loops
+            if(dominated.getTrain().equals(train)){
+                dominated.setTrain(train);
+            }
+        });
+    }
+
+    @Override
+    public void remove(Entity.RemovalReason r){
+        if (!this.level.isClientSide) {
+            this.spawnAtLocation(this.getDropItem());
+        }
+        super.remove(r);
+    }
+
+    // hack to disable hoppers
+    public boolean isDockable() {
+        return this.linkingHandler.dominant.map(dom -> this.distanceToSqr((Entity) dom) < 1.1).orElse(true);
+    }
+
+    public boolean allowDockInterface(){
+        return isDockable();
+    }
+
+    /*private final StallingCapability capability = new StallingCapability() {
+        @Override
+        public boolean isDocked() {
+            return delegate().map(StallingCapability::isDocked).orElse(false);
+        }
+
+        @Override
+        public void dock(double x, double y, double z) {
+            delegate().ifPresent(s -> s.dock(x, y, z));
+        }
+
+        @Override
+        public void undock() {
+            delegate().ifPresent(StallingCapability::undock);
+        }
+
+        @Override
+        public boolean isStalled() {
+            return delegate().map(StallingCapability::isStalled).orElse(false);
+        }
+
+        @Override
+        public void stall() {
+            delegate().ifPresent(StallingCapability::stall);
+        }
+
+        @Override
+        public void unstall() {
+            delegate().ifPresent(StallingCapability::unstall);
+        }
+
+        @Override
+        public boolean isFrozen() {
+            return AbstractBargeEntity.super.isFrozen();
+        }
+
+        @Override
+        public void freeze() {
+            AbstractBargeEntity.super.setFrozen(true);
+        }
+
+        @Override
+        public void unfreeze() {
+            AbstractBargeEntity.super.setFrozen(false);
+        }
+
+        private Optional<StallingCapability> delegate() {
+            if (linkingHandler.train.getHead() instanceof AbstractTugEntity e) {
+                return e.getCapability(StallingCapability.STALLING_CAPABILITY).resolve();
+            }
+            return Optional.empty();
+        }
+    };
+
+    private final LazyOptional<StallingCapability> capabilityOpt = LazyOptional.of(() -> capability);
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+        if (cap == StallingCapability.STALLING_CAPABILITY) {
+            return capabilityOpt.cast();
+        }
+        return super.getCapability(cap);
+    }
+     */
+	//TODO: Caps
+}

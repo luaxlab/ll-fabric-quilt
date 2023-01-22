@@ -8,12 +8,12 @@
 			"name": "Little Logistics: Quilt Edition",
 			"description": "What a cute little logistics mod thingy...",
 			"contributors": {
-				"LuaX (luaxlab)": "Porting",
+				"LuaX": "Clothier",
 				"Murad Akhundov": "Lead",
 				"EDToaster": "Lead"
 			},
 			"contact": {
-				"homepage": "https://luaxlab.github.io/mod/littlelogistics",
+				"homepage": "https://luaxlab.de/en/mod/littlelogistics",
 				"issues": "https://github.com/luaxlab/ll-fabric-quilt/issues",
 				"sources": "https://github.com/luaxlab/ll-fabric-quilt"
 			},
@@ -23,7 +23,8 @@
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
 			"init": "de.luaxlab.shipping.common.core.ModCommon",
-			"client_init": "de.luaxlab.shipping.client.ModClient"
+			"client_init": "de.luaxlab.shipping.client.ModClient",
+			"cardinal-components": "de.luaxlab.shipping.common.core.ModComponents"
 		},
 		"depends": [
 			{
@@ -39,5 +40,13 @@
 				"versions": ">=1.19"
 			}
 		]
-	}
+	},
+	"modmenu": {
+		"links": {
+			"modmenu.discord": "https://discord.gg/CBNuD2zfWk"
+		}
+	},
+	"cardinal-components": [
+		"littlelogistics:stalling"
+	]
 }

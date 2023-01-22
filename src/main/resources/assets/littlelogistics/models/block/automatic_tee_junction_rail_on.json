@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/rail_flat",
+  "textures": {
+    "rail": "littlelogistics:block/automatic_tee_junction_rail_on"
+  }
+}

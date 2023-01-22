@@ -1,0 +1,32 @@
+{
+  "variants": {
+    "inverted=false,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/car_dock_rail",
+      "y": 90
+    },
+    "inverted=false,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/car_dock_rail",
+      "y": 90
+    },
+    "inverted=false,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/car_dock_rail"
+    },
+    "inverted=false,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/car_dock_rail"
+    },
+    "inverted=true,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/car_dock_rail_extract",
+      "y": 90
+    },
+    "inverted=true,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/car_dock_rail_extract",
+      "y": 90
+    },
+    "inverted=true,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/car_dock_rail_extract"
+    },
+    "inverted=true,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/car_dock_rail_extract"
+    }
+  }
+}

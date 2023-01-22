@@ -1,0 +1,244 @@
+{
+  "variants": {
+    "facing=east,out_direction=left,powered=false,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 90
+    },
+    "facing=east,out_direction=left,powered=false,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 90
+    },
+    "facing=east,out_direction=left,powered=false,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 90
+    },
+    "facing=east,out_direction=left,powered=false,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 90
+    },
+    "facing=east,out_direction=left,powered=true,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 90
+    },
+    "facing=east,out_direction=left,powered=true,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 90
+    },
+    "facing=east,out_direction=left,powered=true,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 90
+    },
+    "facing=east,out_direction=left,powered=true,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 90
+    },
+    "facing=east,out_direction=right,powered=false,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 90
+    },
+    "facing=east,out_direction=right,powered=false,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 90
+    },
+    "facing=east,out_direction=right,powered=false,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 90
+    },
+    "facing=east,out_direction=right,powered=false,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 90
+    },
+    "facing=east,out_direction=right,powered=true,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 90
+    },
+    "facing=east,out_direction=right,powered=true,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 90
+    },
+    "facing=east,out_direction=right,powered=true,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 90
+    },
+    "facing=east,out_direction=right,powered=true,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 90
+    },
+    "facing=north,out_direction=left,powered=false,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_off"
+    },
+    "facing=north,out_direction=left,powered=false,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_off"
+    },
+    "facing=north,out_direction=left,powered=false,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_off"
+    },
+    "facing=north,out_direction=left,powered=false,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_off"
+    },
+    "facing=north,out_direction=left,powered=true,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_on"
+    },
+    "facing=north,out_direction=left,powered=true,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_on"
+    },
+    "facing=north,out_direction=left,powered=true,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_on"
+    },
+    "facing=north,out_direction=left,powered=true,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_on"
+    },
+    "facing=north,out_direction=right,powered=false,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_off"
+    },
+    "facing=north,out_direction=right,powered=false,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_off"
+    },
+    "facing=north,out_direction=right,powered=false,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_off"
+    },
+    "facing=north,out_direction=right,powered=false,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_off"
+    },
+    "facing=north,out_direction=right,powered=true,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_on"
+    },
+    "facing=north,out_direction=right,powered=true,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_on"
+    },
+    "facing=north,out_direction=right,powered=true,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_on"
+    },
+    "facing=north,out_direction=right,powered=true,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_on"
+    },
+    "facing=south,out_direction=left,powered=false,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 180
+    },
+    "facing=south,out_direction=left,powered=false,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 180
+    },
+    "facing=south,out_direction=left,powered=false,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 180
+    },
+    "facing=south,out_direction=left,powered=false,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 180
+    },
+    "facing=south,out_direction=left,powered=true,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 180
+    },
+    "facing=south,out_direction=left,powered=true,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 180
+    },
+    "facing=south,out_direction=left,powered=true,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 180
+    },
+    "facing=south,out_direction=left,powered=true,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 180
+    },
+    "facing=south,out_direction=right,powered=false,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 180
+    },
+    "facing=south,out_direction=right,powered=false,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 180
+    },
+    "facing=south,out_direction=right,powered=false,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 180
+    },
+    "facing=south,out_direction=right,powered=false,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 180
+    },
+    "facing=south,out_direction=right,powered=true,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 180
+    },
+    "facing=south,out_direction=right,powered=true,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 180
+    },
+    "facing=south,out_direction=right,powered=true,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 180
+    },
+    "facing=south,out_direction=right,powered=true,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 180
+    },
+    "facing=west,out_direction=left,powered=false,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 270
+    },
+    "facing=west,out_direction=left,powered=false,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 270
+    },
+    "facing=west,out_direction=left,powered=false,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 270
+    },
+    "facing=west,out_direction=left,powered=false,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_off",
+      "y": 270
+    },
+    "facing=west,out_direction=left,powered=true,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 270
+    },
+    "facing=west,out_direction=left,powered=true,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 270
+    },
+    "facing=west,out_direction=left,powered=true,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 270
+    },
+    "facing=west,out_direction=left,powered=true,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_left_on",
+      "y": 270
+    },
+    "facing=west,out_direction=right,powered=false,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 270
+    },
+    "facing=west,out_direction=right,powered=false,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 270
+    },
+    "facing=west,out_direction=right,powered=false,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 270
+    },
+    "facing=west,out_direction=right,powered=false,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_off",
+      "y": 270
+    },
+    "facing=west,out_direction=right,powered=true,shape=east_west,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 270
+    },
+    "facing=west,out_direction=right,powered=true,shape=east_west,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 270
+    },
+    "facing=west,out_direction=right,powered=true,shape=north_south,waterlogged=false": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 270
+    },
+    "facing=west,out_direction=right,powered=true,shape=north_south,waterlogged=true": {
+      "model": "littlelogistics:block/switch_rail_right_on",
+      "y": 270
+    }
+  }
+}

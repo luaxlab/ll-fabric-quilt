@@ -1,0 +1,42 @@
+package de.luaxlab.shipping.common.block.dock;
+
+import de.luaxlab.shipping.common.block.IVesselLoader;
+import de.luaxlab.shipping.common.util.LinkableEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.List;
+import java.util.Optional;
+
+
+public abstract class AbstractDockTileEntity<T extends Entity & LinkableEntity<T>> extends BlockEntity {
+    public AbstractDockTileEntity(BlockEntityType<?> p_i48289_1_, BlockPos pos, BlockState s) {
+        super(p_i48289_1_, pos, s);
+    }
+
+    public abstract boolean hold(T vessel, Direction direction);
+
+    public Optional<HopperBlockEntity> getHopper(BlockPos p){
+        BlockEntity mayBeHopper = this.level.getBlockEntity(p);
+        if (mayBeHopper instanceof HopperBlockEntity h) {
+            return Optional.of(h);
+        }
+        else return Optional.empty();
+    }
+
+    public Optional<IVesselLoader> getVesselLoader(BlockPos p){
+        BlockEntity mayBeHopper = this.level.getBlockEntity(p);
+        if (mayBeHopper instanceof IVesselLoader l) {
+            return Optional.of(l);
+        }
+        else return Optional.empty();
+    }
+
+    protected abstract List<BlockPos> getTargetBlockPos();
+
+}

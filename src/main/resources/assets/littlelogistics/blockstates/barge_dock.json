@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,inverted=false": {
+      "model": "littlelogistics:block/barge_dock",
+      "y": 90
+    },
+    "facing=east,inverted=true": {
+      "model": "littlelogistics:block/barge_dock_extract",
+      "y": 90
+    },
+    "facing=north,inverted=false": {
+      "model": "littlelogistics:block/barge_dock"
+    },
+    "facing=north,inverted=true": {
+      "model": "littlelogistics:block/barge_dock_extract"
+    },
+    "facing=south,inverted=false": {
+      "model": "littlelogistics:block/barge_dock",
+      "y": 180
+    },
+    "facing=south,inverted=true": {
+      "model": "littlelogistics:block/barge_dock_extract",
+      "y": 180
+    },
+    "facing=west,inverted=false": {
+      "model": "littlelogistics:block/barge_dock",
+      "y": 270
+    },
+    "facing=west,inverted=true": {
+      "model": "littlelogistics:block/barge_dock_extract",
+      "y": 270
+    }
+  }
+}

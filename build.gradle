@@ -25,6 +25,8 @@ repositories {
 	maven { url "https://maven.terraformersmc.com/" } //CompleteConfig
 	maven { url "https://maven.shedaniel.me/" } // ^
 	maven { url "https://maven.siphalor.de/" } // ^
+	maven { url = 'https://ladysnake.jfrog.io/artifactory/mods' } //Cardinal Components
+
 
 }
 
@@ -55,6 +57,18 @@ dependencies {
 	modRuntimeOnly "com.terraformersmc:modmenu:4.0.0" //Modmenu
 	modImplementation("com.gitlab.Lortseam:completeconfig:2.0.0") //CompleteConfig
 	modImplementation("com.gitlab.Lortseam.completeconfig:gui-coat:2.0.0") // ^
+
+	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.1"
+	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.0.1"
+	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-block:5.0.1"
+
+
+	//Newest hot shit
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+	testCompileOnly 'org.projectlombok:lombok:1.18.24'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 
 }
 
