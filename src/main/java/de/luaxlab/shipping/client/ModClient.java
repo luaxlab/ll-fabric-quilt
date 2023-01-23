@@ -10,8 +10,6 @@ import de.luaxlab.shipping.common.core.ModContainers;
 import de.luaxlab.shipping.common.core.ModEntities;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import dev.architectury.event.events.client.ClientTextureStitchEvent;
-import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
-import me.lortseam.completeconfig.gui.coat.CoatScreenBuilder;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
@@ -26,7 +24,6 @@ public class ModClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
-		ConfigScreenBuilder.setMain(ModCommon.MODID, new CoatScreenBuilder());
 
 		EntityRendererRegistry.register(ModEntities.STEAM_TUG, (ctx) -> new StaticVesselRenderer<>(ctx, SteamTugModel::new, SteamTugModel.LAYER_LOCATION,
 				ModCommon.identifier("textures/entity/tug.png")) {

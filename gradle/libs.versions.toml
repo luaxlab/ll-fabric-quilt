@@ -6,6 +6,27 @@ quilt_loader = "0.18.1-beta.58"
 
 quilted_fabric_api = "4.0.0-beta.26+0.72.0-1.19.2"
 
+tr_energy = "2.3.0"
+patchouli = "1.19.2-77"
+complete_config = "2.2.1"
+cardinal_components = "5.1.0"
+forge_config = "4.2.10"
+porting_lib = "2.1.708+1.19.2"
+architectury = "6.4.62"
+
+
+# mod compat
+rei = "9.1.585"
+wthit = "quilt-5.13.4"
+jade = "8.7.3"
+jade_id = "4328558"
+modmenu = "4.1.2"
+jei = "11.5.0.297"
+emi = "0.6.1+1.19.2"
+
+# runtime
+bad_packets = "fabric-0.2.1"
+
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "quilt_mappings" }
@@ -14,9 +35,37 @@ quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loade
 quilted_fabric_api = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api", version.ref = "quilted_fabric_api" }
 quilted_fabric_api_deprecated = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated", version.ref = "quilted_fabric_api" }
 
+tr_energy = { module = "teamreborn:energy", version.ref = "tr_energy" }
+patchouli = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli" }
+complete_config = { module = "com.gitlab.Lortseam:completeconfig", version.ref = "complete_config" }
+forge_config = { module = "net.minecraftforge:forgeconfigapiport-fabric", version.ref = "forge_config" }
+porting_lib = { module = "io.github.fabricators_of_create.Porting-Lib:porting-lib", version.ref = "porting_lib"}
+cardinal_components = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-api", version.ref = "cardinal_components" }
+architectury = { module = "dev.architectury:architectury", version.ref = "architectury" }
+
+# mod compat
+rei = { module = "me.shedaniel:RoughlyEnoughItems-fabric", version.ref = "rei" }
+rei_api = { module = "me.shedaniel:RoughlyEnoughItems-api-fabric", version.ref = "rei" }
+rei_default_plugin = { module = "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric", version.ref = "rei" }
+
+jei = { module = "mezz.jei:jei-1.19.2-fabric", version.ref = "jei" }
+jei_common_api = { module = "mezz.jei:jei-1.19.2-common-api", version.ref = "jei" }
+jei_fabric_api = { module = "mezz.jei:jei-1.19.2-fabric-api", version.ref = "jei" }
+
+emi = { module = "dev.emi:emi", version.ref = "emi"}
+wthit = { module = "mcp.mobius.waila:wthit", version.ref = "wthit" }
+wthit_api = { module = "mcp.mobius.waila:wthit-api", version.ref = "wthit" }
+bad_packets = { module = "lol.bai:badpackets", version.ref = "bad_packets" }
+jade = { module = "curse.maven:jade-324717", version.ref = "jade_id" }
+modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+
+
+
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]
 quilted_fabric_api = ["quilted_fabric_api", "quilted_fabric_api_deprecated"]
+rei_api = ["rei_api", "rei_default_plugin"]
+jei_api = ["jei_common_api", "jei_fabric_api"]
 
 [plugins]
 quilt_loom = { id = "org.quiltmc.loom", version = "1.+" }

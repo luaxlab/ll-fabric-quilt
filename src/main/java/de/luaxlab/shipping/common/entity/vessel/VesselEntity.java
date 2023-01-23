@@ -84,7 +84,7 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
         super(type, world);
         stuckCounter = 0;
         resetSpeedAttributes();
-        setSpeedAttributes(ModConfig.Common.TUG_BASE_SPEED);
+        setSpeedAttributes(ModConfig.Server.TUG_BASE_SPEED.get());
     }
 
     // MOB STUFF
@@ -499,7 +499,7 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
     }
 
     public boolean isInvulnerableTo(DamageSource pSource) {
-        if (ModConfig.Common.VESSEL_EXEMPT_DAMAGE_SOURCES.contains(pSource.msgId)){
+        if (ModConfig.Server.VESSEL_EXEMPT_DAMAGE_SOURCES.get().contains(pSource.msgId)){
             return true;
         }
 

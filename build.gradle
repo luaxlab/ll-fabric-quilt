@@ -25,9 +25,11 @@ repositories {
 	maven { url "https://maven.terraformersmc.com/" } //CompleteConfig
 	maven { url "https://maven.shedaniel.me/" } // ^
 	maven { url "https://maven.siphalor.de/" } // ^
-	maven { url = 'https://ladysnake.jfrog.io/artifactory/mods' } //Cardinal Components
-
-
+	maven { url 'https://ladysnake.jfrog.io/artifactory/mods' } //Cardinal Components
+	maven { url "https://mvn.devos.one/snapshots/" } // porting lib
+	maven { url 'https://maven.blamejared.com' } // patchouli
+	maven { url "https://maven.isxander.dev/releases" } // complete config
+	maven { url "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // forge config
 }
 
 // All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"
@@ -45,23 +47,18 @@ dependencies {
 	modImplementation libs.quilted.fabric.api
 	// modImplementation libs.bundles.quilted.fabric.api // If you wish to use Fabric API's deprecated modules, you can replace the above line with this one
 
-	include modApi("teamreborn:energy:2.2.0") {
-		exclude(group: "net.fabricmc.fabric-api")
-	}
-	modCompileOnly "vazkii.patchouli:Patchouli:1.19-73" //Patchouli
-	modRuntimeOnly "vazkii.patchouli:Patchouli:1.19-73" //Patchouli
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:9.1.503" //REI
-	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:9.1.503" //REI
-	modCompileOnly "mcp.mobius.waila:wthit-api:fabric-5.5.1" //WTHIT
-	modRuntimeOnly "mcp.mobius.waila:wthit:fabric-5.5.1" //WTHIT
-	modRuntimeOnly "com.terraformersmc:modmenu:4.0.0" //Modmenu
-	modImplementation("com.gitlab.Lortseam:completeconfig:2.0.0") //CompleteConfig
-	modImplementation("com.gitlab.Lortseam.completeconfig:gui-coat:2.0.0") // ^
-
-	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.1"
-	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.0.1"
-	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-block:5.0.1"
-
+	modImplementation libs.porting.lib
+	modCompileOnlyApi libs.bundles.rei.api
+	modRuntimeOnly libs.rei
+	//modApi libs.architectury
+	modImplementation libs.cardinal.components
+	modImplementation libs.tr.energy
+	modImplementation libs.patchouli
+	//modImplementation libs.complete.config
+	modImplementation libs.forge.config
+	modImplementation libs.modmenu
+//	modCompileOnlyApi libs.wthit.api
+//	modRuntimeOnly libs.wthit
 
 	//Newest hot shit
 	compileOnly 'org.projectlombok:lombok:1.18.24'

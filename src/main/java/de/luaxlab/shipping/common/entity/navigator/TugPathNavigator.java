@@ -12,7 +12,7 @@ import net.minecraft.world.phys.Vec3;
 public class TugPathNavigator extends WaterBoundPathNavigation {
     public TugPathNavigator(Mob p_i45873_1_, Level p_i45873_2_) {
         super(p_i45873_1_, p_i45873_2_);
-        setMaxVisitedNodesMultiplier(ModConfig.Common.TUG_PATHFINDING_MULTIPLIER);
+        setMaxVisitedNodesMultiplier(ModConfig.Server.TUG_PATHFINDING_MULTIPLIER.get());
     }
 
     @Override

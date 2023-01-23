@@ -30,7 +30,7 @@ import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import javax.annotation.Nullable;
 
 public class SteamTugEntity extends AbstractTugEntity {
-    private static final int FURNACE_FUEL_MULTIPLIER= ModConfig.Common.STEAM_TUG_FUEL_MULTIPLIER;
+    private static final int FURNACE_FUEL_MULTIPLIER= ModConfig.Server.STEAM_TUG_FUEL_MULTIPLIER.get();
 	@Getter
     private final SingleSlotItemContainer fuelContainer = new SingleSlotItemContainer(FurnaceBlockEntity::isFuel);
     protected int burnTime = 0;

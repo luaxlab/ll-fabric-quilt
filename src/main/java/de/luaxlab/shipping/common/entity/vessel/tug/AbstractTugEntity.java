@@ -255,7 +255,7 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
         if (world != null) {
             BlockPos blockpos = this.getOnPos().above().above();
             RandomSource random = world.random;
-            if (random.nextFloat() < ModConfig.Client.TUG_SMOKE_MODIFIER) {
+            if (random.nextFloat() < ModConfig.Client.TUG_SMOKE_MODIFIER.get()) {
                 for(int i = 0; i < random.nextInt(2) + 2; ++i) {
                     makeParticles(world, blockpos, true, false);
                 }
