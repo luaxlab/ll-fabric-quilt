@@ -18,6 +18,7 @@
 package de.luaxlab.shipping.common.core;
 
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.core.Registry;
@@ -27,54 +28,107 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 
 public class ModEntities {
+//	public static final RegistryObject<EntityType<ChestBargeEntity>> CHEST_BARGE =
+//			Registration.ENTITIES.register("barge",
+//					() -> EntityType.Builder.<ChestBargeEntity>of(ChestBargeEntity::new,
+//									MobCategory.MISC).sized(0.6f, 0.9f)
+//							.clientTrackingRange(8)
+//							.build(new ResourceLocation(ModCommon.MODID, "barge").toString()));
+//
+//	public static final RegistryObject<EntityType<ChunkLoaderBargeEntity>> CHUNK_LOADER_BARGE =
+//			Registration.ENTITIES.register("chunk_loader_barge",
+//					() -> EntityType.Builder.<ChunkLoaderBargeEntity>of(ChunkLoaderBargeEntity::new,
+//									MobCategory.MISC).sized(0.6f, 0.9f)
+//							.clientTrackingRange(8)
+//							.build(new ResourceLocation(ModCommon.MODID, "chunk_loader_barge").toString()));
+//
+//	public static final RegistryObject<EntityType<FishingBargeEntity>> FISHING_BARGE =
+//			Registration.ENTITIES.register("fishing_barge",
+//					() -> EntityType.Builder.<FishingBargeEntity>of(FishingBargeEntity::new,
+//									MobCategory.MISC).sized(0.6f, 0.9f)
+//							.clientTrackingRange(8)
+//							.build(new ResourceLocation(ModCommon.MODID, "fishing_barge").toString()));
+//
+//	public static final RegistryObject<EntityType<FluidTankBargeEntity>> FLUID_TANK_BARGE =
+//			Registration.ENTITIES.register("fluid_barge",
+//					() -> EntityType.Builder.<FluidTankBargeEntity>of(FluidTankBargeEntity::new,
+//									MobCategory.MISC).sized(0.6f, 0.9f)
+//							.clientTrackingRange(8)
+//							.build(new ResourceLocation(ModCommon.MODID, "fluid_barge").toString()));
+//
+//	public static final RegistryObject<EntityType<SeaterBargeEntity>> SEATER_BARGE =
+//			Registration.ENTITIES.register("seater_barge",
+//					() -> EntityType.Builder.<SeaterBargeEntity>of(SeaterBargeEntity::new,
+//									MobCategory.MISC).sized(0.6f, 0.9f)
+//							.clientTrackingRange(8)
+//							.build(new ResourceLocation(ModCommon.MODID, "seater_barge").toString()));
 
-    /* Tugs */
-    public static final EntityType<SteamTugEntity> STEAM_TUG = Registry.register(
-            Registry.ENTITY_TYPE,
-            identifier("tug"),
-            FabricEntityTypeBuilder.create(MobCategory.WATER_CREATURE, (EntityType.EntityFactory<SteamTugEntity>) SteamTugEntity::new).dimensions(EntityDimensions.fixed(0.75f, 0.75f)).build()
-    );
+	public static final RegistryObject<EntityType<SteamTugEntity>> STEAM_TUG =
+			Registration.ENTITIES.register("tug",
+					() -> EntityType.Builder.<SteamTugEntity>of(SteamTugEntity::new,
+									MobCategory.MISC).sized(0.7f, 0.9f)
+							.clientTrackingRange(8)
+							.build(new ResourceLocation(ModCommon.MODID, "tug").toString()));
 
-    /* Barges */
-    /*public static final EntityType<ChestBargeEntity> CHEST_BARGE = Registry.register(
-            Registry.ENTITY_TYPE,
-            identifier("barge"),
-            FabricEntityTypeBuilder.create(SpawnGroup.WATER_CREATURE, (EntityType.EntityFactory<ChestBargeEntity>) ChestBargeEntity::new).dimensions(EntityDimensions.fixed(0.6f, 0.9f)).build()
-    );
-    public static final EntityType<FishingBargeEntity> FISHING_BARGE = Registry.register(
-            Registry.ENTITY_TYPE,
-            identifier("fishing_barge"),
-            FabricEntityTypeBuilder.create(SpawnGroup.WATER_CREATURE, (EntityType.EntityFactory<FishingBargeEntity>) FishingBargeEntity::new).dimensions(EntityDimensions.fixed(0.6f, 0.9f)).build()
-    );*/
+//	public static final RegistryObject<EntityType<EnergyTugEntity>> ENERGY_TUG =
+//			Registration.ENTITIES.register("energy_tug",
+//					() -> EntityType.Builder.<EnergyTugEntity>of(EnergyTugEntity::new,
+//									MobCategory.MISC).sized(0.7f, 0.9f)
+//							.clientTrackingRange(8)
+//							.build(new ResourceLocation(ModCommon.MODID, "energy_tug").toString()));
+//
+//	public static final RegistryObject<EntityType<ChestCarEntity>> CHEST_CAR =
+//			Registration.ENTITIES.register("chest_car",
+//					() -> EntityType.Builder.<ChestCarEntity>of(ChestCarEntity::new,
+//									MobCategory.MISC).sized(0.7f, 0.9f)
+//							.clientTrackingRange(8)
+//							.setShouldReceiveVelocityUpdates(true)
+//							.build(new ResourceLocation(ModCommon.MODID, "chest_car").toString()));
+//
+//	public static final RegistryObject<EntityType<SeaterCarEntity>> SEATER_CAR =
+//			Registration.ENTITIES.register("seater_car",
+//					() -> EntityType.Builder.<SeaterCarEntity>of(SeaterCarEntity::new,
+//									MobCategory.MISC).sized(0.7f, 0.9f)
+//							.clientTrackingRange(8)
+//							.setShouldReceiveVelocityUpdates(true)
+//							.build(new ResourceLocation(ModCommon.MODID, "seater_car").toString()));
+//
+//	public static final RegistryObject<EntityType<FluidTankCarEntity>> FLUID_CAR =
+//			Registration.ENTITIES.register("fluid_car",
+//					() -> EntityType.Builder.<FluidTankCarEntity>of(FluidTankCarEntity::new,
+//									MobCategory.MISC).sized(0.7f, 0.9f)
+//							.clientTrackingRange(8)
+//							.setShouldReceiveVelocityUpdates(true)
+//							.build(new ResourceLocation(ModCommon.MODID, "fluid_car").toString()));
+//
+//	public static final RegistryObject<EntityType<ChunkLoaderCarEntity>> CHUNK_LOADER_CAR =
+//			Registration.ENTITIES.register("chunk_loader_car",
+//					() -> EntityType.Builder.<ChunkLoaderCarEntity>of(ChunkLoaderCarEntity::new,
+//									MobCategory.MISC).sized(0.7f, 0.9f)
+//							.clientTrackingRange(8)
+//							.setShouldReceiveVelocityUpdates(true)
+//							.build(new ResourceLocation(ModCommon.MODID, "chunk_loader_car").toString()));
+//
+//
+//	public static final RegistryObject<EntityType<AbstractLocomotiveEntity>> STEAM_LOCOMOTIVE =
+//			Registration.ENTITIES.register("steam_locomotive",
+//					() -> EntityType.Builder.<AbstractLocomotiveEntity>of(SteamLocomotiveEntity::new,
+//									MobCategory.MISC).sized(0.7f, 0.9f)
+//							.clientTrackingRange(8)
+//							.setShouldReceiveVelocityUpdates(true)
+//							.build(new ResourceLocation(ModCommon.MODID, "steam_locomotive").toString()));
+//
+//	public static final RegistryObject<EntityType<AbstractLocomotiveEntity>> ENERGY_LOCOMOTIVE =
+//			Registration.ENTITIES.register("energy_locomotive",
+//					() -> EntityType.Builder.<AbstractLocomotiveEntity>of(EnergyLocomotiveEntity::new,
+//									MobCategory.MISC)
+//							.clientTrackingRange(8)
+//							.setShouldReceiveVelocityUpdates(true)
+//							.sized(0.7f, 0.9f)
+//							.build(new ResourceLocation(ModCommon.MODID, "energy_locomotive").toString()));
 
-    /* Misc */
-    /*public static final EntityType<Entity> SPRING = Registry.register(
-            Registry.ENTITY_TYPE,
-            identifier("spring"),
-            FabricEntityTypeBuilder.create(SpawnGroup.MISC, SpringEntity::new).dimensions(EntityDimensions.fixed(0.05f, 0.2f)).build()
-    );
 
-    public static final EntityType<TugDummyHitboxEntity> DUMMY_TUG_HITBOX = Registry.register(
-            Registry.ENTITY_TYPE,
-            identifier("dummy_tug_hitbox"),
-            FabricEntityTypeBuilder.create(SpawnGroup.MISC, (EntityType.EntityFactory<TugDummyHitboxEntity>) TugDummyHitboxEntity::new).dimensions(EntityDimensions.fixed(0.75f, 0.75f)).build()
-    );*/
+	public static void register () {
 
-    /**
-     * Called by {@link ModCommon} to handle late-registering
-     */
-    /*default*/ static void register()
-    {
-        /* easy-registry */
-        FabricDefaultAttributeRegistry.register(STEAM_TUG, SteamTugEntity.setCustomAttributes());
-        /*FabricDefaultAttributeRegistry.register(CHEST_BARGE, ChestBargeEntity.setCustomAttributes());
-        FabricDefaultAttributeRegistry.register(FISHING_BARGE, FishingBargeEntity.setCustomAttributes());*/
-
-
-        /* space for compelx registry */
-    }
-
-	@Deprecated
-    private static ResourceLocation identifier(String path) { return ModCommon.identifier(path); }
-
+	}
 }

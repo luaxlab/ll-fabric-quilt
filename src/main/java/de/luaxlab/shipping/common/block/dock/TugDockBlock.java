@@ -29,7 +29,7 @@ public class TugDockBlock extends AbstractDockBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModBlockEntities.TUG_DOCK.create(pos, state);
+        return ModBlockEntities.TUG_DOCK.get().create(pos, state);
     }
 
     @SuppressWarnings("deprecation")
@@ -74,7 +74,7 @@ public class TugDockBlock extends AbstractDockBlock {
         Direction facing = state.getValue(DockingBlockStates.FACING);
         Direction dockdir = state.getValue(DockingBlockStates.INVERTED) ? facing.getCounterClockWise() : facing.getClockWise();
         var tarpos = pos.relative(dockdir);
-        if (level.getBlockState(tarpos).is(ModBlocks.BARGE_DOCK)){
+        if (level.getBlockState(tarpos).is(ModBlocks.BARGE_DOCK.get())){
            level.setBlock(pos, state.setValue(DockingBlockStates.INVERTED, !state.getValue(DockingBlockStates.INVERTED)), 2);
         }
     }

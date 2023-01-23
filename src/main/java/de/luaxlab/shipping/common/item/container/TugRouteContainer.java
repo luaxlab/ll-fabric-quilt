@@ -19,7 +19,7 @@ public class TugRouteContainer extends AbstractContainerMenu {
     private ItemStack itemStack;
 
     public TugRouteContainer(int windowId, Level level, TugRouteScreenDataAccessor data, Inventory playerInventory, Player player) {
-        super(ModContainers.TUG_ROUTE_CONTAINER, windowId);
+        super(ModContainers.TUG_ROUTE_CONTAINER.get(), windowId);
 
         this.isOffHand = data.isOffHand();
         this.itemStack = player.getItemInHand(isOffHand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);

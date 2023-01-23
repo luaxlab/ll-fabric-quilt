@@ -50,7 +50,10 @@ dependencies {
 	modImplementation libs.porting.lib
 	modCompileOnlyApi libs.bundles.rei.api
 	modRuntimeOnly libs.rei
-	//modApi libs.architectury
+	modApi(libs.architectury) {
+		exclude group: "net.fabricmc"
+		exclude group: "net.fabricmc.fabric-api"
+	}
 	modImplementation libs.cardinal.components
 	modImplementation libs.tr.energy
 	modImplementation libs.patchouli
@@ -61,11 +64,11 @@ dependencies {
 //	modRuntimeOnly libs.wthit
 
 	//Newest hot shit
-	compileOnly 'org.projectlombok:lombok:1.18.24'
-	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+	compileOnly libs.lombok
+	annotationProcessor libs.lombok
 
-	testCompileOnly 'org.projectlombok:lombok:1.18.24'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+	testCompileOnly libs.lombok
+	testAnnotationProcessor libs.lombok
 
 }
 

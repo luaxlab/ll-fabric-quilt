@@ -25,7 +25,7 @@ public class ModClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient(ModContainer mod) {
 
-		EntityRendererRegistry.register(ModEntities.STEAM_TUG, (ctx) -> new StaticVesselRenderer<>(ctx, SteamTugModel::new, SteamTugModel.LAYER_LOCATION,
+		EntityRendererRegistry.register(ModEntities.STEAM_TUG.get(), (ctx) -> new StaticVesselRenderer<>(ctx, SteamTugModel::new, SteamTugModel.LAYER_LOCATION,
 				ModCommon.identifier("textures/entity/tug.png")) {
 			// todo: fix in models itself
 			@Override
@@ -44,8 +44,8 @@ public class ModClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(SteamTugModel.LAYER_LOCATION, SteamTugModel::createBodyLayer);
 
 		//Screens
-		MenuScreens.register(ModContainers.STEAM_TUG_CONTAINER, SteamHeadVehicleScreen<SteamTugEntity>::new);
-		MenuScreens.register(ModContainers.TUG_ROUTE_CONTAINER, TugRouteScreen::new);
+		MenuScreens.register(ModContainers.STEAM_TUG_CONTAINER.get(), SteamHeadVehicleScreen<SteamTugEntity>::new);
+		MenuScreens.register(ModContainers.TUG_ROUTE_CONTAINER.get(), TugRouteScreen::new);
 
 		//Events
 		ClientTextureStitchEvent.PRE.register(ClientEventHandlerImpl.INSTANCE);

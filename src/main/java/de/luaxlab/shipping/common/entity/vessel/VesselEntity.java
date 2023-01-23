@@ -282,7 +282,7 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
     }
 
     private void spawnChain() {
-        var stack = new ItemStack(ModItems.SPRING);
+        var stack = new ItemStack(ModItems.SPRING.get());
         this.spawnAtLocation(stack);
     }
 

@@ -14,6 +14,7 @@ forge_config = "4.2.10"
 porting_lib = "2.1.708+1.19.2"
 architectury = "6.4.62"
 
+lombok = "1.18.24"
 
 # mod compat
 rei = "9.1.585"
@@ -41,7 +42,7 @@ complete_config = { module = "com.gitlab.Lortseam:completeconfig", version.ref =
 forge_config = { module = "net.minecraftforge:forgeconfigapiport-fabric", version.ref = "forge_config" }
 porting_lib = { module = "io.github.fabricators_of_create.Porting-Lib:porting-lib", version.ref = "porting_lib"}
 cardinal_components = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-api", version.ref = "cardinal_components" }
-architectury = { module = "dev.architectury:architectury", version.ref = "architectury" }
+architectury = { module = "dev.architectury:architectury-fabric", version.ref = "architectury" }
 
 # mod compat
 rei = { module = "me.shedaniel:RoughlyEnoughItems-fabric", version.ref = "rei" }
@@ -58,6 +59,8 @@ wthit_api = { module = "mcp.mobius.waila:wthit-api", version.ref = "wthit" }
 bad_packets = { module = "lol.bai:badpackets", version.ref = "bad_packets" }
 jade = { module = "curse.maven:jade-324717", version.ref = "jade_id" }
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 
 
 

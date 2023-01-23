@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TugDockTileEntity extends AbstractHeadDockTileEntity<VesselEntity> {
     public TugDockTileEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.TUG_DOCK, pos, state);
+        super(ModBlockEntities.TUG_DOCK.get(), pos, state);
     }
 
     @Override

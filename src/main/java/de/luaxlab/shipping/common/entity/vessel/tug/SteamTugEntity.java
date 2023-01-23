@@ -41,7 +41,7 @@ public class SteamTugEntity extends AbstractTugEntity {
     }
 
     public SteamTugEntity(Level worldIn, double x, double y, double z) {
-        super(ModEntities.STEAM_TUG, worldIn, x, y, z);
+        super(ModEntities.STEAM_TUG.get(), worldIn, x, y, z);
 		addContainer(fuelContainer);
     }
 
@@ -123,7 +123,7 @@ public class SteamTugEntity extends AbstractTugEntity {
     }
 
     public Item getDropItem() {
-        return ModItems.STEAM_TUG;
+        return ModItems.STEAM_TUG.get();
     }
 
 
@@ -153,7 +153,7 @@ public class SteamTugEntity extends AbstractTugEntity {
     @Override
     protected void onUndock() {
         super.onUndock();
-        this.playSound(ModSounds.STEAM_TUG_WHISTLE, 1, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+        this.playSound(ModSounds.STEAM_TUG_WHISTLE.get(), 1, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
     }
 
 	@Override
