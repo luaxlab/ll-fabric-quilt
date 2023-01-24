@@ -25,7 +25,6 @@ public class Registration  {
 	}
 
 	public static void register () {
-//		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModEntities.register();
 		ModItems.register();
 		ModBlocks.register();
