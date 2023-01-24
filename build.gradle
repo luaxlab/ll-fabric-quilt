@@ -1,6 +1,7 @@
 plugins {
 	id 'maven-publish'
-	alias(libs.plugins.quilt.loom)
+	id 'org.quiltmc.loom' version '1.+'
+	id 'io.github.juuxel.loom-quiltflower' version '1.8.+'
 }
 
 archivesBaseName = project.archives_base_name
@@ -23,52 +24,51 @@ repositories {
 	maven { url 'https://maven.blamejared.com' } //Patchouli
 	maven { url 'https://jitpack.io' } // v
 	maven { url "https://maven.terraformersmc.com/" } //CompleteConfig
-	maven { url "https://maven.shedaniel.me/" } // ^
 	maven { url "https://maven.siphalor.de/" } // ^
 	maven { url 'https://ladysnake.jfrog.io/artifactory/mods' } //Cardinal Components
 	maven { url "https://mvn.devos.one/snapshots/" } // porting lib
 	maven { url 'https://maven.blamejared.com' } // patchouli
 	maven { url "https://maven.isxander.dev/releases" } // complete config
 	maven { url "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // forge config
+	maven { url = "https://cursemaven.com" } // configured
 }
 
 // All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"
 // See https://docs.gradle.org/current/userguide/platforms.html for information on how version catalogs work.
 dependencies {
-	minecraft libs.minecraft
+	minecraft "com.mojang:minecraft:${minecraft_version}"
 	mappings loom.layered {
-		mappings "org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:intermediary-v2"
+		mappings "org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings}:intermediary-v2"
 		officialMojangMappings() // Uncomment if you want to use Mojang mappings as your primary mappings, falling back on QM for parameters and Javadocs
 	}
-	modImplementation libs.quilt.loader
+	modImplementation "org.quiltmc:quilt-loader:${loader_version}"
 
+	modImplementation "org.quiltmc:qsl:${qsl_version}+${minecraft_version}"
 	// QSL is not a complete API; You will need Quilted Fabric API to fill in the gaps.
 	// Quilted Fabric API will automatically pull in the correct QSL version.
-	modImplementation libs.quilted.fabric.api
+	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${quilted_fabric_api_version}-${minecraft_version}"
 	// modImplementation libs.bundles.quilted.fabric.api // If you wish to use Fabric API's deprecated modules, you can replace the above line with this one
 
-	modImplementation libs.porting.lib
-	modCompileOnlyApi libs.bundles.rei.api
-	modRuntimeOnly libs.rei
-	modApi(libs.architectury) {
+	modImplementation include("io.github.fabricators_of_create.Porting-Lib:porting-lib:${porting_lib_version}+${minecraft_version}")
+//	modImplementation include("com.electronwill.night-config:core:${night_config_version}")
+//	modImplementation include("com.electronwill.night-config:toml:${night_config_version}")
+//	modImplementation include("curse.maven:forge-config-api-port-fabric-547434:${forge_config_id}")
+	modImplementation include("net.minecraftforge:forgeconfigapiport-fabric:${forge_config_version}")
+
+	modApi("dev.architectury:architectury-fabric:${architectury_version}") {
 		exclude group: "net.fabricmc"
 		exclude group: "net.fabricmc.fabric-api"
 	}
-	modImplementation libs.cardinal.components
-	modImplementation libs.tr.energy
-	modImplementation libs.patchouli
-	//modImplementation libs.complete.config
-	modImplementation libs.forge.config
-	modImplementation libs.modmenu
-//	modCompileOnlyApi libs.wthit.api
-//	modRuntimeOnly libs.wthit
+	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-api:${cardinal_components_version}"
+	modImplementation include("curse.maven:configured-fabric-667378:${configured_id}")
+	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
 
 	//Newest hot shit
-	compileOnly libs.lombok
-	annotationProcessor libs.lombok
+	compileOnly "org.projectlombok:lombok:${lombok_version}"
+	annotationProcessor "org.projectlombok:lombok:${lombok_version}"
 
-	testCompileOnly libs.lombok
-	testAnnotationProcessor libs.lombok
+	testCompileOnly "org.projectlombok:lombok:${lombok_version}"
+	testAnnotationProcessor "org.projectlombok:lombok:${lombok_version}"
 
 }
 

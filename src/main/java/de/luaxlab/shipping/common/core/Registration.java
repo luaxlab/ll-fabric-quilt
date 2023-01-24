@@ -26,14 +26,6 @@ public class Registration  {
 
 	public static void register () {
 //		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-//		BLOCKS.register(eventBus);
-//		ITEMS.register(eventBus);
-//		CONTAINERS.register(eventBus);
-//		RECIPE_SERIALIZERS.register(eventBus);
-//		TILE_ENTITIES.register(eventBus);
-//		ENTITIES.register(eventBus);
-//		SOUND_EVENTS.register(eventBus);
-
 		ModEntities.register();
 		ModItems.register();
 		ModBlocks.register();
@@ -44,5 +36,13 @@ public class Registration  {
 //		VehicleTrackerPacketHandler.register();
 //		VehiclePacketHandler.register();
 		ModSounds.register();
+
+		BLOCKS.register();
+		ITEMS.register();
+		CONTAINERS.register();
+		RECIPE_SERIALIZERS.register();
+		TILE_ENTITIES.register();
+		ENTITIES.register();
+		SOUND_EVENTS.register();
 	}
 }

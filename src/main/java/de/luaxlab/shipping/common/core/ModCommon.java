@@ -20,16 +20,11 @@ public class ModCommon implements ModInitializer {
 	public void onInitialize(ModContainer mod) {
 		//This is very important!
 		ModLoadingContext.registerConfig(MODID, net.minecraftforge.fml.config.ModConfig.Type.COMMON, ModConfig.Common.SPEC, "littlelogistics-common.toml");
-		ModLoadingContext.registerConfig(MODID, net.minecraftforge.fml.config.ModConfig.Type.CLIENT, ModConfig.Common.SPEC, "littlelogistics-client.toml");
-		ModLoadingContext.registerConfig(MODID, net.minecraftforge.fml.config.ModConfig.Type.SERVER, ModConfig.Common.SPEC, "littlelogistics-server.toml");
+		ModLoadingContext.registerConfig(MODID, net.minecraftforge.fml.config.ModConfig.Type.CLIENT, ModConfig.Client.SPEC, "littlelogistics-client.toml");
+		ModLoadingContext.registerConfig(MODID, net.minecraftforge.fml.config.ModConfig.Type.SERVER, ModConfig.Server.SPEC, "littlelogistics-server.toml");
 
 		//Registration
-		ModItems.register();
-		ModBlocks.register();
-		ModEntities.register();
-		ModSounds.register();
-		ModBlockEntities.register();
-		ModNetworking.register();
+		Registration.register();
 	}
 
 	public static ResourceLocation identifier(String path)
