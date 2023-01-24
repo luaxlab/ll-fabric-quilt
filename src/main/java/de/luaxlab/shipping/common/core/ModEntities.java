@@ -129,6 +129,8 @@ public class ModEntities {
 
 
 	public static void register () {
-
+		FabricDefaultAttributeRegistry.register(STEAM_TUG.get(), SteamTugEntity.setCustomAttributes());
+        /*FabricDefaultAttributeRegistry.register(CHEST_BARGE, ChestBargeEntity.setCustomAttributes());
+        FabricDefaultAttributeRegistry.register(FISHING_BARGE, FishingBargeEntity.setCustomAttributes());*/
 	}
 }
