@@ -20,7 +20,7 @@ public class TugNodeProcessor extends SwimNodeEvaluator {
 
     private boolean isOppositeGuideRail(Node Node, Direction direction){
         BlockState state = this.level.getBlockState(Node.asBlockPos().below());
-        if (state.is(ModBlocks.GUIDE_RAIL_TUG)){
+        if (state.is(ModBlocks.GUIDE_RAIL_TUG.get())){
             return TugGuideRailBlock.getArrowsDirection(state).getOpposite().equals(direction);
         }
         return false;
@@ -77,9 +77,9 @@ public class TugNodeProcessor extends SwimNodeEvaluator {
                     penalty = 5f;
                 }
                 if(
-                        level.getBlockState(surr).is(ModBlocks.GUIDE_RAIL_CORNER) ||
-                                level.getBlockState(surr).is(ModBlocks.BARGE_DOCK) ||
-                                level.getBlockState(surr).is(ModBlocks.TUG_DOCK)
+                        level.getBlockState(surr).is(ModBlocks.GUIDE_RAIL_CORNER.get()) ||
+                                level.getBlockState(surr).is(ModBlocks.BARGE_DOCK.get()) ||
+                                level.getBlockState(surr).is(ModBlocks.TUG_DOCK.get())
 
                 ){
                     penalty = 0;

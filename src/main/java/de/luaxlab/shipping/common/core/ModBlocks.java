@@ -2,10 +2,12 @@ package de.luaxlab.shipping.common.core;
 
 import de.luaxlab.shipping.common.block.dock.BargeDockBlock;
 import de.luaxlab.shipping.common.block.dock.TugDockBlock;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -16,52 +18,109 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class ModBlocks {
+	public static final RegistryObject<Block> TUG_DOCK = register(
+			"tug_dock",
+			() -> new TugDockBlock(Block.Properties.of(Material.METAL)
+					.destroyTime(0.5f)
+			),
+			CreativeModeTab.TAB_TRANSPORTATION);
 
-    private static final Map<ResourceLocation, Block> SCHEDULED_BLOCKS = new HashMap<>();
-    private static final Map<ResourceLocation, Item> SCHEDULED_ITEMS = new HashMap<>();
+	public static final RegistryObject<Block> BARGE_DOCK = register(
+			"barge_dock",
+			() -> new BargeDockBlock(Block.Properties.of(Material.METAL)
+					.destroyTime(0.5f)
+			),
+			CreativeModeTab.TAB_TRANSPORTATION);
 
-    public static final List<Block> ALL_BLOCKS = new ArrayList<>();
-    public static final BlockBehaviour.Properties DEFAULT_BLOCK_SETTINGS = FabricBlockSettings.of(Material.METAL);
+	public static final RegistryObject<Block> GUIDE_RAIL_CORNER = register(
+			"guide_rail_corner",
+			() -> new CornerGuideRailBlock(Block.Properties.of(Material.METAL)
+					.destroyTime(0.5f)
+			),
+			CreativeModeTab.TAB_TRANSPORTATION);
 
-    /* Blocks */
+//	public static final RegistryObject<Block> VESSEL_DETECTOR = register(
+//			"vessel_detector",
+//			() -> new VesselDetectorBlock(Block.Properties.of(Material.METAL)
+//					.destroyTime(0.5f)
+//			),
+//			CreativeModeTab.TAB_TRANSPORTATION);
 
-    public static final Block GUIDE_RAIL_CORNER = defferedRegister(identifier("guide_rail_corner"), new CornerGuideRailBlock(DEFAULT_BLOCK_SETTINGS));
-    public static final Block GUIDE_RAIL_TUG = defferedRegister(identifier("guide_rail_tug"), new TugGuideRailBlock(DEFAULT_BLOCK_SETTINGS));
+	public static final RegistryObject<Block> GUIDE_RAIL_TUG = register(
+			"guide_rail_tug",
+			() -> new TugGuideRailBlock(Block.Properties.of(Material.METAL)
+					.destroyTime(0.5f)
+			),
+			CreativeModeTab.TAB_TRANSPORTATION);
 
-	public static final Block TUG_DOCK = defferedRegister(identifier("tug_dock"), new TugDockBlock(DEFAULT_BLOCK_SETTINGS));
-	public static final Block BARGE_DOCK = defferedRegister(identifier("barge_dock"), new BargeDockBlock(DEFAULT_BLOCK_SETTINGS));
+//	public static final RegistryObject<Block> FLUID_HOPPER = register(
+//			"fluid_hopper",
+//			() -> new FluidHopperBlock(Block.Properties.of(Material.METAL)
+//					.destroyTime(0.5f)
+//			),
+//			CreativeModeTab.TAB_TRANSPORTATION);
 
-    /* Code */
+//	public static final RegistryObject<Block> VESSEL_CHARGER = register(
+//			"vessel_charger",
+//			() -> new VesselChargerBlock(Block.Properties.of(Material.METAL)
+//					.destroyTime(0.5f)
+//			),
+//			CreativeModeTab.TAB_TRANSPORTATION);
 
-    static <T extends Block> T defferedRegister(ResourceLocation identifier, T block, boolean item)
-    {
-        ALL_BLOCKS.add(block);
-        SCHEDULED_BLOCKS.put(identifier, block);
-        if(item)
-            SCHEDULED_ITEMS.put(identifier, new BlockItem(block, ModItems.DEFAULT_ITEM_SETTINGS));
-        return block;
-    }
+//	public static final RegistryObject<Block> RAPID_HOPPER = register(
+//			"rapid_hopper",
+//			() -> new RapidHopperBlock(Block.Properties.of(Material.METAL)
+//					.destroyTime(0.5f)
+//			),
+//			CreativeModeTab.TAB_REDSTONE);
 
-    static <T extends Block> T defferedRegister(ResourceLocation identifier, T block)
-    {
-        return defferedRegister(identifier, block, true);
-    }
+//	public static final RegistryObject<Block> SWITCH_RAIL = register(
+//			"switch_rail",
+//			() -> new SwitchRail(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().strength(0.7F).sound(SoundType.METAL), false),
+//			CreativeModeTab.TAB_TRANSPORTATION);
 
-    /**
-     * Called by {@link ModCommon} to handle late-registering
-     */
-    /*default*/ static void register()
-    {
-        /* easy-registry */
-            SCHEDULED_BLOCKS.forEach((identifier, block) -> Registry.register(Registry.BLOCK, identifier, block));
-            SCHEDULED_BLOCKS.clear();
-            SCHEDULED_ITEMS.forEach((identifier, item) -> Registry.register(Registry.ITEM, identifier, item));
-            SCHEDULED_ITEMS.clear();
-        /* space for compelx registry */
-    }
+//	public static final RegistryObject<Block> AUTOMATIC_SWITCH_RAIL = register(
+//			"automatic_switch_rail",
+//			() -> new SwitchRail(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().strength(0.7F).sound(SoundType.METAL), true),
+//			CreativeModeTab.TAB_TRANSPORTATION);
 
-	@Deprecated
-    private static ResourceLocation identifier(String path) { return ModCommon.identifier(path); }
+//	public static final RegistryObject<Block> TEE_JUNCTION_RAIL = register(
+//			"tee_junction_rail",
+//			() -> new TeeJunctionRail(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().strength(0.7F).sound(SoundType.METAL), false),
+//			CreativeModeTab.TAB_TRANSPORTATION);
+
+//	public static final RegistryObject<Block> AUTOMATIC_TEE_JUNCTION_RAIL = register(
+//			"automatic_tee_junction_rail",
+//			() -> new TeeJunctionRail(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().strength(0.7F).sound(SoundType.METAL), true),
+//			CreativeModeTab.TAB_TRANSPORTATION);
+
+//	public static final RegistryObject<Block> JUNCTION_RAIL = register(
+//			"junction_rail",
+//			() -> new JunctionRail(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().strength(0.7F).sound(SoundType.METAL)),
+//			CreativeModeTab.TAB_TRANSPORTATION);
+
+//	public static final RegistryObject<Block> CAR_DOCK_RAIL = register(
+//			"car_dock_rail",
+//			() -> new TrainCarDockingRail(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().strength(0.7F).sound(SoundType.METAL)),
+//			CreativeModeTab.TAB_TRANSPORTATION);
+
+//	public static final RegistryObject<Block> LOCOMOTIVE_DOCK_RAIL = register(
+//			"locomotive_dock_rail",
+//			() -> new LocomotiveDockingRail(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().strength(0.7F).sound(SoundType.METAL)),
+//			CreativeModeTab.TAB_TRANSPORTATION);
+
+	public static <T extends Block> RegistryObject<T> registerNoItem(String name, Supplier<T> block){
+		return Registration.BLOCKS.register(name, block);
+	}
+
+	public static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block, CreativeModeTab group){
+		RegistryObject<T> ret = registerNoItem(name, block);
+		Registration.ITEMS.register(name, () -> new BlockItem(ret.get(), new Item.Properties().tab(group)));
+		return ret;
+	}
+
+	public static void register () {}
 }

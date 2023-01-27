@@ -10,8 +10,6 @@ import de.luaxlab.shipping.common.core.ModContainers;
 import de.luaxlab.shipping.common.core.ModEntities;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import dev.architectury.event.events.client.ClientTextureStitchEvent;
-import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
-import me.lortseam.completeconfig.gui.coat.CoatScreenBuilder;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
@@ -26,9 +24,8 @@ public class ModClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
-		ConfigScreenBuilder.setMain(ModCommon.MODID, new CoatScreenBuilder());
 
-		EntityRendererRegistry.register(ModEntities.STEAM_TUG, (ctx) -> new StaticVesselRenderer<>(ctx, SteamTugModel::new, SteamTugModel.LAYER_LOCATION,
+		EntityRendererRegistry.register(ModEntities.STEAM_TUG.get(), (ctx) -> new StaticVesselRenderer<>(ctx, SteamTugModel::new, SteamTugModel.LAYER_LOCATION,
 				ModCommon.identifier("textures/entity/tug.png")) {
 			// todo: fix in models itself
 			@Override
@@ -47,8 +44,8 @@ public class ModClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(SteamTugModel.LAYER_LOCATION, SteamTugModel::createBodyLayer);
 
 		//Screens
-		MenuScreens.register(ModContainers.STEAM_TUG_CONTAINER, SteamHeadVehicleScreen<SteamTugEntity>::new);
-		MenuScreens.register(ModContainers.TUG_ROUTE_CONTAINER, TugRouteScreen::new);
+		MenuScreens.register(ModContainers.STEAM_TUG_CONTAINER.get(), SteamHeadVehicleScreen<SteamTugEntity>::new);
+		MenuScreens.register(ModContainers.TUG_ROUTE_CONTAINER.get(), TugRouteScreen::new);
 
 		//Events
 		ClientTextureStitchEvent.PRE.register(ClientEventHandlerImpl.INSTANCE);

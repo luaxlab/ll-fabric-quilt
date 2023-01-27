@@ -34,7 +34,7 @@ public class BargeDockBlock extends AbstractDockBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModBlockEntities.BARGE_DOCK.create(pos, state);
+        return ModBlockEntities.BARGE_DOCK.get().create(pos, state);
     }
 
     @Override

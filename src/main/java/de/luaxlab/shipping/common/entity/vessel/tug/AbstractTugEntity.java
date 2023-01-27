@@ -73,7 +73,7 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
 
     // CONTAINER STUFF
 	@Getter
-	protected final SingleSlotItemContainer routeContainer = new SingleSlotItemContainer(SingleSlotItemContainer.SingleSlotCondition.of(ModItems.TUG_ROUTE));
+	protected final SingleSlotItemContainer routeContainer = new SingleSlotItemContainer(SingleSlotItemContainer.SingleSlotCondition.of(ModItems.TUG_ROUTE.get()));
     protected boolean contentsChanged = false;
     @Getter
     protected boolean docked = false;
@@ -185,11 +185,11 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
     }
 
     protected void onDock() {
-        this.playSound(ModSounds.TUG_DOCKING, 0.6f, 1.0f);
+        this.playSound(ModSounds.TUG_DOCKING.get(), 0.6f, 1.0f);
     }
 
     protected void onUndock() {
-        this.playSound(ModSounds.TUG_UNDOCKING, 0.6f, 1.5f);
+        this.playSound(ModSounds.TUG_UNDOCKING.get(), 0.6f, 1.5f);
     }
 
     // MOB STUFF
@@ -255,7 +255,7 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
         if (world != null) {
             BlockPos blockpos = this.getOnPos().above().above();
             RandomSource random = world.random;
-            if (random.nextFloat() < ModConfig.Client.TUG_SMOKE_MODIFIER) {
+            if (random.nextFloat() < ModConfig.Client.TUG_SMOKE_MODIFIER.get()) {
                 for(int i = 0; i < random.nextInt(2) + 2; ++i) {
                     makeParticles(world, blockpos, true, false);
                 }
@@ -377,7 +377,7 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
                 this.level.getBlockState(getOnPos().below().below()));
         BlockState water = this.level.getBlockState(getOnPos());
         for (BlockState below : belowList) {
-            if (below.is(ModBlocks.GUIDE_RAIL_TUG) && water.is(Blocks.WATER)) {
+            if (below.is(ModBlocks.GUIDE_RAIL_TUG.get()) && water.is(Blocks.WATER)) {
                 Direction arrows = TugGuideRailBlock.getArrowsDirection(below);
                 this.setYRot(arrows.toYRot());
                 double modifier = 0.03;

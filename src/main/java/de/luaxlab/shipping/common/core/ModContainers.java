@@ -5,6 +5,8 @@ import de.luaxlab.shipping.common.entity.accessor.TugRouteScreenDataAccessor;
 import de.luaxlab.shipping.common.entity.container.SteamHeadVehicleContainer;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import de.luaxlab.shipping.common.item.container.TugRouteContainer;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.MenuType;
@@ -21,13 +23,44 @@ public class ModContainers {
 		return arr;
 	}
 
-	public static final MenuType<TugRouteContainer> TUG_ROUTE_CONTAINER =
-			ScreenHandlerRegistry.registerExtended(ModCommon.identifier("tug_route_container"),
-			(syncId, inventory, buf) -> new TugRouteContainer(syncId, inventory.player.level,
-					new TugRouteScreenDataAccessor(makeIntArray(buf)), inventory, inventory.player));
+	public static final RegistryObject<MenuType<SteamHeadVehicleContainer<SteamTugEntity>>> STEAM_TUG_CONTAINER =
+			Registration.CONTAINERS.register("tug_container",
+					() -> new ExtendedScreenHandlerType<>(
+							(windowId, inv, data) ->
+									new SteamHeadVehicleContainer<>(windowId, inv.player.level, new SteamHeadVehicleDataAccessor(makeIntArray(data)), inv, inv.player)));
 
-	public static final MenuType<SteamHeadVehicleContainer<SteamTugEntity>> STEAM_TUG_CONTAINER =
-			ScreenHandlerRegistry.registerExtended(ModCommon.identifier("steam_tug_container"),
-					(syncId, inventory, buf) -> new SteamHeadVehicleContainer<SteamTugEntity>(syncId, inventory.player.level,
-							new SteamHeadVehicleDataAccessor(makeIntArray(buf)), inventory, inventory.player));
+//	public static final RegistryObject<MenuType<EnergyHeadVehicleContainer<EnergyTugEntity>>> ENERGY_TUG_CONTAINER =
+//			Registration.CONTAINERS.register("energy_tug_container",
+//					() -> new ExtendedScreenHandlerType<>(
+//							(windowId, inv, data) ->
+//									new EnergyHeadVehicleContainer<>(windowId, inv.player.level, new EnergyHeadVehicleDataAccessor(makeIntArray(data)), inv, inv.player)));
+
+//	public static final RegistryObject<MenuType<SteamHeadVehicleContainer<SteamLocomotiveEntity>>> STEAM_LOCOMOTIVE_CONTAINER =
+//			Registration.CONTAINERS.register("steam_locomotive_container",
+//					() -> new ExtendedScreenHandlerType<>(
+//							(windowId, inv, data) ->
+//									new SteamHeadVehicleContainer<>(windowId, inv.player.level, new SteamHeadVehicleDataAccessor(makeIntArray(data)), inv, inv.player)));
+
+//	public static final RegistryObject<MenuType<EnergyHeadVehicleContainer<EnergyLocomotiveEntity>>> ENERGY_LOCOMOTIVE_CONTAINER =
+//			Registration.CONTAINERS.register("energy_locomotive_container",
+//					() -> new ExtendedScreenHandlerType<>(
+//							(windowId, inv, data) ->
+//									new EnergyHeadVehicleContainer<>(windowId, inv.player.level, new EnergyHeadVehicleDataAccessor(makeIntArray(data)), inv, inv.player)));
+
+//	public static final RegistryObject<MenuType<FishingBargeContainer>> FISHING_BARGE_CONTAINER =
+//			Registration.CONTAINERS.register("fishing_barge_container",
+//					() -> new ExtendedScreenHandlerType<>(
+//							(windowId, inv, data) ->
+//									new FishingBargeContainer(windowId, inv.player.level, data.readInt(), inv, inv.player)));
+
+	public static final RegistryObject<MenuType<TugRouteContainer>> TUG_ROUTE_CONTAINER =
+			Registration.CONTAINERS.register("tug_route_container",
+					() -> new ExtendedScreenHandlerType<>(
+							(windowId, inv, data) ->
+									new TugRouteContainer(windowId, inv.player.level, new TugRouteScreenDataAccessor(makeIntArray(data)), inv, inv.player)));
+
+
+
+
+	public static void register () {}
 }

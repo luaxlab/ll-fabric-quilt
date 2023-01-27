@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 public class SteamHeadVehicleContainer<T extends SteamTugEntity> extends AbstractHeadVehicleContainer<SteamHeadVehicleDataAccessor, T> {
     public SteamHeadVehicleContainer(int windowId, Level world, SteamHeadVehicleDataAccessor data,
                                      Inventory playerInventory, net.minecraft.world.entity.player.Player player) {
-        super(ModContainers.STEAM_TUG_CONTAINER, windowId, world, data, playerInventory, player);
+        super(ModContainers.STEAM_TUG_CONTAINER.get(), windowId, world, data, playerInventory, player);
 
         /*if(entity != null) {
             entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
