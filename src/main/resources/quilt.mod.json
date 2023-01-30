@@ -24,7 +24,8 @@
 		"entrypoints": {
 			"init": "de.luaxlab.shipping.common.core.ModCommon",
 			"client_init": "de.luaxlab.shipping.client.ModClient",
-			"cardinal-components": "de.luaxlab.shipping.common.core.ModComponents"
+			"cardinal-components": "de.luaxlab.shipping.common.core.ModComponents",
+			"fabric-datagen": "de.luaxlab.shipping.data.DataGenerators"
 		},
 		"depends": [
 			{
