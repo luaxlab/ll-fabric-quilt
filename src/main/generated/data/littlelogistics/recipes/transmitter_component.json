@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "_": {
+      "item": "minecraft:stone_slab"
+    },
+    "o": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "pattern": [
+    "o",
+    "#",
+    "_"
+  ],
+  "result": {
+    "count": 4,
+    "item": "littlelogistics:transmitter_component"
+  }
+}

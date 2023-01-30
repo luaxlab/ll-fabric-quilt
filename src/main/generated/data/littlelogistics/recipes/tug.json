@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:furnace"
+    },
+    "$": {
+      "item": "minecraft:iron_ingot"
+    },
+    "_": {
+      "item": "minecraft:piston"
+    }
+  },
+  "pattern": [
+    " $ ",
+    "_#_",
+    "$$$"
+  ],
+  "result": {
+    "item": "littlelogistics:tug"
+  }
+}

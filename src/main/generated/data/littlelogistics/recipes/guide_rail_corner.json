@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "littlelogistics:spring"
+    },
+    "$": {
+      "item": "minecraft:powered_rail"
+    },
+    "_": {
+      "tag": "c:stone"
+    }
+  },
+  "pattern": [
+    "#__",
+    "$__",
+    "#__"
+  ],
+  "result": {
+    "count": 3,
+    "item": "littlelogistics:guide_rail_corner"
+  }
+}

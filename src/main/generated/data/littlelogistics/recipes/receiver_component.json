@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:redstone"
+    },
+    "_": {
+      "item": "minecraft:stone_slab"
+    },
+    "o": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "pattern": [
+    "o",
+    "#",
+    "_"
+  ],
+  "result": {
+    "count": 8,
+    "item": "littlelogistics:receiver_component"
+  }
+}

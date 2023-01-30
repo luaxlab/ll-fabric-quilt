@@ -1,0 +1,5 @@
+// 1.19.2	2023-01-30T11:05:08.05940512	minecraft:block Loot Table
+a12c7f2453b44418bf6ba2ad74f5e73fae27d740 data/littlelogistics/loot_tables/barge_dock.json
+f8570b0eb435a685e68734aba983424c4e201f2d data/littlelogistics/loot_tables/guide_rail_tug.json
+dd514d22bfcbb72f435bbc9670c45179ee1c45f2 data/littlelogistics/loot_tables/tug_dock.json
+ee257311891cb62dda08083a9d12f9d5ad3fcc3e data/littlelogistics/loot_tables/guide_rail_corner.json
