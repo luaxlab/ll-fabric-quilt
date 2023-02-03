@@ -26,6 +26,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
+import org.quiltmc.qsl.item.content.registry.api.ItemContentRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -119,7 +120,7 @@ public class SteamTugEntity extends AbstractTugEntity {
         } else {
             ItemStack stack = itemHandler.getStackInSlot(0);
             if (!stack.isEmpty()) {
-                burnCapacity = (((FuelRegistryImpl)FuelRegistryImpl.INSTANCE).getFuelTimes().getOrDefault(stack.getItem(), 0) * FURNACE_FUEL_MULTIPLIER) - 1;
+                burnCapacity = (ItemContentRegistries.FUEL_TIME.get(stack.getItem()).orElse(0) * FURNACE_FUEL_MULTIPLIER) - 1;
                 burnTime = burnCapacity - 1;
                 stack.shrink(1);
                 return true;
