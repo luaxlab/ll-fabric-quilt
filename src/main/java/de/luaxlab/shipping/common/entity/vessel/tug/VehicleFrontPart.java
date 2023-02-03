@@ -1,6 +1,6 @@
 package de.luaxlab.shipping.common.entity.vessel.tug;
 
-import de.luaxlab.shipping.common.util.PartEntity;
+import io.github.fabricators_of_create.porting_lib.entity.PartEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

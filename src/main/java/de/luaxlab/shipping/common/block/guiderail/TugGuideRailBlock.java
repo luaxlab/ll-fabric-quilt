@@ -1,5 +1,6 @@
 package de.luaxlab.shipping.common.block.guiderail;
 
+import de.luaxlab.shipping.common.util.InteractionUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -27,11 +28,10 @@ public class TugGuideRailBlock extends Block {
 
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
-        /*if(InteractionUtil.doConfigure(player, hand)){
+        if(InteractionUtil.doConfigure(player, hand)){
             world.setBlockAndUpdate(pos, state.setValue(FACING, state.getValue(FACING).getClockWise()));
             return InteractionResult.SUCCESS;
-        }*/
-		//TODO: Interaction
+        }
 
         return super.use(state, world, pos, player, hand, rayTraceResult);
     }

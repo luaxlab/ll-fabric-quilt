@@ -2,7 +2,6 @@ package de.luaxlab.shipping.client.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import de.luaxlab.shipping.common.entity.container.AbstractItemHandlerContainer;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 

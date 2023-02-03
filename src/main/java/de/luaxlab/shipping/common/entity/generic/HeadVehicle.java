@@ -17,18 +17,25 @@
  */
 package de.luaxlab.shipping.common.entity.generic;
 
-import de.luaxlab.shipping.common.container.SingleSlotItemContainer;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+
+import java.util.UUID;
 
 public interface HeadVehicle  {
 
     void setEngineOn(boolean state);
 
-	//TODO: ItemStackHandler
-    SingleSlotItemContainer getRouteContainer();
+    ItemStackHandler getRouteItemHandler();
 
     boolean isValid(Player pPlayer);
 
+    boolean hasOwner();
+
     ResourceLocation getRouteIcon();
+
+    void enroll(UUID uuid);
+
+    String owner();
 }

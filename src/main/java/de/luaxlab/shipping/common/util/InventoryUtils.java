@@ -1,5 +1,7 @@
 package de.luaxlab.shipping.common.util;
 
+import de.luaxlab.shipping.common.core.ModComponents;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
@@ -41,11 +43,10 @@ public class InventoryUtils {
                 }
             } else if (!airList.isEmpty() && target instanceof Entity){
                 Entity e = (Entity) target;
-                boolean validSlot = false; //TODO
-				/* e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+                boolean validSlot = Optional.ofNullable(e.getComponent(ModComponents.ITEM_HANDLER))
                         .map(itemHandler -> airList.stream()
-                                .map(j -> itemHandler.isItemValid(j, stack))
-                                .reduce(false, Boolean::logicalOr)).orElse(true);*/
+                                .map(j -> itemHandler.getHandler().isItemValid(j, ItemVariant.of(stack)))
+                                .reduce(false, Boolean::logicalOr)).orElse(true);
                 if(validSlot) {
                     return true;
                 }

@@ -7,7 +7,6 @@ import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import de.luaxlab.shipping.common.item.container.TugRouteContainer;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.SimpleContainerData;

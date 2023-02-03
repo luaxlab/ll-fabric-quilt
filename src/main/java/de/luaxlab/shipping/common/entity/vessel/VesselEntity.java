@@ -24,6 +24,7 @@ import de.luaxlab.shipping.common.util.LinkingHandler;
 import de.luaxlab.shipping.common.util.SpringPhysicsUtil;
 import de.luaxlab.shipping.common.util.Train;
 import de.luaxlab.shipping.common.entity.vessel.tug.AbstractTugEntity;
+import io.github.fabricators_of_create.porting_lib.attributes.PortingLibAttributes;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -43,6 +44,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -146,8 +148,8 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
     public static AttributeSupplier.Builder setCustomAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.0D);
-                //.add(ForgeMod.SWIM_SPEED.get(), 0.0D); //TODO: fix forge
+                .add(Attributes.MOVEMENT_SPEED, 0.0D)
+                .add(PortingLibAttributes.SWIM_SPEED, 0.0D);
     }
 
     @Override
@@ -182,16 +184,16 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
     // reset speed to 1
     private void resetSpeedAttributes() {
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0);
-        //this.getAttribute(ForgeMod.SWIM_SPEED.get()).setBaseValue(0);  //TODO: fix forge
+        this.getAttribute(PortingLibAttributes.SWIM_SPEED).setBaseValue(0);
     }
 
     private void setSpeedAttributes(double speed) {
         this.getAttribute(Attributes.MOVEMENT_SPEED)
                 .addTransientModifier(
                         new AttributeModifier("movementspeed_mult", speed, AttributeModifier.Operation.ADDITION));
-        /*this.getAttribute(ForgeMod.SWIM_SPEED.get())
+        this.getAttribute(PortingLibAttributes.SWIM_SPEED)
                 .addTransientModifier(
-                        new AttributeModifier("swimspeed_mult", speed, AttributeModifier.Operation.ADDITION));*/
+                        new AttributeModifier("swimspeed_mult", speed, AttributeModifier.Operation.ADDITION));
     }
 
     @Override
@@ -248,12 +250,16 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
         } else if (secondTrain.equals(firstTrain)){
             player.displayClientMessage(Component.translatable("item.littlelogistics.spring.noLoops"), true);
         } else if (firstTrain.getTug().isPresent()) {
-            firstTrain.getTail().setDominated(secondTrain.getHead());
-            secondTrain.getHead().setDominant(firstTrain.getTail());
+            var tail = firstTrain.getTail();
+            var head = secondTrain.getHead();
+            tail.setDominated(head);
+            head.setDominant(tail);
             return true;
         } else {
-            secondTrain.getTail().setDominated(firstTrain.getHead());
-            firstTrain.getHead().setDominant(secondTrain.getTail());
+            var tail = secondTrain.getTail();
+            var head = firstTrain.getHead();
+            tail.setDominated(head);
+            head.setDominant(tail);
             return true;
         }
         return false;
@@ -507,16 +513,6 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
     }
 
     // Get rid of default armour/hands slots itemhandler from mobs
-    /*@Nonnull
-    //TODO: Forge caps
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return LazyOptional.empty();
-        }
-
-        return super.getCapability(cap, side);
-    }*/
 
     @Override
     public boolean hurt(DamageSource damageSource, float p_70097_2_) {
@@ -542,9 +538,9 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
     public void travel(Vec3 p_213352_1_) {
         if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
             double d0 = 0.08D;
-            //AttributeInstance gravity = this.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
+            AttributeInstance gravity = this.getAttribute(PortingLibAttributes.ENTITY_GRAVITY);
             boolean flag = this.getDeltaMovement().y <= 0.0D;
-            d0 = DEFAULT_BASE_GRAVITY; //gravity.getValue();
+            d0 = gravity.getValue();
 
             FluidState fluidstate = this.level.getFluidState(this.blockPosition());
             if (this.isInWater() && this.isAffectedByFluids() && !this.canStandOnFluid(fluidstate)) {
@@ -569,7 +565,7 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
                     f5 = 0.96F;
                 }
 
-                f6 *= (float) 1;//TODO: forge //this.getAttribute(net.minecraftforge.common.ForgeMod.SWIM_SPEED.get()).getValue();
+                f6 *= (float) swimSpeed();
                 this.moveRelative(f6, p_213352_1_);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 Vec3 vector3d6 = this.getDeltaMovement();
@@ -686,5 +682,9 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
         }
 
         this.calculateEntityAnimation(this, false);
+    }
+
+    protected double swimSpeed() {
+        return this.getAttribute(PortingLibAttributes.SWIM_SPEED).getValue();
     }
 }

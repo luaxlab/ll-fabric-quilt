@@ -17,23 +17,21 @@
  */
 package de.luaxlab.shipping.common.core;
 
+import de.luaxlab.shipping.common.entity.vessel.barge.ChestBargeEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 
 public class ModEntities {
-//	public static final RegistryObject<EntityType<ChestBargeEntity>> CHEST_BARGE =
-//			Registration.ENTITIES.register("barge",
-//					() -> EntityType.Builder.<ChestBargeEntity>of(ChestBargeEntity::new,
-//									MobCategory.MISC).sized(0.6f, 0.9f)
-//							.clientTrackingRange(8)
-//							.build(new ResourceLocation(ModCommon.MODID, "barge").toString()));
+	public static final RegistryObject<EntityType<ChestBargeEntity>> CHEST_BARGE =
+			Registration.ENTITIES.register("barge",
+					() -> EntityType.Builder.<ChestBargeEntity>of(ChestBargeEntity::new,
+									MobCategory.MISC).sized(0.6f, 0.9f)
+							.clientTrackingRange(8)
+							.build(new ResourceLocation(ModCommon.MODID, "barge").toString()));
 //
 //	public static final RegistryObject<EntityType<ChunkLoaderBargeEntity>> CHUNK_LOADER_BARGE =
 //			Registration.ENTITIES.register("chunk_loader_barge",
@@ -130,7 +128,7 @@ public class ModEntities {
 
 	public static void register () {
 		FabricDefaultAttributeRegistry.register(STEAM_TUG.get(), SteamTugEntity.setCustomAttributes());
-        /*FabricDefaultAttributeRegistry.register(CHEST_BARGE, ChestBargeEntity.setCustomAttributes());
-        FabricDefaultAttributeRegistry.register(FISHING_BARGE, FishingBargeEntity.setCustomAttributes());*/
+        FabricDefaultAttributeRegistry.register(CHEST_BARGE.get(), ChestBargeEntity.setCustomAttributes());
+        //FabricDefaultAttributeRegistry.register(FISHING_BARGE, FishingBargeEntity.setCustomAttributes());
 	}
 }

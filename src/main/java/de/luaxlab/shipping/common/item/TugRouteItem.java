@@ -22,14 +22,15 @@ import de.luaxlab.shipping.common.item.container.TugRouteContainer;
 import de.luaxlab.shipping.common.util.LegacyTugRouteUtil;
 import de.luaxlab.shipping.common.util.TugRoute;
 import de.luaxlab.shipping.common.util.TugRouteNode;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -37,8 +38,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.phys.Vec2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,8 +54,13 @@ public class TugRouteItem extends Item {
         super(properties);
     }
 
-    protected MenuProvider createContainerProvider(InteractionHand hand) {
-        return new MenuProvider() {
+    protected ExtendedScreenHandlerFactory createContainerProvider(InteractionHand hand) {
+        return new ExtendedScreenHandlerFactory() {
+            @Override
+            public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
+                getDataAccessor(player, hand).write(buf);
+            }
+
             @Override
             public Component getDisplayName() {
                 return Component.translatable("screen.littlelogistics.tug_route");
@@ -81,7 +85,7 @@ public class TugRouteItem extends Item {
         if(!player.level.isClientSide){
             if (player.isShiftKeyDown()) {
                 //TODO NetworkHooks.openGui((ServerPlayer) player, createContainerProvider(hand), getDataAccessor(player, hand)::write);
-
+                player.openMenu(createContainerProvider(hand));
             } else {
                 int x = (int) Math.floor(player.getX());
                 int z = (int) Math.floor(player.getZ());

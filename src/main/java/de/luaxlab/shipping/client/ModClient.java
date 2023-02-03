@@ -1,6 +1,7 @@
 package de.luaxlab.shipping.client;
 
 import de.luaxlab.shipping.client.entity.model.ChainModel;
+import de.luaxlab.shipping.client.entity.model.ChestBargeModel;
 import de.luaxlab.shipping.client.entity.model.SteamTugModel;
 import de.luaxlab.shipping.client.entity.render.StaticVesselRenderer;
 import de.luaxlab.shipping.client.screen.SteamHeadVehicleScreen;
@@ -8,14 +9,13 @@ import de.luaxlab.shipping.client.screen.TugRouteScreen;
 import de.luaxlab.shipping.common.core.ModCommon;
 import de.luaxlab.shipping.common.core.ModContainers;
 import de.luaxlab.shipping.common.core.ModEntities;
+import de.luaxlab.shipping.common.core.ModItemModelProperties;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import dev.architectury.event.events.client.ClientTextureStitchEvent;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.resources.ResourceLocation;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 
@@ -38,10 +38,13 @@ public class ModClient implements ClientModInitializer {
 				return 0;
 			}
 		});
+		EntityRendererRegistry.register(ModEntities.CHEST_BARGE.get(), (ctx) -> new StaticVesselRenderer<>(ctx, ChestBargeModel::new, ChestBargeModel.LAYER_LOCATION,
+				ModCommon.identifier("textures/entity/barge.png")));
 
 		//EntityModelLayerRegistry
 		EntityModelLayerRegistry.registerModelLayer(ChainModel.LAYER_LOCATION, ChainModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(SteamTugModel.LAYER_LOCATION, SteamTugModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(ChestBargeModel.LAYER_LOCATION, ChestBargeModel::createBodyLayer);
 
 		//Screens
 		MenuScreens.register(ModContainers.STEAM_TUG_CONTAINER.get(), SteamHeadVehicleScreen<SteamTugEntity>::new);
@@ -51,5 +54,7 @@ public class ModClient implements ClientModInitializer {
 		ClientTextureStitchEvent.PRE.register(ClientEventHandlerImpl.INSTANCE);
 		WorldRenderEvents.END.register(ClientEventHandlerImpl.INSTANCE);
 
+		//Item model properties
+		ModItemModelProperties.register();
 	}
 }

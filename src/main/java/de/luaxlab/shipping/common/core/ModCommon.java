@@ -1,13 +1,11 @@
 package de.luaxlab.shipping.common.core;
 
-import de.luaxlab.shipping.common.component.StallingComponent;
-import dev.onyxstudios.cca.api.v3.component.ComponentKey;
-import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
+import de.luaxlab.shipping.common.event.CommonEventHandlerImpl;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.ModLoadingContext;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
-import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +23,9 @@ public class ModCommon implements ModInitializer {
 
 		//Registration
 		Registration.register();
+
+		//Events
+		UseEntityCallback.EVENT.register(CommonEventHandlerImpl.INSTANCE);
 	}
 
 	public static ResourceLocation identifier(String path)

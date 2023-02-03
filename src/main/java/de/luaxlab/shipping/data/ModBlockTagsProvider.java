@@ -1,11 +1,7 @@
 package de.luaxlab.shipping.data;
 
-import de.luaxlab.shipping.common.core.ModCommon;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.tags.BlockTags;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import de.luaxlab.shipping.common.core.ModBlocks;
 
 public class ModBlockTagsProvider extends BlockTagsProvider {
     public ModBlockTagsProvider(DataGenerator gen) {
