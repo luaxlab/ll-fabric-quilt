@@ -2,18 +2,16 @@ package de.luaxlab.shipping.common.block.dock;
 
 import de.luaxlab.shipping.common.core.ModBlockEntities;
 import de.luaxlab.shipping.common.core.ModBlocks;
+import de.luaxlab.shipping.common.util.InteractionUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RepeaterBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
@@ -35,10 +33,10 @@ public class TugDockBlock extends AbstractDockBlock {
     @SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
-        /*TODO if(InteractionUtil.doConfigure(player, hand)){
+        if(InteractionUtil.doConfigure(player, hand)){
             world.setBlockAndUpdate(pos, state.setValue(DockingBlockStates.INVERTED, !state.getValue(DockingBlockStates.INVERTED)));
             return InteractionResult.SUCCESS;
-        }*/
+        }
 
         return super.use(state, world, pos, player, hand, rayTraceResult);
     }

@@ -9,6 +9,7 @@
 			"description": "What a cute little logistics mod thingy...",
 			"contributors": {
 				"LuaX": "Clothier",
+				"Abbie": "Clothier",
 				"Murad Akhundov": "Lead",
 				"EDToaster": "Lead"
 			},
@@ -48,6 +49,7 @@
 		}
 	},
 	"cardinal-components": [
-		"littlelogistics:stalling"
+		"littlelogistics:stalling",
+		"littlelogistics:item_handler"
 	]
 }

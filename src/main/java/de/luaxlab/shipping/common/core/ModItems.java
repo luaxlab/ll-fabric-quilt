@@ -1,21 +1,15 @@
 package de.luaxlab.shipping.common.core;
 
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
+import de.luaxlab.shipping.common.entity.vessel.barge.ChestBargeEntity;
 import de.luaxlab.shipping.common.item.SpringItem;
 import de.luaxlab.shipping.common.item.TugRouteItem;
 import de.luaxlab.shipping.common.item.VesselItem;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class ModItems {
 
@@ -46,8 +40,8 @@ public class ModItems {
 	 * Vessels
 	 */
 
-//	public static final RegistryObject<Item> CHEST_BARGE = Registration.ITEMS.register("barge",
-//			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), ChestBargeEntity::new));
+	public static final RegistryObject<Item> CHEST_BARGE = Registration.ITEMS.register("barge",
+			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), ChestBargeEntity::new));
 
 //    public static final RegistryObject<Item> CHUNK_LOADER_BARGE = Registration.ITEMS.register("chunk_loader_barge",
 //            () -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), ChunkLoaderBargeEntity::new));

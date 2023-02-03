@@ -17,8 +17,7 @@
  */
 package de.luaxlab.shipping.common.util;
 
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import de.luaxlab.shipping.common.core.ModComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -68,12 +67,11 @@ public class LinkingHandler<T extends Entity & LinkableEntity<T>> {
             }
             if (dominated.isPresent()){
                 waitForDominated = false;
-				//TODO: Forge caps
                 if(!((ServerLevel) entity.level).isPositionEntityTicking(dominated.get().blockPosition())){
-                    //entity.getCapability(StallingCapability.STALLING_CAPABILITY).ifPresent(StallingCapability::stall);
+                    entity.getComponent(ModComponents.STALLING).stall();
                 }
             } else if (waitForDominated) {
-                //entity.getCapability(StallingCapability.STALLING_CAPABILITY).ifPresent(StallingCapability::stall);
+                entity.getComponent(ModComponents.STALLING).stall();
             }
             entity.getEntityData().set(dominantID, dominant.map(Entity::getId).orElse(-1));
             entity.getEntityData().set(dominatedID, dominated.map(Entity::getId).orElse(-1));

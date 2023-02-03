@@ -1,6 +1,8 @@
 package de.luaxlab.shipping.common.block.guiderail;
 
 import de.luaxlab.shipping.common.entity.vessel.VesselEntity;
+import de.luaxlab.shipping.common.entity.vessel.barge.AbstractBargeEntity;
+import de.luaxlab.shipping.common.util.InteractionUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -39,11 +41,10 @@ public class CornerGuideRailBlock extends Block {
 
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
-        /*if(InteractionUtil.doConfigure(player, hand)){
+        if(InteractionUtil.doConfigure(player, hand)){
             world.setBlockAndUpdate(pos, state.setValue(CornerGuideRailBlock.INVERTED, !state.getValue(INVERTED)));
             return InteractionResult.SUCCESS;
-        }*/
-		//TODO: Interaction
+        }
 
         return super.use(state, world, pos, player, hand, rayTraceResult);
     }
@@ -88,7 +89,7 @@ public class CornerGuideRailBlock extends Block {
         }
 
         Direction arrows = getArrowsDirection(state);
-        double modifier = .1;//TODO: entity instanceof AbstractBargeEntity ? 0.2 : 0.1;
+        double modifier = entity instanceof AbstractBargeEntity ? 0.2 : 0.1;
         entity.setDeltaMovement(entity.getDeltaMovement().add(
                 new Vec3(
                         (facing.getOpposite().getStepX() + arrows.getStepX()) * modifier,

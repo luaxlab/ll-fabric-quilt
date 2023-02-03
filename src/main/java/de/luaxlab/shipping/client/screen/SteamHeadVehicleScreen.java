@@ -4,12 +4,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import de.luaxlab.shipping.common.core.ModCommon;
 import de.luaxlab.shipping.common.entity.container.SteamHeadVehicleContainer;
-import de.luaxlab.shipping.common.entity.generic.HeadVehicle;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 
 public class SteamHeadVehicleScreen<T extends SteamTugEntity> extends AbstractHeadVehicleScreen<T, SteamHeadVehicleContainer<T>> {

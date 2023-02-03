@@ -20,24 +20,26 @@ package de.luaxlab.shipping.common.entity.vessel.tug;
 import de.luaxlab.shipping.common.block.dock.TugDockTileEntity;
 import de.luaxlab.shipping.common.block.guiderail.TugGuideRailBlock;
 import de.luaxlab.shipping.common.component.StallingComponent;
-import de.luaxlab.shipping.common.container.SingleSlotItemContainer;
 import de.luaxlab.shipping.common.core.*;
 import de.luaxlab.shipping.common.entity.accessor.DataAccessor;
 import de.luaxlab.shipping.common.entity.generic.HeadVehicle;
 import de.luaxlab.shipping.common.entity.navigator.TugPathNavigator;
-import de.luaxlab.shipping.common.entity.vessel.PartedContainerVesselEntity;
 import de.luaxlab.shipping.common.entity.vessel.VesselEntity;
 import de.luaxlab.shipping.common.item.TugRouteItem;
 import de.luaxlab.shipping.common.util.*;
+import io.github.fabricators_of_create.porting_lib.entity.MultiPartEntity;
+import io.github.fabricators_of_create.porting_lib.entity.PartEntity;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import lombok.Getter;
 import lombok.Setter;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -55,30 +57,32 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
-public abstract class AbstractTugEntity extends PartedContainerVesselEntity implements LinkableEntityHead<VesselEntity>, WorldlyContainer, MultipartEntity, HeadVehicle {
+public abstract class AbstractTugEntity extends VesselEntity implements LinkableEntityHead<VesselEntity>, Container, WorldlyContainer, HeadVehicle, MultiPartEntity {
+
+    protected final EnrollmentHandler enrollmentHandler;
 
     // CONTAINER STUFF
-	@Getter
-	protected final SingleSlotItemContainer routeContainer = new SingleSlotItemContainer(SingleSlotItemContainer.SingleSlotCondition.of(ModItems.TUG_ROUTE.get()));
+    @Getter
+    protected final ItemStackHandler routeItemHandler = createRouteItemHandler();
     protected boolean contentsChanged = false;
     @Getter
     protected boolean docked = false;
     @Getter
     protected int remainingStallTime = 0;
+    private double swimSpeedMult = 1;
 
     @Setter
     protected boolean engineOn = true;
@@ -88,6 +92,7 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
     private int pathfindCooldown = 0;
     private VehicleFrontPart frontHitbox;
     private static final EntityDataAccessor<Boolean> INDEPENDENT_MOTION = SynchedEntityData.defineId(AbstractTugEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<String> OWNER = SynchedEntityData.defineId(AbstractTugEntity.class, EntityDataSerializers.STRING);
 
 
 
@@ -104,7 +109,7 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
         linkingHandler.train = (new Train<>(this));
         this.path = new TugRoute();
         frontHitbox = new VehicleFrontPart(this);
-
+        enrollmentHandler = new EnrollmentHandler(this);
     }
 
     public AbstractTugEntity(EntityType type, Level worldIn, double x, double y, double z) {
@@ -131,28 +136,60 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
 
     public abstract DataAccessor getDataAccessor();
 
+    private ItemStackHandler createRouteItemHandler() {
+        return new ItemStackHandler(1) {
+            @Override
+            protected int getStackLimit(int slot, @Nonnull ItemVariant stack) {
+                return 1;
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                contentsChanged = true;
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemVariant stack) {
+                return stack.getItem() instanceof TugRouteItem;
+            }
+
+            @Nonnull
+            @Override
+            public long insertSlot(int slot, @Nonnull ItemVariant stack, long maxAmount, TransactionContext transaction) {
+                if (!isItemValid(slot, stack)) {
+                    return 0;
+                }
+
+                return super.insertSlot(slot, stack, maxAmount, transaction);
+            }
+        };
+    }
+
+    @Override
+    public String owner() {
+        return entityData.get(OWNER);
+    }
+
     @Override
     public boolean isPushedByFluid() {
         return true;
     }
 
-    protected abstract MenuProvider createContainerProvider();
+    protected abstract ExtendedScreenHandlerFactory createContainerProvider();
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
-        /*if(compound.contains("inv")){
-            SimpleContainer old = new SimpleContainer();
-            old.fromTag(compound.getList("inv", Tag.TAG_COMPOUND));
-            routeContainer.setItem(0, old.getItem(0));
+        if(compound.contains("inv")){
+            ItemStackHandler old = new ItemStackHandler();
+            old.deserializeNBT(compound.getCompound("inv"));
+            routeItemHandler.setStackInSlot(0, old.getStackInSlot(0));
         }else{
-			routeContainer.fromTag(compound.getList("routeHandler", Tag.TAG_COMPOUND));
-        }*/
-		if(compound.contains("inventory"))
-			loadInventoryFromNbt(compound.getList("inventory", Tag.TAG_LIST));
-
+            routeItemHandler.deserializeNBT(compound.getCompound("routeHandler"));
+        }
         nextStop = compound.contains("next_stop") ? compound.getInt("next_stop") : 0;
         engineOn = !compound.contains("engineOn") || compound.getBoolean("engineOn");
         contentsChanged = true;
+        enrollmentHandler.load(compound);
         super.readAdditionalSaveData(compound);
     }
 
@@ -160,13 +197,14 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
     public void addAdditionalSaveData(CompoundTag compound) {
         compound.putInt("next_stop", nextStop);
         compound.putBoolean("engineOn", engineOn);
-		compound.put("inventory", writeInventoryToNbt(new ListTag()));
+        compound.put("routeHandler", routeItemHandler.serializeNBT());
+        enrollmentHandler.save(compound);
         super.addAdditionalSaveData(compound);
     }
 
     private void tickRouteCheck() {
         if (contentsChanged) {
-            ItemStack stack = routeContainer.getItem(0);
+            ItemStack stack = routeItemHandler.getStackInSlot(0);
             this.setPath(TugRouteItem.getRoute(stack));
             contentsChanged = false;
         }
@@ -289,6 +327,11 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
     }
 
     @Override
+    public void enroll(UUID uuid) {
+        enrollmentHandler.enroll(uuid);
+    }
+
+    @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
 
@@ -323,13 +366,10 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
         }
     }
 
-	//Not needed here, we implement this ourselves.
-	/*
     @Override
     public boolean isMultipartEntity() {
         return true;
     }
-    */
 
     @Override
     public PartEntity<?>[] getParts()
@@ -359,6 +399,11 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
                 && independentMotion){
             makeSmoke();
         }
+        if(!this.level.isClientSide) {
+            enrollmentHandler.tick();
+            enrollmentHandler.getPlayerName().ifPresent(name ->
+                    entityData.set(OWNER, name));
+        }
 
         super.tick();
 
@@ -366,12 +411,11 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
 
     private void followGuideRail(){
         // do not follow guide rail if stalled
-        /*var dockcap = getCapability(StallingCapability.STALLING_CAPABILITY);
-        if(dockcap.isPresent() && dockcap.resolve().isPresent()){
-            var cap = dockcap.resolve().get();
+        var cap = getComponent(ModComponents.STALLING);
+        if(cap != null){
             if(cap.isDocked() || cap.isFrozen() || cap.isStalled())
                 return;
-        }*/ //TODO: Stalling cap
+        }
 
         List<BlockState> belowList = Arrays.asList(this.level.getBlockState(getOnPos().below()),
                 this.level.getBlockState(getOnPos().below().below()));
@@ -428,13 +472,14 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
     }
 
     public boolean shouldFreezeTrain() {
-        return (stalling.isStalled() && !docked) || linkingHandler.train.asList().stream().anyMatch(VesselEntity::isFrozen);
+        return !enrollmentHandler.mayMove() || (remainingStallTime > 0 && !docked) || linkingHandler.train.asList().stream().anyMatch(VesselEntity::isFrozen);
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         entityData.define(INDEPENDENT_MOTION, false);
+        entityData.define(OWNER, "");
     }
 
 
@@ -470,6 +515,11 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
     }
 
     @Override
+    public boolean hasOwner(){
+        return enrollmentHandler.hasOwner();
+    }
+
+    @Override
     public void removeDominant() {
 
     }
@@ -484,17 +534,53 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
         if (!this.level.isClientSide) {
             this.spawnAtLocation(this.getDropItem());
             Containers.dropContents(this.level, this, this);
-            this.spawnAtLocation(routeContainer.getItem((0)));
+            this.spawnAtLocation(routeItemHandler.getStackInSlot(0));
         }
         super.remove(r);
     }
 
 
     // Have to implement IInventory to work with hoppers
+    @Override
+    public ItemStack removeItem(int p_70298_1_, int p_70298_2_) {
+        return null;
+    }
+
+    @Override
+    public ItemStack removeItemNoUpdate(int p_70304_1_) {
+        return null;
+    }
+
+    public boolean canPlaceItem(int p_94041_1_, ItemStack p_94041_2_) {
+        return true;
+    }
 
     @Override
     public void setChanged() {
         contentsChanged = true;
+    }
+
+    @Override
+    public boolean isValid(Player p_70300_1_) {
+        if (this.isRemoved()) {
+            return false;
+        } else {
+            return !(p_70300_1_.distanceToSqr(this) > 64.0D);
+        }
+    }
+
+    @Override
+    public boolean stillValid(Player p_70300_1_) {
+        if (this.isRemoved()) {
+            return false;
+        } else {
+            return !(p_70300_1_.distanceToSqr(this) > 64.0D);
+        }
+    }
+
+    @Override
+    public void clearContent() {
+
     }
 
     @Override
@@ -511,124 +597,102 @@ public abstract class AbstractTugEntity extends PartedContainerVesselEntity impl
     public boolean canPlaceItemThroughFace(int p_180462_1_, ItemStack p_180462_2_, @Nullable Direction p_180462_3_) {
         return isDocked();
     }
+    @Override
+    public int getContainerSize() {
+        return 1;
+    }
 
     @Override
     public boolean canBeLeashed(Player p_184652_1_) {
         return true;
     }
 
-    /*
-            Stalling Capability
-     */
-    private final StallingComponent stalling = new StallingComponent() {
-        @Override
-        public boolean isDocked() {
-            return docked;
-        }
-
-        @Override
-        public void dock(double x, double y, double z) {
-            docked = true;
-            setDeltaMovement(Vec3.ZERO);
-            moveTo(x, y, z);
-        }
-
-        @Override
-        public void undock() {
-            docked = false;
-        }
-
-        @Override
-        public boolean isStalled() {
-            return remainingStallTime > 0;
-        }
-
-        @Override
-        public void stall() {
-            remainingStallTime = 20;
-        }
-
-        @Override
-        public void unstall() {
-            remainingStallTime = 0;
-        }
-
-        @Override
-        public boolean isFrozen() {
-            return AbstractTugEntity.super.isFrozen();
-        }
-
-        @Override
-        public void freeze() {
-            setFrozen(true);
-        }
-
-        @Override
-        public void unfreeze() {
-            setFrozen(false);
-        }
-    };
-
-	public static @NotNull StallingComponent CreateStallingComponent(AbstractTugEntity entity)
-	{
-		return new StallingComponent() {
-			@Override
-			public boolean isDocked() {
-				return entity.docked;
-			}
-
-			@Override
-			public void dock(double x, double y, double z) {
-				entity.docked = true;
-				entity.setDeltaMovement(Vec3.ZERO);
-				entity.moveTo(x, y, z);
-			}
-
-			@Override
-			public void undock() {
-				entity.docked = false;
-			}
-
-			@Override
-			public boolean isStalled() {
-				return entity.remainingStallTime > 0;
-			}
-
-			@Override
-			public void stall() {
-				entity.remainingStallTime = 20;
-			}
-
-			@Override
-			public void unstall() {
-				entity.remainingStallTime = 0;
-			}
-
-			@Override
-			public boolean isFrozen() {
-				return entity.isFrozen();
-			}
-
-			@Override
-			public void freeze() {
-				entity.setFrozen(true);
-			}
-
-			@Override
-			public void unfreeze() {
-				entity.setFrozen(false);
-			}
-
-		};
-	}
-
-
-   /* @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if (cap == StallingCapability.STALLING_CAPABILITY) {
-            return stallingComponent.cast();
+    protected double swimSpeed() {
+        if(this.level.isClientSide){
+            return super.swimSpeed();
         }
-        return super.getCapability(cap);
-    }*/
+
+        if (this.tickCount % 10 == 0){
+           swimSpeedMult = computeSpeedMult();
+        }
+
+        return swimSpeedMult * super.swimSpeed();
+    }
+
+    private double computeSpeedMult(){
+        double mult = 1;
+        boolean doBreak = false;
+        for (int i = 0; i < 10 && !doBreak; i++) {
+            for (Direction direction: List.of(Direction.NORTH, Direction.EAST, Direction.WEST, Direction.SOUTH)) {
+                BlockPos pos = this.getOnPos().relative(direction, i);
+                if(!this.level.getFluidState(pos).isSource()){
+                    doBreak = true;
+                    break;
+                }
+            }
+            if(i > 3) {
+                mult = 1 + ((i / 10f) * 1.8);
+            }
+        }
+        if(mult < swimSpeedMult) return mult;
+        else return (mult + swimSpeedMult * 20) / 21;
+    }
+
+    /*
+                Stalling Capability
+         */
+    public static StallingComponent createStallingComponent(AbstractTugEntity entity) {
+        return new StallingComponent() {
+            @Override
+            public boolean isDocked() {
+                return entity.docked;
+            }
+
+            @Override
+            public void dock(double x, double y, double z) {
+                entity.docked = true;
+                entity.setDeltaMovement(Vec3.ZERO);
+                entity.moveTo(x, y, z);
+            }
+
+            @Override
+            public void undock() {
+                entity.docked = false;
+            }
+
+            @Override
+            public boolean isStalled() {
+                return entity.remainingStallTime > 0;
+            }
+
+            @Override
+            public void stall() {
+                entity.remainingStallTime = 20;
+            }
+
+            @Override
+            public void unstall() {
+                entity.remainingStallTime = 0;
+            }
+
+            @Override
+            public boolean isFrozen() {
+                return entity.isFrozen();
+            }
+
+            @Override
+            public void freeze() {
+                entity.setFrozen(true);
+            }
+
+            @Override
+            public void unfreeze() {
+                entity.setFrozen(false);
+            }
+
+        };
+    }
+
+
 }
