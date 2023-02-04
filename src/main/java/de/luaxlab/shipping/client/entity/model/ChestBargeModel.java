@@ -17,6 +17,10 @@ import net.minecraft.resources.ResourceLocation;
 public class ChestBargeModel extends EntityModel<ChestBargeEntity> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ModCommon.MODID, "chestbargemodel"), "main");
+
+	public static final ResourceLocation TEXTURE = ModCommon.identifier("textures/entity/barge.png");
+	public static final ResourceLocation TEXTURE_XMAS = ModCommon.identifier("textures/entity/barge_xmas.png");
+	public static final ResourceLocation TEXTURE_DIFF = ModCommon.identifier("textures/entity/barge_different.png");
 	private final ModelPart bb_main;
 
 	public ChestBargeModel(ModelPart root) {

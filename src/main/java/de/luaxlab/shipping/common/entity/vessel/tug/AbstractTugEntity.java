@@ -138,12 +138,13 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
 
     private ItemStackHandler createRouteItemHandler() {
         return new ItemStackHandler(1) {
-            @Override
-            protected int getStackLimit(int slot, @Nonnull ItemVariant stack) {
-                return 1;
-            }
 
-            @Override
+			@Override
+			public int getSlotLimit(int slot) {
+				return 1;
+			}
+
+			@Override
             protected void onContentsChanged(int slot) {
                 contentsChanged = true;
             }
@@ -532,7 +533,6 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
     @Override
     public void remove(Entity.RemovalReason r) {
         if (!this.level.isClientSide) {
-            this.spawnAtLocation(this.getDropItem());
             Containers.dropContents(this.level, this, this);
             this.spawnAtLocation(routeItemHandler.getStackInSlot(0));
         }

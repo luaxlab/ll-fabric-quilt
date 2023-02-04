@@ -6,6 +6,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class StaticVesselRenderer<T extends VesselEntity> extends AbstractVesselRenderer<T> {
     private final EntityModel<T> model;
@@ -21,12 +22,12 @@ public class StaticVesselRenderer<T extends VesselEntity> extends AbstractVessel
     }
 
     @Override
-    EntityModel getModel(T entity) {
+	EntityModel<T> getModel(T entity) {
         return model;
     }
 
     @Override
-    public ResourceLocation getTextureLocation(T pEntity) {
+    public @NotNull ResourceLocation getTextureLocation(T pEntity) {
         return textureLocation;
     }
 

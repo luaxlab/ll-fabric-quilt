@@ -3,10 +3,10 @@ package de.luaxlab.shipping.client;
 import de.luaxlab.shipping.client.entity.model.ChainModel;
 import de.luaxlab.shipping.client.entity.model.ChestBargeModel;
 import de.luaxlab.shipping.client.entity.model.SteamTugModel;
+import de.luaxlab.shipping.client.entity.render.ChestBargeRenderer;
 import de.luaxlab.shipping.client.entity.render.StaticVesselRenderer;
 import de.luaxlab.shipping.client.screen.SteamHeadVehicleScreen;
 import de.luaxlab.shipping.client.screen.TugRouteScreen;
-import de.luaxlab.shipping.common.core.ModCommon;
 import de.luaxlab.shipping.common.core.ModContainers;
 import de.luaxlab.shipping.common.core.ModEntities;
 import de.luaxlab.shipping.common.core.ModItemModelProperties;
@@ -26,7 +26,7 @@ public class ModClient implements ClientModInitializer {
 	public void onInitializeClient(ModContainer mod) {
 
 		EntityRendererRegistry.register(ModEntities.STEAM_TUG.get(), (ctx) -> new StaticVesselRenderer<>(ctx, SteamTugModel::new, SteamTugModel.LAYER_LOCATION,
-				ModCommon.identifier("textures/entity/tug.png")) {
+				SteamTugModel.TEXTURE) {
 			// todo: fix in models itself
 			@Override
 			protected double getModelYoffset() {
@@ -38,8 +38,7 @@ public class ModClient implements ClientModInitializer {
 				return 0;
 			}
 		});
-		EntityRendererRegistry.register(ModEntities.CHEST_BARGE.get(), (ctx) -> new StaticVesselRenderer<>(ctx, ChestBargeModel::new, ChestBargeModel.LAYER_LOCATION,
-				ModCommon.identifier("textures/entity/barge.png")));
+		EntityRendererRegistry.register(ModEntities.CHEST_BARGE.get(), ChestBargeRenderer::new);
 
 		//EntityModelLayerRegistry
 		EntityModelLayerRegistry.registerModelLayer(ChainModel.LAYER_LOCATION, ChainModel::createBodyLayer);

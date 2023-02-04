@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.fabricmc.fabric.impl.content.registry.FuelRegistryImpl;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -25,7 +24,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import org.quiltmc.qsl.item.content.registry.api.ItemContentRegistries;
 
 import javax.annotation.Nonnull;
@@ -49,7 +47,7 @@ public class SteamTugEntity extends AbstractTugEntity {
         return new ItemStackHandler(1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemVariant stack) {
-                return FurnaceBlockEntity.isFuel(stack.toStack());
+				return ItemContentRegistries.FUEL_TIME.get(stack.getItem()).isPresent();
             }
 
             @Nonnull
@@ -120,6 +118,7 @@ public class SteamTugEntity extends AbstractTugEntity {
         } else {
             ItemStack stack = itemHandler.getStackInSlot(0);
             if (!stack.isEmpty()) {
+				//For Fabric use (((FuelRegistryImpl)FuelRegistryImpl.INSTANCE);
                 burnCapacity = (ItemContentRegistries.FUEL_TIME.get(stack.getItem()).orElse(0) * FURNACE_FUEL_MULTIPLIER) - 1;
                 burnTime = burnCapacity - 1;
                 stack.shrink(1);

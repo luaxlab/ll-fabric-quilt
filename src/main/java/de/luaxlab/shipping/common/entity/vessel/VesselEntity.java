@@ -58,6 +58,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -73,7 +74,6 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public abstract class VesselEntity extends WaterAnimal implements LinkableEntity<VesselEntity> {
     @Getter
     @Setter
@@ -516,17 +516,29 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
 
     @Override
     public boolean hurt(DamageSource damageSource, float p_70097_2_) {
-        if (this.isInvulnerableTo(damageSource)) {
+		if(this.level.isClientSide || this.isRemoved()) {
+			return true;
+		} else if (this.isInvulnerableTo(damageSource)) {
             return false;
-        } else if (!this.level.isClientSide && !this.isRemoved() &&
-                damageSource instanceof EntityDamageSource e && e.getEntity() instanceof Player) {
+        } else if (damageSource instanceof EntityDamageSource e && e.getEntity() instanceof Player) {
             int i = (int) Stream.of(linkingHandler.dominant, linkingHandler.dominated).filter(Optional::isPresent).count();
-            if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
-                for (int j = 0; j < i; j++) {
-                    spawnChain();
-                }
+            boolean creative = ((Player)damageSource.getEntity()).getAbilities().instabuild;;
+			if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+				if(!creative) {
+					for (int j = 0; j < i; j++) {
+						spawnChain();
+					}
+				}
+				if(!creative || this.hasCustomName()) {
+					var stack = new ItemStack(this::getDropItem);
+					if(hasCustomName())
+						stack.setHoverName(this.getCustomName());
+					this.spawnAtLocation(stack);
+				}
             }
-            this.remove(RemovalReason.KILLED);
+
+			this.remove(RemovalReason.KILLED);
+			this.gameEvent(GameEvent.ENTITY_DIE);
             return true;
         } else {
             return super.hurt(damageSource, p_70097_2_);
