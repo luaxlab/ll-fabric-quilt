@@ -1,5 +1,6 @@
 package de.luaxlab.shipping.common.core;
 
+import de.luaxlab.shipping.common.network.VehiclePacketHandler;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
@@ -33,7 +34,7 @@ public class Registration  {
 		ModContainers.register();
 //		TugRoutePacketHandler.register();
 //		VehicleTrackerPacketHandler.register();
-//		VehiclePacketHandler.register();
+		VehiclePacketHandler.register();
 		ModSounds.register();
 
 		BLOCKS.register();
