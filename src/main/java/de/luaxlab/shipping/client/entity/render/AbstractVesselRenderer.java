@@ -108,6 +108,10 @@ public abstract class AbstractVesselRenderer<T extends VesselEntity> extends Ent
         return super.shouldRender(p_225626_1_, p_225626_2_, p_225626_3_, p_225626_5_, p_225626_7_);
     }
 
+    @Override
+    protected boolean shouldShowName(T entity) {
+        return entity.shouldShowName() || entity.hasCustomName() && entity == this.entityRenderDispatcher.crosshairPickEntity;
+    }
 
     abstract EntityModel<T> getModel(T entity);
 
