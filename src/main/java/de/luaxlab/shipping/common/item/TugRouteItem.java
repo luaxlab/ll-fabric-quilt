@@ -98,7 +98,7 @@ public class TugRouteItem extends Item {
             }
         }
 
-        return InteractionResultHolder.pass(itemstack);
+        return InteractionResultHolder.success(itemstack);
     }
 
     @Override
