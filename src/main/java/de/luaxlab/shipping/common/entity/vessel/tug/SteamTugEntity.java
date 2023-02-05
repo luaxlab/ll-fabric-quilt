@@ -24,6 +24,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.ApiStatus;
 import org.quiltmc.qsl.item.content.registry.api.ItemContentRegistries;
 
 import javax.annotation.Nonnull;
@@ -189,4 +190,13 @@ public class SteamTugEntity extends AbstractTugEntity {
     public static ItemHandlerComponent createItemHandlerComponent(SteamTugEntity entity) {
         return () -> entity.itemHandler;
     }
+
+	/** internal API **/
+
+	@ApiStatus.Internal
+	public float getBurnProgressFloat()
+	{
+		return burnTime / (float)burnCapacity;
+	}
+
 }

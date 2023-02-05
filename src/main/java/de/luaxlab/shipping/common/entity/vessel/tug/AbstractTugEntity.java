@@ -61,6 +61,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.ApiStatus;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -694,5 +695,17 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
         };
     }
 
+	/** internal API **/
 
+	@ApiStatus.Internal
+	public int getNextStop()
+	{
+		return nextStop;
+	}
+
+	@ApiStatus.Internal
+	public int getTotalStops()
+	{
+		return path != null ? path.size() : 0;
+	}
 }

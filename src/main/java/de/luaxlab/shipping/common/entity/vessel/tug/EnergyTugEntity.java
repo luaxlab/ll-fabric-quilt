@@ -26,6 +26,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -191,5 +192,13 @@ public class EnergyTugEntity extends AbstractTugEntity {
 
 	public static EnergyComponent createEnergyComponent(EnergyTugEntity entity) {
 		return () -> entity.internalBattery;
+	}
+
+	/** internal API **/
+
+	@ApiStatus.Internal
+	public float getEnergyLevel()
+	{
+		return internalBattery.amount / (float)internalBattery.capacity;
 	}
 }
