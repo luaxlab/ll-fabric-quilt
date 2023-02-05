@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IVesselLoader {
     enum Mode {
@@ -16,30 +17,28 @@ public interface IVesselLoader {
         IMPORT
     }
 
-    static <T extends Component> T getEntityCapability(BlockPos pos, ComponentKey<T> capability, Level level){
+    static <T extends Component> Optional<T> getEntityCapability(BlockPos pos, ComponentKey<T> capability, Level level){
         List<Entity> fluidEntities = level.getEntities((Entity) null,
                 getSearchBox(pos),
                 (e -> entityPredicate(e, pos, capability))
         );
 
         if(fluidEntities.isEmpty()){
-            return null;
+            return Optional.empty();
         } else {
             Entity entity = fluidEntities.get(0);
-            return entity.getComponent(capability);
+            return capability.maybeGet(entity);
         }
     }
 
     static boolean entityPredicate(Entity entity, BlockPos pos, ComponentKey<?> capability) {
-        var cap = entity.getComponent(capability);
-        if (cap != null) {
-            if (entity instanceof LinkableEntity l) {
+        return capability.maybeGet(entity).map(cap -> {
+            if (entity instanceof LinkableEntity l){
                 return l.allowDockInterface() && (l.getBlockPos().getX() == pos.getX() && l.getBlockPos().getZ() == pos.getZ());
             } else {
                 return true;
             }
-        }
-        return false;
+        }).orElse(false);
     }
 
     static AABB getSearchBox(BlockPos pos) {
