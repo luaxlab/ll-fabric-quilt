@@ -3,6 +3,7 @@ package de.luaxlab.shipping.data.client;
 import de.luaxlab.shipping.common.block.CornerGuideRailBlock;
 import de.luaxlab.shipping.common.block.dock.DockingBlockStates;
 import de.luaxlab.shipping.common.core.ModBlocks;
+import de.luaxlab.shipping.common.energy.VesselChargerBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -123,7 +124,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .rotationY((int) state.getValue(FluidHopperBlock.FACING).getClockWise().toYRot())
                 .build()
         );
-
+*/
         getVariantBuilder(ModBlocks.VESSEL_CHARGER.get()).forAllStates(state -> ConfiguredModel.builder()
                 .modelFile(models()
                         .withExistingParent("vessel_charger", modLoc("vessel_charger_parent_model"))
@@ -131,7 +132,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .rotationY((int) state.getValue(VesselChargerBlock.FACING).getOpposite().toYRot())
                 .build()
         );
-
+/*
         getVariantBuilder(ModBlocks.SWITCH_RAIL.get()).forAllStates(state ->  {
             String outDir = state.getValue(SwitchRail.OUT_DIRECTION).getSerializedName();
             String powered = state.getValue(SwitchRail.POWERED) ? "on" : "off";

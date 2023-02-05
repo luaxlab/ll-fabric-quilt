@@ -30,6 +30,7 @@ import de.luaxlab.shipping.common.util.*;
 import io.github.fabricators_of_create.porting_lib.entity.MultiPartEntity;
 import io.github.fabricators_of_create.porting_lib.entity.PartEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -94,13 +95,12 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
     private static final EntityDataAccessor<Boolean> INDEPENDENT_MOTION = SynchedEntityData.defineId(AbstractTugEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<String> OWNER = SynchedEntityData.defineId(AbstractTugEntity.class, EntityDataSerializers.STRING);
 
-
-
     public boolean allowDockInterface(){
         return isDocked();
     }
 
     protected TugRoute path;
+
     protected int nextStop;
 
     public AbstractTugEntity(EntityType<? extends WaterAnimal> type, Level world) {

@@ -135,7 +135,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern(" _ ")
                 .unlockedBy("has_item", has(Items.HOPPER))
                 .save(consumer);
-
+*/
         ShapedRecipeBuilder.shaped(ModBlocks.VESSEL_CHARGER.get(), 1)
                 .define('_', Items.REDSTONE_BLOCK)
                 .define('$', Items.IRON_INGOT)
@@ -145,7 +145,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern("_$_")
                 .unlockedBy("has_item", has(Items.REDSTONE))
                 .save(consumer);
-*/
+
 
         ShapedRecipeBuilder.shaped(ModItems.SPRING.get(), 6)
                 .define('_', Tags.Items.STRING)
@@ -187,7 +187,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy("has_item", has(Items.PISTON))
                 .save(consumer);
 
-/*
+
         ShapedRecipeBuilder.shaped(ModItems.ENERGY_TUG.get())
                 .define('_', Items.PISTON)
                 .define('#', ModBlocks.VESSEL_CHARGER.get())
@@ -197,6 +197,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern("$$$")
                 .unlockedBy("has_item", has(Items.PISTON))
                 .save(consumer);
+/*
 
         ShapedRecipeBuilder.shaped(ModItems.CHEST_BARGE.get())
                 .define('_', Items.CHEST)

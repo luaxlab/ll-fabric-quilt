@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class SteamTugEntity extends AbstractTugEntity {
-    private static final int FURNACE_FUEL_MULTIPLIER= ModConfig.Server.STEAM_TUG_FUEL_MULTIPLIER.get();
+    private static final int FURNACE_FUEL_MULTIPLIER = ModConfig.Server.STEAM_TUG_FUEL_MULTIPLIER.get();
     private final ItemStackHandler itemHandler = createHandler();
     protected int burnTime = 0;
     protected int burnCapacity = 0;

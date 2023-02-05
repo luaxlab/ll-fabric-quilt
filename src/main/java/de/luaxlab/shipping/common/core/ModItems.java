@@ -1,5 +1,7 @@
 package de.luaxlab.shipping.common.core;
 
+import de.luaxlab.shipping.common.energy.EnergyUtils;
+import de.luaxlab.shipping.common.entity.vessel.tug.EnergyTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.barge.ChestBargeEntity;
 import de.luaxlab.shipping.common.item.SpringItem;
@@ -10,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import team.reborn.energy.api.EnergyStorage;
 
 public class ModItems {
 
@@ -33,8 +36,8 @@ public class ModItems {
 	public static final RegistryObject<Item> SPRING = Registration.ITEMS.register("spring",
 			() -> new SpringItem(new Item.Properties().stacksTo(64).tab(CreativeModeTab.TAB_TRANSPORTATION)));
 
-//	public static final RegistryObject<Item> CREATIVE_CAPACITOR = Registration.ITEMS.register("creative_capacitor",
-//			() -> new CreativeCapacitor(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
+	public static final RegistryObject<Item> CREATIVE_CAPACITOR = Registration.ITEMS.register("creative_capacitor",
+			() -> new Item(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
 
 	/**
 	 * Vessels
@@ -58,8 +61,8 @@ public class ModItems {
 	public static final RegistryObject<Item> STEAM_TUG = Registration.ITEMS.register("tug",
 			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), SteamTugEntity::new));
 
-//	public static final RegistryObject<Item> ENERGY_TUG = Registration.ITEMS.register("energy_tug",
-//			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), EnergyTugEntity::new));
+	public static final RegistryObject<Item> ENERGY_TUG = Registration.ITEMS.register("energy_tug",
+			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), EnergyTugEntity::new));
 
 	/**
 	 * Trains
@@ -97,7 +100,8 @@ public class ModItems {
 
 
 	public static void register () {
-
+		//Register the creative capacitor
+		EnergyStorage.ITEM.registerForItems((itemStack, context) -> EnergyUtils.CREATIVE_SUPPLY, CREATIVE_CAPACITOR.get());
 	}
 
 }

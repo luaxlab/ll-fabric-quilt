@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/hopper",
-  "textures": {
-    "inside": "littlelogistics:block/rapid_hopper_inside",
-    "particle": "littlelogistics:block/rapid_hopper_outside",
-    "side": "littlelogistics:block/rapid_hopper_outside",
-    "top": "littlelogistics:block/rapid_hopper_top"
-  }
-}

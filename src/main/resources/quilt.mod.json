@@ -50,6 +50,7 @@
 	},
 	"cardinal-components": [
 		"littlelogistics:stalling",
-		"littlelogistics:item_handler"
+		"littlelogistics:item_handler",
+		"littlelogistics:energy_handler"
 	]
 }

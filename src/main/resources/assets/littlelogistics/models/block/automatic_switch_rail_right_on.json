@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/rail_flat",
-  "textures": {
-    "rail": "littlelogistics:block/automatic_switch_rail_right_on"
-  }
-}
