@@ -321,7 +321,7 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
             //NetworkHooks.openGui((ServerPlayer) player, createContainerProvider(), getDataAccessor()::write);
 			player.openMenu(createContainerProvider());
         }
-        return InteractionResult.CONSUME;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

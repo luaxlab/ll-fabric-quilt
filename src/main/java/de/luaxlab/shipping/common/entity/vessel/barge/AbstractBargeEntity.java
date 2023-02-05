@@ -48,7 +48,7 @@ public abstract class AbstractBargeEntity extends VesselEntity {
             doInteract(player);
         }
         // don't interact *and* use current item
-        return InteractionResult.CONSUME;
+        return InteractionResult.SUCCESS;
     }
 
     abstract protected void doInteract(Player player);
