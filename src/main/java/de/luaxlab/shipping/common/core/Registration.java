@@ -1,5 +1,6 @@
 package de.luaxlab.shipping.common.core;
 
+import de.luaxlab.shipping.common.network.TugRoutePacketHandler;
 import de.luaxlab.shipping.common.network.VehiclePacketHandler;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import net.minecraft.core.Registry;
@@ -32,7 +33,7 @@ public class Registration  {
 		ModBlockEntities.register();
 //		ModRecipeSerializers.register();
 		ModContainers.register();
-//		TugRoutePacketHandler.register();
+		TugRoutePacketHandler.register();
 //		VehicleTrackerPacketHandler.register();
 		VehiclePacketHandler.register();
 		ModSounds.register();

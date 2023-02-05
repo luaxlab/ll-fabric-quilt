@@ -4,6 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import de.luaxlab.shipping.client.screen.TugRouteScreen;
+import de.luaxlab.shipping.common.network.SetRouteTagPacket;
+import de.luaxlab.shipping.common.network.TugRoutePacketHandler;
 import de.luaxlab.shipping.common.util.TugRoute;
 import de.luaxlab.shipping.common.util.TugRouteNode;
 import net.minecraft.client.Minecraft;
@@ -183,7 +185,6 @@ public class TugRouteClientHandler {
         for (TugList.Entry entry : this.widget.children()) {
             entry.setIndex(i++);
         }
-		//TODO
-        //TugRoutePacketHandler.INSTANCE.sendToServer(new SetRouteTagPacket(route.hashCode(), isOffHand, route.toNBT()));
+        TugRoutePacketHandler.INSTANCE.sendToServer(new SetRouteTagPacket(route.hashCode(), isOffHand, route.toNBT()));
     }
 }
