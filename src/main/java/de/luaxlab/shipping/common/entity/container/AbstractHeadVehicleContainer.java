@@ -2,6 +2,8 @@ package de.luaxlab.shipping.common.entity.container;
 
 import de.luaxlab.shipping.common.entity.accessor.HeadVehicleDataAccessor;
 import de.luaxlab.shipping.common.entity.generic.HeadVehicle;
+import de.luaxlab.shipping.common.network.SetEnginePacket;
+import de.luaxlab.shipping.common.network.VehiclePacketHandler;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -54,8 +56,7 @@ public abstract class AbstractHeadVehicleContainer<T extends HeadVehicleDataAcce
     }
 
     public void setEngine(boolean state){
-        // TODO
-        // VehiclePacketHandler.INSTANCE.sendToServer(new SetEnginePacket(entity.getId(), state));
+        VehiclePacketHandler.INSTANCE.sendToServer(new SetEnginePacket(entity.getId(), state));
     }
 
     public void enroll(){
