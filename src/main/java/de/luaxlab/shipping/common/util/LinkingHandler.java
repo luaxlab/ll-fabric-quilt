@@ -17,11 +17,11 @@
  */
 package de.luaxlab.shipping.common.util;
 
+import de.luaxlab.shipping.common.component.StallingComponent;
 import de.luaxlab.shipping.common.core.ModComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
@@ -67,15 +67,28 @@ public class LinkingHandler<T extends Entity & LinkableEntity<T>> {
             }
             if (dominated.isPresent()){
                 waitForDominated = false;
-                if(!((ServerLevel) entity.level).isPositionEntityTicking(dominated.get().blockPosition())){
-                    entity.getComponent(ModComponents.STALLING).stall();
-                }
+                stallNonTicking();
             } else if (waitForDominated) {
-                entity.getComponent(ModComponents.STALLING).stall();
+                ModComponents.STALLING.maybeGet(entity).ifPresent(StallingComponent::stall);
             }
             entity.getEntityData().set(dominantID, dominant.map(Entity::getId).orElse(-1));
             entity.getEntityData().set(dominatedID, dominated.map(Entity::getId).orElse(-1));
         }
+    }
+
+    private void stallNonTicking() {
+//        boolean skip = entity.getTrain()
+//                .getTug()
+//                .flatMap(tug -> {
+//                    if (tug instanceof HeadVehicle h)
+//                        return Optional.of(h);
+//                    else return Optional.empty();
+//                })
+//                .map(HeadVehicle::hasOwner).orElse(true);
+//
+//        if(!skip && !((ServerLevel) entity.level).isPositionEntityTicking(dominated.get().blockPosition())){
+//            entity.getCapability(StallingCapability.STALLING_CAPABILITY).ifPresent(StallingCapability::stall);
+//        }
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {

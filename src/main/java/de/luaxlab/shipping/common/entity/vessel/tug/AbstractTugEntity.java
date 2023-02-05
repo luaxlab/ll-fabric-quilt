@@ -242,9 +242,7 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
 
 
     private void tickCheckDock() {
-		StallingComponent cap = getComponent(ModComponents.STALLING);
-		if(cap != null)
-		{
+		ModComponents.STALLING.maybeGet(this).ifPresent(cap -> {
 			int x = (int) Math.floor(this.getX());
 			int y = (int) Math.floor(this.getY());
 			int z = (int) Math.floor(this.getZ());
@@ -282,7 +280,7 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
 
 			if (changedDock) onDock();
 			if (changedUndock) onUndock();
-		}
+		});
     }
 
     @Override
@@ -413,8 +411,9 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
 
     private void followGuideRail(){
         // do not follow guide rail if stalled
-        var cap = getComponent(ModComponents.STALLING);
-        if(cap != null){
+        var dockcap = ModComponents.STALLING.maybeGet(this);
+        if(dockcap.isPresent()){
+            var cap = dockcap.get();
             if(cap.isDocked() || cap.isFrozen() || cap.isStalled())
                 return;
         }

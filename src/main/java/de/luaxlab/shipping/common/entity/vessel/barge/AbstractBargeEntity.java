@@ -157,7 +157,7 @@ public abstract class AbstractBargeEntity extends VesselEntity {
 
             private Optional<StallingComponent> delegate() {
                 if (entity.linkingHandler.train.getHead() instanceof AbstractTugEntity e) {
-                    return Optional.of(e.getComponent(ModComponents.STALLING));
+                    return ModComponents.STALLING.maybeGet(e);
                 }
                 return Optional.empty();
             }

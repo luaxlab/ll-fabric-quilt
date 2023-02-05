@@ -33,14 +33,13 @@ public interface IVesselLoader {
     }
 
     static boolean entityPredicate(Entity entity, BlockPos pos, ComponentKey<?> capability) {
-        if (capability.isProvidedBy(entity)) {
-            if (entity instanceof LinkableEntity l) {
+        return capability.maybeGet(entity).map(cap -> {
+            if (entity instanceof LinkableEntity l){
                 return l.allowDockInterface() && (l.getBlockPos().getX() == pos.getX() && l.getBlockPos().getZ() == pos.getZ());
             } else {
                 return true;
             }
-        }
-        return false;
+        }).orElse(false);
     }
 
     static AABB getSearchBox(BlockPos pos) {

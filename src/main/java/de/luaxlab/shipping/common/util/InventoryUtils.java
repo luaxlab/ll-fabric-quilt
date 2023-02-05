@@ -8,7 +8,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class InventoryUtils {
@@ -43,7 +42,7 @@ public class InventoryUtils {
                 }
             } else if (!airList.isEmpty() && target instanceof Entity){
                 Entity e = (Entity) target;
-                boolean validSlot = Optional.ofNullable(e.getComponent(ModComponents.ITEM_HANDLER))
+                boolean validSlot = ModComponents.ITEM_HANDLER.maybeGet(e)
                         .map(itemHandler -> airList.stream()
                                 .map(j -> itemHandler.getHandler().isItemValid(j, ItemVariant.of(stack)))
                                 .reduce(false, Boolean::logicalOr)).orElse(true);
