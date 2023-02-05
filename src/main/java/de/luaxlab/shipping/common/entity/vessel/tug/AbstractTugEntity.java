@@ -30,6 +30,7 @@ import de.luaxlab.shipping.common.util.*;
 import io.github.fabricators_of_create.porting_lib.entity.MultiPartEntity;
 import io.github.fabricators_of_create.porting_lib.entity.PartEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -60,6 +61,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.ApiStatus;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -94,13 +96,12 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
     private static final EntityDataAccessor<Boolean> INDEPENDENT_MOTION = SynchedEntityData.defineId(AbstractTugEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<String> OWNER = SynchedEntityData.defineId(AbstractTugEntity.class, EntityDataSerializers.STRING);
 
-
-
     public boolean allowDockInterface(){
         return isDocked();
     }
 
     protected TugRoute path;
+
     protected int nextStop;
 
     public AbstractTugEntity(EntityType<? extends WaterAnimal> type, Level world) {
@@ -138,12 +139,13 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
 
     private ItemStackHandler createRouteItemHandler() {
         return new ItemStackHandler(1) {
-            @Override
-            protected int getStackLimit(int slot, @Nonnull ItemVariant stack) {
-                return 1;
-            }
 
-            @Override
+			@Override
+			public int getSlotLimit(int slot) {
+				return 1;
+			}
+
+			@Override
             protected void onContentsChanged(int slot) {
                 contentsChanged = true;
             }
@@ -532,7 +534,6 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
     @Override
     public void remove(Entity.RemovalReason r) {
         if (!this.level.isClientSide) {
-            this.spawnAtLocation(this.getDropItem());
             Containers.dropContents(this.level, this, this);
             this.spawnAtLocation(routeItemHandler.getStackInSlot(0));
         }
@@ -694,5 +695,17 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
         };
     }
 
+	/** internal API **/
 
+	@ApiStatus.Internal
+	public int getNextStop()
+	{
+		return nextStop;
+	}
+
+	@ApiStatus.Internal
+	public int getTotalStops()
+	{
+		return path != null ? path.size() : 0;
+	}
 }

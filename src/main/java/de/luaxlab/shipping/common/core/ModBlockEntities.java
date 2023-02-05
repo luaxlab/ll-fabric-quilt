@@ -2,6 +2,7 @@ package de.luaxlab.shipping.common.core;
 
 import de.luaxlab.shipping.common.block.dock.BargeDockTileEntity;
 import de.luaxlab.shipping.common.block.dock.TugDockTileEntity;
+import de.luaxlab.shipping.common.energy.VesselChargerTileEntity;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -44,11 +45,11 @@ public class ModBlockEntities {
 //			ModBlocks.FLUID_HOPPER
 //	);
 //
-//	public static final RegistryObject<BlockEntityType<VesselChargerTileEntity>> VESSEL_CHARGER = register(
-//			"vessel_charger",
-//			VesselChargerTileEntity::new,
-//			ModBlocks.VESSEL_CHARGER
-//	);
+	public static final RegistryObject<BlockEntityType<VesselChargerTileEntity>> VESSEL_CHARGER = register(
+			"vessel_charger",
+			VesselChargerTileEntity::new,
+			ModBlocks.VESSEL_CHARGER
+	);
 //
 //	public static final RegistryObject<BlockEntityType<RapidHopperTileEntity>> RAPID_HOPPER = register(
 //			"rapid_hopper",

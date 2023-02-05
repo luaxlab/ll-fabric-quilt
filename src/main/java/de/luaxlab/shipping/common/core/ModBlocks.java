@@ -2,6 +2,7 @@ package de.luaxlab.shipping.common.core;
 
 import de.luaxlab.shipping.common.block.dock.BargeDockBlock;
 import de.luaxlab.shipping.common.block.dock.TugDockBlock;
+import de.luaxlab.shipping.common.energy.VesselChargerBlock;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -55,12 +56,12 @@ public class ModBlocks {
 //			),
 //			CreativeModeTab.TAB_TRANSPORTATION);
 
-//	public static final RegistryObject<Block> VESSEL_CHARGER = register(
-//			"vessel_charger",
-//			() -> new VesselChargerBlock(Block.Properties.of(Material.METAL)
-//					.destroyTime(0.5f)
-//			),
-//			CreativeModeTab.TAB_TRANSPORTATION);
+	public static final RegistryObject<Block> VESSEL_CHARGER = register(
+			"vessel_charger",
+			() -> new VesselChargerBlock(Block.Properties.of(Material.METAL)
+					.destroyTime(0.5f)
+			),
+			CreativeModeTab.TAB_TRANSPORTATION);
 
 //	public static final RegistryObject<Block> RAPID_HOPPER = register(
 //			"rapid_hopper",

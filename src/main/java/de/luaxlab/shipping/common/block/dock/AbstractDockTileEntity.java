@@ -30,8 +30,8 @@ public abstract class AbstractDockTileEntity<T extends Entity & LinkableEntity<T
     }
 
     public Optional<IVesselLoader> getVesselLoader(BlockPos p){
-        BlockEntity mayBeHopper = this.level.getBlockEntity(p);
-        if (mayBeHopper instanceof IVesselLoader l) {
+        BlockEntity mayBeLoader = this.level.getBlockEntity(p);
+        if (mayBeLoader instanceof IVesselLoader l) {
             return Optional.of(l);
         }
         else return Optional.empty();

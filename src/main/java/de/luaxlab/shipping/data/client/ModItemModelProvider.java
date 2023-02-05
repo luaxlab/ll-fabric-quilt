@@ -22,8 +22,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent("barge_dock", modLoc("block/barge_dock"));
         withExistingParent("guide_rail_corner", modLoc("block/guide_rail_corner"));
         withExistingParent("guide_rail_tug", modLoc("block/guide_rail_tug"));
-        withExistingParent("fluid_hopper", modLoc("block/fluid_hopper"));
-        withExistingParent("vessel_detector", modLoc("block/vessel_detector"));
+       // withExistingParent("fluid_hopper", modLoc("block/fluid_hopper"));
+        //withExistingParent("vessel_detector", modLoc("block/vessel_detector"));
         withExistingParent("vessel_charger", modLoc("block/vessel_charger"));
 
         builder(itemGenerated, "barge");

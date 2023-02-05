@@ -1,8 +1,11 @@
 package de.luaxlab.shipping.common.core;
 
+import de.luaxlab.shipping.common.entity.accessor.EnergyHeadVehicleDataAccessor;
 import de.luaxlab.shipping.common.entity.accessor.SteamHeadVehicleDataAccessor;
 import de.luaxlab.shipping.common.entity.accessor.TugRouteScreenDataAccessor;
+import de.luaxlab.shipping.common.entity.container.EnergyHeadVehicleContainer;
 import de.luaxlab.shipping.common.entity.container.SteamHeadVehicleContainer;
+import de.luaxlab.shipping.common.entity.vessel.tug.EnergyTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import de.luaxlab.shipping.common.item.container.TugRouteContainer;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
@@ -28,11 +31,11 @@ public class ModContainers {
 							(windowId, inv, data) ->
 									new SteamHeadVehicleContainer<>(windowId, inv.player.level, new SteamHeadVehicleDataAccessor(makeIntArray(data)), inv, inv.player)));
 
-//	public static final RegistryObject<MenuType<EnergyHeadVehicleContainer<EnergyTugEntity>>> ENERGY_TUG_CONTAINER =
-//			Registration.CONTAINERS.register("energy_tug_container",
-//					() -> new ExtendedScreenHandlerType<>(
-//							(windowId, inv, data) ->
-//									new EnergyHeadVehicleContainer<>(windowId, inv.player.level, new EnergyHeadVehicleDataAccessor(makeIntArray(data)), inv, inv.player)));
+	public static final RegistryObject<MenuType<EnergyHeadVehicleContainer<EnergyTugEntity>>> ENERGY_TUG_CONTAINER =
+			Registration.CONTAINERS.register("energy_tug_container",
+					() -> new ExtendedScreenHandlerType<>(
+							(windowId, inv, data) ->
+									new EnergyHeadVehicleContainer<>(windowId, inv.player.level, new EnergyHeadVehicleDataAccessor(makeIntArray(data)), inv, inv.player)));
 
 //	public static final RegistryObject<MenuType<SteamHeadVehicleContainer<SteamLocomotiveEntity>>> STEAM_LOCOMOTIVE_CONTAINER =
 //			Registration.CONTAINERS.register("steam_locomotive_container",

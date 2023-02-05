@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -34,7 +35,7 @@ public abstract class AbstractBargeEntity extends VesselEntity {
     }
 
     @Override
-    protected boolean canAddPassenger(Entity passenger) {
+    protected boolean canAddPassenger(@NotNull Entity passenger) {
         return false;
     }
 
@@ -43,7 +44,7 @@ public abstract class AbstractBargeEntity extends VesselEntity {
 
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
         if (!this.level.isClientSide) {
             doInteract(player);
         }
@@ -98,17 +99,9 @@ public abstract class AbstractBargeEntity extends VesselEntity {
         });
     }
 
-    @Override
-    public void remove(Entity.RemovalReason r){
-        if (!this.level.isClientSide) {
-            this.spawnAtLocation(this.getDropItem());
-        }
-        super.remove(r);
-    }
-
     // hack to disable hoppers
     public boolean isDockable() {
-        return this.linkingHandler.dominant.map(dom -> this.distanceToSqr((Entity) dom) < 1.1).orElse(true);
+        return this.linkingHandler.dominant.map(dom -> this.distanceToSqr(dom) < 1.1).orElse(true);
     }
 
     public boolean allowDockInterface(){

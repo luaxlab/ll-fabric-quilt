@@ -29,7 +29,7 @@ public class ModLootTableProvider extends SimpleFabricLootTableProvider {
 		dropSelf(bc, ModBlocks.GUIDE_RAIL_CORNER.get());
 		dropSelf(bc, ModBlocks.GUIDE_RAIL_TUG.get());
 //		dropSelf(bc, ModBlocks.FLUID_HOPPER.get());
-//		dropSelf(bc, ModBlocks.VESSEL_CHARGER.get());
+		dropSelf(bc, ModBlocks.VESSEL_CHARGER.get());
 //		dropSelf(bc, ModBlocks.VESSEL_DETECTOR.get());
 //		dropSelf(bc, ModBlocks.SWITCH_RAIL.get());
 //		dropSelf(bc, ModBlocks.AUTOMATIC_SWITCH_RAIL.get());

@@ -18,6 +18,7 @@
 package de.luaxlab.shipping.common.core;
 
 import de.luaxlab.shipping.common.entity.vessel.barge.ChestBargeEntity;
+import de.luaxlab.shipping.common.entity.vessel.tug.EnergyTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -25,6 +26,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 
+@SuppressWarnings("deprecation")
 public class ModEntities {
 	public static final RegistryObject<EntityType<ChestBargeEntity>> CHEST_BARGE =
 			Registration.ENTITIES.register("barge",
@@ -68,12 +70,12 @@ public class ModEntities {
 							.clientTrackingRange(8)
 							.build(new ResourceLocation(ModCommon.MODID, "tug").toString()));
 
-//	public static final RegistryObject<EntityType<EnergyTugEntity>> ENERGY_TUG =
-//			Registration.ENTITIES.register("energy_tug",
-//					() -> EntityType.Builder.<EnergyTugEntity>of(EnergyTugEntity::new,
-//									MobCategory.MISC).sized(0.7f, 0.9f)
-//							.clientTrackingRange(8)
-//							.build(new ResourceLocation(ModCommon.MODID, "energy_tug").toString()));
+	public static final RegistryObject<EntityType<EnergyTugEntity>> ENERGY_TUG =
+			Registration.ENTITIES.register("energy_tug",
+					() -> EntityType.Builder.<EnergyTugEntity>of(EnergyTugEntity::new,
+									MobCategory.MISC).sized(0.7f, 0.9f)
+							.clientTrackingRange(8)
+							.build(new ResourceLocation(ModCommon.MODID, "energy_tug").toString()));
 //
 //	public static final RegistryObject<EntityType<ChestCarEntity>> CHEST_CAR =
 //			Registration.ENTITIES.register("chest_car",
@@ -129,6 +131,7 @@ public class ModEntities {
 	public static void register () {
 		FabricDefaultAttributeRegistry.register(STEAM_TUG.get(), SteamTugEntity.setCustomAttributes());
         FabricDefaultAttributeRegistry.register(CHEST_BARGE.get(), ChestBargeEntity.setCustomAttributes());
+		FabricDefaultAttributeRegistry.register(ENERGY_TUG.get(), EnergyTugEntity.setCustomAttributes());
         //FabricDefaultAttributeRegistry.register(FISHING_BARGE, FishingBargeEntity.setCustomAttributes());
 	}
 }

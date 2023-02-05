@@ -8,9 +8,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -61,6 +59,8 @@ public class VesselItem extends Item {
             if (raytraceresult.getType() == BlockHitResult.Type.BLOCK) {
                 Entity entity = getEntity(world, raytraceresult);
                 entity.setYRot(player.getYRot());
+				if(itemstack.hasCustomHoverName())
+					entity.setCustomName(itemstack.getHoverName());
                 if (!world.noCollision(entity, entity.getBoundingBox().inflate(-0.1D))) {
                     return InteractionResultHolder.fail(itemstack);
                 } else {

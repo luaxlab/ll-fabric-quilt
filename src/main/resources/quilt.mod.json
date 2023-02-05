@@ -40,6 +40,10 @@
 			{
 				"id": "minecraft",
 				"versions": ">=1.19"
+			},
+			{
+				"id": "team_reborn_energy",
+				"versions": ">=2.3.0"
 			}
 		]
 	},
@@ -50,6 +54,17 @@
 	},
 	"cardinal-components": [
 		"littlelogistics:stalling",
-		"littlelogistics:item_handler"
+		"littlelogistics:item_handler",
+		"littlelogistics:energy_handler"
+	],
+	"waila:plugins": [
+		{
+			"id": "littlelogistics:entities/tugs",
+			"initializer": "de.luaxlab.shipping.integration.wthit.ModExtensionWailaTug"
+		},
+		{
+			"id": "littlelogistics:entities/vessel",
+			"initializer": "de.luaxlab.shipping.integration.wthit.ModExtensionWailaVessel"
+		}
 	]
 }
