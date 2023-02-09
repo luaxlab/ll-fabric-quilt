@@ -4,6 +4,7 @@ import de.luaxlab.shipping.common.entity.accessor.EnergyHeadVehicleDataAccessor;
 import de.luaxlab.shipping.common.entity.accessor.SteamHeadVehicleDataAccessor;
 import de.luaxlab.shipping.common.entity.accessor.TugRouteScreenDataAccessor;
 import de.luaxlab.shipping.common.entity.container.EnergyHeadVehicleContainer;
+import de.luaxlab.shipping.common.entity.container.FishingBargeContainer;
 import de.luaxlab.shipping.common.entity.container.SteamHeadVehicleContainer;
 import de.luaxlab.shipping.common.entity.vessel.tug.EnergyTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
@@ -49,11 +50,11 @@ public class ModContainers {
 //							(windowId, inv, data) ->
 //									new EnergyHeadVehicleContainer<>(windowId, inv.player.level, new EnergyHeadVehicleDataAccessor(makeIntArray(data)), inv, inv.player)));
 
-//	public static final RegistryObject<MenuType<FishingBargeContainer>> FISHING_BARGE_CONTAINER =
-//			Registration.CONTAINERS.register("fishing_barge_container",
-//					() -> new ExtendedScreenHandlerType<>(
-//							(windowId, inv, data) ->
-//									new FishingBargeContainer(windowId, inv.player.level, data.readInt(), inv, inv.player)));
+	public static final RegistryObject<MenuType<FishingBargeContainer>> FISHING_BARGE_CONTAINER =
+			Registration.CONTAINERS.register("fishing_barge_container",
+					() -> new ExtendedScreenHandlerType<>(
+							(windowId, inv, data) ->
+									new FishingBargeContainer(windowId, inv.player.level, data.readInt(), inv, inv.player)));
 
 	public static final RegistryObject<MenuType<TugRouteContainer>> TUG_ROUTE_CONTAINER =
 			Registration.CONTAINERS.register("tug_route_container",

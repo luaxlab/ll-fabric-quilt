@@ -70,17 +70,44 @@ public class InventoryUtils {
         return -1;
     }
 
-    public static boolean canMergeItems(ItemStack p_145894_0_, ItemStack p_145894_1_) {
-        if (p_145894_0_.getItem() != p_145894_1_.getItem()) {
+    public static boolean canMergeItems(ItemStack first, ItemStack second) {
+        if (first.getItem() != second.getItem()) {
             return false;
-        } else if (p_145894_0_.getDamageValue() != p_145894_1_.getDamageValue()) {
+        } else if (first.getDamageValue() != second.getDamageValue()) {
             return false;
-        } else if (p_145894_0_.getCount() > p_145894_0_.getMaxStackSize()) {
+        } else if (first.getCount() > first.getMaxStackSize()) {
             return false;
         } else {
-            return ItemStack.tagMatches(p_145894_0_, p_145894_1_);
+            return ItemStack.tagMatches(first, second);
         }
     }
+
+	public static boolean allowMergeInSlot(ItemStack slot, ItemStack canidate) {
+		if (slot.getItem() != canidate.getItem()) {
+			return false;
+		} else if (slot.getDamageValue() != canidate.getDamageValue()) {
+			return false;
+		} else if (slot.getCount() >= slot.getMaxStackSize()) {
+			return false;
+		} else {
+			return ItemStack.tagMatches(slot, canidate);
+		}
+	}
+
+	public static ItemStack inventoryAutoMergeStacks(ItemStack[] stacks, ItemStack stack)
+	{
+		for (ItemStack canidate : stacks)
+		{
+			if(allowMergeInSlot(canidate, stack))
+			{
+				int num = Math.min(canidate.getMaxStackSize() - canidate.getCount(),stack.getCount());
+				canidate.setCount(canidate.getCount()+num);
+				stack.setCount(stack.getCount()-num);
+				if(stack.isEmpty()) return ItemStack.EMPTY;
+			}
+		}
+		return stack;
+	}
 
 	/*
     @Nullable

@@ -1,12 +1,11 @@
 package de.luaxlab.shipping.client;
 
-import de.luaxlab.shipping.client.entity.model.ChainModel;
-import de.luaxlab.shipping.client.entity.model.ChestBargeModel;
-import de.luaxlab.shipping.client.entity.model.EnergyTugModel;
-import de.luaxlab.shipping.client.entity.model.SteamTugModel;
+import de.luaxlab.shipping.client.entity.model.*;
 import de.luaxlab.shipping.client.entity.render.ChestBargeRenderer;
+import de.luaxlab.shipping.client.entity.render.FishingBargeRenderer;
 import de.luaxlab.shipping.client.entity.render.StaticVesselRenderer;
 import de.luaxlab.shipping.client.screen.EnergyHeadVehicleScreen;
+import de.luaxlab.shipping.client.screen.FishingBargeScreen;
 import de.luaxlab.shipping.client.screen.SteamHeadVehicleScreen;
 import de.luaxlab.shipping.client.screen.TugRouteScreen;
 import de.luaxlab.shipping.common.core.ModContainers;
@@ -41,7 +40,7 @@ public class ModClient implements ClientModInitializer {
 				return 0;
 			}
 		});
-		EntityRendererRegistry.register(ModEntities.ENERGY_TUG.get(), (ctx) -> new StaticVesselRenderer<>(ctx, SteamTugModel::new, EnergyTugModel.LAYER_LOCATION,
+		EntityRendererRegistry.register(ModEntities.ENERGY_TUG.get(), (ctx) -> new StaticVesselRenderer<>(ctx, EnergyTugModel::new, EnergyTugModel.LAYER_LOCATION,
 				EnergyTugModel.TEXTURE) {
 			// todo: fix in models itself
 			@Override
@@ -55,17 +54,23 @@ public class ModClient implements ClientModInitializer {
 			}
 		});
 		EntityRendererRegistry.register(ModEntities.CHEST_BARGE.get(), ChestBargeRenderer::new);
+		EntityRendererRegistry.register(ModEntities.SEATER_BARGE.get(), (ctx) -> new StaticVesselRenderer<>(ctx, SeaterBargeModel::new, SeaterBargeModel.LAYER_LOCATION,
+				SeaterBargeModel.TEXTURE));
+		EntityRendererRegistry.register(ModEntities.FISHING_BARGE.get(), FishingBargeRenderer::new);
 
 		//EntityModelLayerRegistry
 		EntityModelLayerRegistry.registerModelLayer(ChainModel.LAYER_LOCATION, ChainModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(SteamTugModel.LAYER_LOCATION, SteamTugModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(ChestBargeModel.LAYER_LOCATION, ChestBargeModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(EnergyTugModel.LAYER_LOCATION, EnergyTugModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(FishingBargeModel.LAYER_LOCATION, FishingBargeModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(SeaterBargeModel.LAYER_LOCATION, SeaterBargeModel::createBodyLayer);
 
 		//Screens
 		MenuScreens.register(ModContainers.STEAM_TUG_CONTAINER.get(), SteamHeadVehicleScreen<SteamTugEntity>::new);
 		MenuScreens.register(ModContainers.TUG_ROUTE_CONTAINER.get(), TugRouteScreen::new);
 		MenuScreens.register(ModContainers.ENERGY_TUG_CONTAINER.get(), EnergyHeadVehicleScreen<EnergyTugEntity>::new);
+		MenuScreens.register(ModContainers.FISHING_BARGE_CONTAINER.get(), FishingBargeScreen::new);
 
 		//Events
 		ClientTextureStitchEvent.PRE.register(ClientEventHandlerImpl.INSTANCE);

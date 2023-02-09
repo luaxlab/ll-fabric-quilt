@@ -104,7 +104,8 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
     }
 
     public boolean hasWaterOnSides(){
-        return this.level.getFluidState(this.getOnPos().relative(this.getDirection().getClockWise())).is(Fluids.WATER) &&
+        return this.level.getFluidState(this.getOnPos()).is(Fluids.WATER) &&
+				this.level.getFluidState(this.getOnPos().relative(this.getDirection().getClockWise())).is(Fluids.WATER) &&
                 this.level.getFluidState(this.getOnPos().relative(this.getDirection().getCounterClockWise())).is(Fluids.WATER) &&
                 this.level.getBlockState(this.getOnPos().above().relative(this.getDirection().getClockWise())).getBlock().equals(Blocks.AIR) &&
                 this.level.getBlockState(this.getOnPos().above().relative(this.getDirection().getCounterClockWise())).getBlock().equals(Blocks.AIR);

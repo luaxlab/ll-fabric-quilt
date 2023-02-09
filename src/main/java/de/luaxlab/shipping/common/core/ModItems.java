@@ -1,6 +1,8 @@
 package de.luaxlab.shipping.common.core;
 
 import de.luaxlab.shipping.common.energy.EnergyUtils;
+import de.luaxlab.shipping.common.entity.vessel.barge.FishingBargeEntity;
+import de.luaxlab.shipping.common.entity.vessel.barge.SeaterBargeEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.EnergyTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.barge.ChestBargeEntity;
@@ -49,14 +51,14 @@ public class ModItems {
 //    public static final RegistryObject<Item> CHUNK_LOADER_BARGE = Registration.ITEMS.register("chunk_loader_barge",
 //            () -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), ChunkLoaderBargeEntity::new));
 
-//	public static final RegistryObject<Item> FISHING_BARGE = Registration.ITEMS.register("fishing_barge",
-//			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), FishingBargeEntity::new));
+	public static final RegistryObject<Item> FISHING_BARGE = Registration.ITEMS.register("fishing_barge",
+			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), FishingBargeEntity::new));
 
 //	public static final RegistryObject<Item> FLUID_BARGE = Registration.ITEMS.register("fluid_barge",
 //			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), FluidTankBargeEntity::new));
 
-//	public static final RegistryObject<Item> SEATER_BARGE = Registration.ITEMS.register("seater_barge",
-//			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), SeaterBargeEntity::new));
+	public static final RegistryObject<Item> SEATER_BARGE = Registration.ITEMS.register("seater_barge",
+			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), SeaterBargeEntity::new));
 
 	public static final RegistryObject<Item> STEAM_TUG = Registration.ITEMS.register("tug",
 			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), SteamTugEntity::new));

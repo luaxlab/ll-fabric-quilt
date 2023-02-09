@@ -5,6 +5,7 @@ import de.luaxlab.shipping.common.component.ItemHandlerComponent;
 import de.luaxlab.shipping.common.component.StallingComponent;
 import de.luaxlab.shipping.common.entity.vessel.barge.AbstractBargeEntity;
 import de.luaxlab.shipping.common.entity.vessel.barge.ChestBargeEntity;
+import de.luaxlab.shipping.common.entity.vessel.barge.FishingBargeEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.AbstractTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.EnergyTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
@@ -37,6 +38,7 @@ public class ModComponents implements EntityComponentInitializer {
 		registry.registerFor(SteamTugEntity.class, ITEM_HANDLER, SteamTugEntity::createItemHandlerComponent);
 		registry.registerFor(EnergyTugEntity.class, ITEM_HANDLER, EnergyTugEntity::createItemHandlerComponent);
 		registry.registerFor(ChestBargeEntity.class, ITEM_HANDLER, ChestBargeEntity::createItemHandlerComponent);
+		registry.registerFor(FishingBargeEntity.class, ITEM_HANDLER, FishingBargeEntity::createItemHandlerComponent);
 
 		registry.registerFor(EnergyTugEntity.class, ENERGY_HANDLER, EnergyTugEntity::createEnergyComponent);
 	}
