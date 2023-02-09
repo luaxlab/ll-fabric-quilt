@@ -118,6 +118,7 @@ public class ModItems {
 //			() -> new LocoRouteItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_TRANSPORTATION)));
 
 
+	@SuppressWarnings("UnstableApiUsage")
 	public static void register () {
 		//Register the creative capacitor
 		EnergyStorage.ITEM.registerForItems((itemStack, context) -> EnergyUtils.CREATIVE_SUPPLY, CREATIVE_CAPACITOR.get());

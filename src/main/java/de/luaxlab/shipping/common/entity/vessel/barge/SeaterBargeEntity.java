@@ -27,6 +27,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class SeaterBargeEntity extends AbstractBargeEntity{
     public SeaterBargeEntity(EntityType<? extends SeaterBargeEntity> type, Level world) {
@@ -44,7 +45,7 @@ public class SeaterBargeEntity extends AbstractBargeEntity{
     }
 
     @Override
-    protected boolean canAddPassenger(Entity p_184219_1_) {
+    protected boolean canAddPassenger(@NotNull Entity entity) {
         return this.getPassengers().size() < 1;
     }
 
@@ -57,21 +58,21 @@ public class SeaterBargeEntity extends AbstractBargeEntity{
         p_184454_1_.setYHeadRot(p_184454_1_.getYRot());
     }
 
-    public void onPassengerTurned(Entity p_184190_1_) {
-        this.clampRotation(p_184190_1_);
+    public void onPassengerTurned(Entity entity) {
+        this.clampRotation(entity);
     }
 
     @Override
-    public void positionRider(Entity p_184232_1_) {
-        if (this.hasPassenger(p_184232_1_)) {
+    public void positionRider(Entity entity) {
+        if (this.hasPassenger(entity)) {
             float f = -0.1F;
-            float f1 = (float)((this.dead ? (double)0.01F : this.getPassengersRidingOffset()) + p_184232_1_.getMyRidingOffset());
-            Vec3 vector3d = (new Vec3((double)f, 0.0D, 0.0D)).yRot(-this.getYRot() * ((float)Math.PI / 180F) - ((float)Math.PI / 2F));
-            p_184232_1_.setPos(this.getX() + vector3d.x, this.getY() - 0.5 + (double)f1, this.getZ() + vector3d.z);
-            if (p_184232_1_ instanceof Animal && this.getPassengers().size() > 1) {
-                int j = p_184232_1_.getId() % 2 == 0 ? 90 : 270;
-                p_184232_1_.setYBodyRot(((Animal)p_184232_1_).yBodyRot + (float)j);
-                p_184232_1_.setYHeadRot(p_184232_1_.getYHeadRot() + (float)j);
+            float f1 = (float)((this.dead ? (double)0.01F : this.getPassengersRidingOffset()) + entity.getMyRidingOffset());
+            Vec3 vector3d = (new Vec3(f, 0.0D, 0.0D)).yRot(-this.getYRot() * ((float)Math.PI / 180F) - ((float)Math.PI / 2F));
+            entity.setPos(this.getX() + vector3d.x, this.getY() - 0.5 + (double)f1, this.getZ() + vector3d.z);
+            if (entity instanceof Animal && this.getPassengers().size() > 1) {
+                int j = entity.getId() % 2 == 0 ? 90 : 270;
+                entity.setYBodyRot(((Animal)entity).yBodyRot + (float)j);
+                entity.setYHeadRot(entity.getYHeadRot() + (float)j);
             }
 
         }

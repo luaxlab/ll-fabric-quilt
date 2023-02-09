@@ -24,6 +24,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractHeadVehicleScreen<U extends Entity & HeadVehicle, T extends AbstractHeadVehicleContainer<?, U>> extends AbstractVehicleScreen<T>{
     private Button on;
@@ -40,12 +41,12 @@ public abstract class AbstractHeadVehicleScreen<U extends Entity & HeadVehicle, 
     protected void init() {
         super.init();
         on = new Button(this.getGuiLeft() + 130, this.getGuiTop() + 25, 20, 20,
-                Component.literal("\u23F5"),
+                Component.literal("⏵"),
                 pButton -> menu.setEngine(true),
                 getTooltip(Component.translatable("screen.littlelogistics.locomotive.on")));
 
         off = new Button(this.getGuiLeft() + 96, this.getGuiTop() + 25, 20, 20,
-                Component.literal("\u23F8"),
+                Component.literal("⏸"),
                 pButton -> menu.setEngine(false),
                 getTooltip(Component.translatable("screen.littlelogistics.locomotive.off")));
 
@@ -56,14 +57,14 @@ public abstract class AbstractHeadVehicleScreen<U extends Entity & HeadVehicle, 
     }
 
     @Override
-    public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(@NotNull PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.font.draw(matrixStack, Component.translatable("screen.littlelogistics.locomotive.route"), this.getGuiLeft() + 120, this.getGuiTop() + 55, 4210752);
         this.font.draw(matrixStack, menu.getRouteText(), this.getGuiLeft() + 120, this.getGuiTop() + 65, 4210752);
     }
 
     @Override
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+    protected void renderBg(@NotNull PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
         off.active = menu.isOn();
         on.active = !menu.isOn();
     }

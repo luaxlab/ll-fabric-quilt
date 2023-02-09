@@ -31,9 +31,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class VesselItem extends Item {
@@ -52,21 +54,20 @@ public class VesselItem extends Item {
         this.addEntity = addEntity;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level world, Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         BlockHitResult raytraceresult = getPlayerPOVHitResult(world, player, ClipContext.Fluid.ANY);
         if (raytraceresult.getType() == BlockHitResult.Type.MISS) {
             return InteractionResultHolder.pass(itemstack);
         } else {
             Vec3 vector3d = player.getViewVector(1.0F);
-            double d0 = 5.0D;
             List<Entity> list = world.getEntities(player, player.getBoundingBox().expandTowards(vector3d.scale(5.0D)).inflate(1.0D),
                     EntitySelector.NO_SPECTATORS.and(Entity::isPickable));
             if (!list.isEmpty()) {
                 Vec3 vector3d1 = player.getEyePosition(1.0F);
 
                 for(Entity entity : list) {
-                    AABB axisalignedbb = entity.getBoundingBox().inflate((double)entity.getPickRadius());
+                    AABB axisalignedbb = entity.getBoundingBox().inflate(entity.getPickRadius());
                     if (axisalignedbb.contains(vector3d1)) {
                         return InteractionResultHolder.pass(itemstack);
                     }
@@ -102,8 +103,8 @@ public class VesselItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
+        super.appendHoverText(Objects.requireNonNull(stack), worldIn, tooltip, flagIn);
         tooltipLocation.ifPresent(loc ->
                 tooltip.add(Component.translatable(loc))
         );

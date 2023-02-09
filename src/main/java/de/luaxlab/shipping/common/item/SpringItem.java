@@ -29,14 +29,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 @Log4j2
 public class SpringItem extends Item {
 
-    private Component springInfo = Component.translatable("item.littlelogistics.spring.description");
+    private final Component springInfo = Component.translatable("item.littlelogistics.spring.description");
 
     public SpringItem(Properties properties) {
         super(properties);
@@ -51,17 +53,11 @@ public class SpringItem extends Item {
         }
         if(world.isClientSide)
             return;
-        switch(getState(stack)) {
-            case WAITING_NEXT: {
-                createSpringHelper(stack, player, world, target);
-            }
-            break;
-
-            default: {
-                setDominant(world, stack, target);
-            }
-            break;
-        }
+		if (getState(stack) == State.WAITING_NEXT) {
+			createSpringHelper(stack, player, world, target);
+		} else {
+			setDominant(world, stack, target);
+		}
     }
 
     private void createSpringHelper(ItemStack stack, Player player, Level world, Entity target) {
@@ -78,7 +74,7 @@ public class SpringItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(springInfo);
     }
@@ -102,7 +98,7 @@ public class SpringItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         resetLinked(playerIn.getItemInHand(handIn));
         return super.use(worldIn, playerIn, handIn);
     }

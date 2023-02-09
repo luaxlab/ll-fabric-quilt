@@ -35,10 +35,9 @@ public class EnergyHeadVehicleContainer<T extends Entity & HeadVehicle> extends 
         super(ModContainers.ENERGY_TUG_CONTAINER.get(), windowId, world, data, playerInventory, player);
 
 		if(entity != null) {
-			//If the component does not exist, its safe to assume something is very wrong.
-			ItemHandlerComponent component = entity.getComponent(ModComponents.ITEM_HANDLER);
-			ItemStackHandler h = component.getHandler();
-			addSlot(new SlotItemHandler(h, 0, 32, 35));
+			var component = ModComponents.ITEM_HANDLER.maybeGet(entity);
+			component.ifPresent(itemHandlerComponent -> addSlot(new SlotItemHandler(itemHandlerComponent.getHandler(), 0, 32, 35)));
+
 		}
 		//this.addDataSlots(data.getRawData()); //Not for energy tug
     }

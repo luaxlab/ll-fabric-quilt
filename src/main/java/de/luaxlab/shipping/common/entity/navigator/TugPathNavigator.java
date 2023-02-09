@@ -25,6 +25,7 @@ import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class TugPathNavigator extends WaterBoundPathNavigation {
     public TugPathNavigator(Mob p_i45873_1_, Level p_i45873_2_) {
@@ -44,14 +45,14 @@ public class TugPathNavigator extends WaterBoundPathNavigation {
     }
 
     @Override
-    protected void doStuckDetection(Vec3 p_179677_1_) {
+    protected void doStuckDetection(@NotNull Vec3 currentPos) {
         if (this.tick - this.lastStuckCheck > 100) {
-            if (p_179677_1_.distanceToSqr(this.lastStuckCheckPos) < 2.25D) {
+            if (currentPos.distanceToSqr(this.lastStuckCheckPos) < 2.25D) {
                 this.stop();
             }
 
             this.lastStuckCheck = this.tick;
-            this.lastStuckCheckPos = p_179677_1_;
+            this.lastStuckCheckPos = currentPos;
         }
 
         if (this.path != null && !this.path.isDone()) {
@@ -60,7 +61,7 @@ public class TugPathNavigator extends WaterBoundPathNavigation {
                 this.timeoutTimer += Util.getMillis() - this.lastTimeoutCheck;
             } else {
                 this.timeoutCachedNode = vector3i;
-                double d0 = p_179677_1_.distanceTo(Vec3.atCenterOf(this.timeoutCachedNode));
+                double d0 = currentPos.distanceTo(Vec3.atCenterOf(this.timeoutCachedNode));
                 this.timeoutLimit = this.mob.getSpeed() > 0.0F ? (d0 / (double)this.mob.getSpeed()) * 1000 : 0.0D;
             }
 

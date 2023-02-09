@@ -23,8 +23,6 @@ import de.luaxlab.shipping.common.core.ModConfig;
 import de.luaxlab.shipping.common.core.ModEntities;
 import de.luaxlab.shipping.common.core.ModItems;
 import de.luaxlab.shipping.common.entity.container.FishingBargeContainer;
-import de.luaxlab.shipping.common.entity.container.SteamHeadVehicleContainer;
-import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import de.luaxlab.shipping.common.util.InventoryUtils;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import net.fabricmc.api.EnvType;
@@ -42,15 +40,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ChestMenu;
-import net.minecraft.world.inventory.FurnaceMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -253,22 +247,22 @@ public class FishingBargeEntity extends AbstractBargeEntity implements Container
     }
 
     @Override
-    public int @NotNull [] getSlotsForFace(Direction direction) {
+    public int @NotNull [] getSlotsForFace(@NotNull Direction direction) {
         return IntStream.range(0, getContainerSize()).toArray();
     }
 
     @Override
-    public boolean canPlaceItemThroughFace(int p_180462_1_, ItemStack stack, @Nullable Direction p_180462_3_) {
+    public boolean canPlaceItemThroughFace(int p_180462_1_, @NotNull ItemStack stack, @Nullable Direction p_180462_3_) {
         return false;
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int p_180461_1_, ItemStack stack, Direction direction) {
+    public boolean canTakeItemThroughFace(int p_180461_1_, @NotNull ItemStack stack, @NotNull Direction direction) {
         return isDockable();
     }
 
     @Override
-    public boolean canPlaceItem(int slot, ItemStack stack) {
+    public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
         return false;
     }
 

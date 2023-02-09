@@ -31,7 +31,7 @@ public class TugRoute extends ArrayList<TugRouteNode> {
     private static final String NODES_TAG = "nodes";
     private static final String HASH_TAG = "hash"; // # :)
 
-    private String name;
+    private final String name;
 
     public TugRoute(String name, List<TugRouteNode> nodes) {
         super(nodes);

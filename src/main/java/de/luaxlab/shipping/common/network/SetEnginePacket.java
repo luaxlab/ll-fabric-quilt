@@ -27,6 +27,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 
+@SuppressWarnings("ALL")
 @RequiredArgsConstructor
 public class SetEnginePacket implements C2SPacket {
     public final int locoId;

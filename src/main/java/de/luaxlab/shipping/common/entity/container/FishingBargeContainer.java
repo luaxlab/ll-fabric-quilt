@@ -17,18 +17,13 @@
  */
 package de.luaxlab.shipping.common.entity.container;
 
-import de.luaxlab.shipping.common.component.ItemHandlerComponent;
 import de.luaxlab.shipping.common.core.ModComponents;
 import de.luaxlab.shipping.common.core.ModContainers;
-import de.luaxlab.shipping.common.entity.accessor.SteamHeadVehicleDataAccessor;
 import de.luaxlab.shipping.common.entity.vessel.barge.FishingBargeEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotExposedStorage;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.MinecartChest;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -59,11 +54,11 @@ public class FishingBargeContainer extends AbstractItemHandlerContainer {
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return fishingBargeEntity.stillValid(player);
     }
 
-	protected class ReadOnlySlot extends SlotItemHandler {
+	protected static class ReadOnlySlot extends SlotItemHandler {
 
 		public ReadOnlySlot(SlotExposedStorage itemHandler, int index, int xPosition, int yPosition) {
 			super(itemHandler, index, xPosition, yPosition);

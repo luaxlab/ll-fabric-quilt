@@ -27,6 +27,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 // Made with Blockbench 4.1.5
 // Exported for Minecraft version 1.17 with Mojang mappings
@@ -64,12 +65,12 @@ public class SteamTugModel extends EntityModel<AbstractTugEntity> {
     }
 
     @Override
-    public void setupAnim(AbstractTugEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(@NotNull AbstractTugEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         bb_main.render(poseStack, buffer, packedLight, packedOverlay);
     }
 }

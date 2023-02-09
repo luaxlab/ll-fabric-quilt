@@ -154,13 +154,13 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         linkingHandler.readAdditionalSaveData(compound);
         super.readAdditionalSaveData(compound);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         linkingHandler.addAdditionalSaveData(compound);
         super.addAdditionalSaveData(compound);
     }
@@ -417,7 +417,7 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
                         if (j2 <= 0 || k2 != k && k2 != l - 1) {
                             blockpos$mutableblockpos.set(l1, k2, i2);
                             BlockState blockstate = this.level.getBlockState(blockpos$mutableblockpos);
-                            if (!(blockstate.getBlock() instanceof WaterlilyBlock) && Shapes.joinIsNotEmpty(blockstate.getCollisionShape(this.level, blockpos$mutableblockpos).move((double)l1, (double)k2, (double)i2), voxelshape, BooleanOp.AND)) {
+                            if (!(blockstate.getBlock() instanceof WaterlilyBlock) && Shapes.joinIsNotEmpty(blockstate.getCollisionShape(this.level, blockpos$mutableblockpos).move(l1, k2, i2), voxelshape, BooleanOp.AND)) {
                                 f += blockstate.getBlock().getFriction();
                                 ++k1;
                             }
@@ -523,7 +523,7 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
             return false;
         } else if (damageSource instanceof EntityDamageSource e && e.getEntity() instanceof Player) {
             int i = (int) Stream.of(linkingHandler.dominant, linkingHandler.dominated).filter(Optional::isPresent).count();
-            boolean creative = ((Player)damageSource.getEntity()).getAbilities().instabuild;;
+            boolean creative = ((Player)damageSource.getEntity()).getAbilities().instabuild;
 			if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
 				if(!creative) {
 					for (int j = 0; j < i; j++) {
@@ -586,7 +586,7 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
                     vector3d6 = new Vec3(vector3d6.x, 0.2D, vector3d6.z);
                 }
 
-                this.setDeltaMovement(vector3d6.multiply((double) f5, (double) 0.8F, (double) f5));
+                this.setDeltaMovement(vector3d6.multiply( f5, 0.8F,  f5));
                 Vec3 vector3d2 = this.getFluidFallingAdjustedMovement(d0, flag, this.getDeltaMovement());
                 this.setDeltaMovement(vector3d2);
                 if (this.horizontalCollision) {
@@ -614,7 +614,7 @@ public abstract class VesselEntity extends WaterAnimal implements LinkableEntity
                 this.moveRelative(0.02F, p_213352_1_);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 if (this.getFluidHeight(FluidTags.LAVA) <= this.getFluidJumpThreshold()) {
-                    this.setDeltaMovement(this.getDeltaMovement().multiply(0.5D, (double) 0.8F, 0.5D));
+                    this.setDeltaMovement(this.getDeltaMovement().multiply(0.5D, 0.8F, 0.5D));
                     Vec3 vector3d3 = this.getFluidFallingAdjustedMovement(d0, flag, this.getDeltaMovement());
                     this.setDeltaMovement(vector3d3);
                 } else {

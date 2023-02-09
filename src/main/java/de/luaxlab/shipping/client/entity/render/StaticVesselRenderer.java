@@ -44,7 +44,7 @@ public class StaticVesselRenderer<T extends VesselEntity> extends AbstractVessel
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(T pEntity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull T pEntity) {
         return textureLocation;
     }
 

@@ -32,9 +32,7 @@ public class SteamHeadVehicleContainer<T extends Entity & HeadVehicle> extends A
         super(ModContainers.STEAM_TUG_CONTAINER.get(), windowId, world, data, playerInventory, player);
 
         if(entity != null) {
-            ModComponents.ITEM_HANDLER.maybeGet(entity).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h.getHandler(), 0, 42, 40));
-            });
+            ModComponents.ITEM_HANDLER.maybeGet(entity).ifPresent(h -> addSlot(new SlotItemHandler(h.getHandler(), 0, 42, 40)));
         }
         this.addDataSlots(data.getRawData());
     }

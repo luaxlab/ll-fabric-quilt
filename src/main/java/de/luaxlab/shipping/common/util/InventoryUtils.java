@@ -57,9 +57,8 @@ public class InventoryUtils {
                     if (canMergeItems(targetStack, stack))
                         return true;
                 }
-            } else if (!airList.isEmpty() && target instanceof Entity){
-                Entity e = (Entity) target;
-                boolean validSlot = ModComponents.ITEM_HANDLER.maybeGet(e)
+            } else if (!airList.isEmpty() && target instanceof Entity e){
+				boolean validSlot = ModComponents.ITEM_HANDLER.maybeGet(e)
                         .map(itemHandler -> airList.stream()
                                 .map(j -> itemHandler.getHandler().isItemValid(j, ItemVariant.of(stack)))
                                 .reduce(false, Boolean::logicalOr)).orElse(true);

@@ -43,6 +43,7 @@ public class ModCommon implements ModInitializer {
 
 		//Events
 		UseEntityCallback.EVENT.register(CommonEventHandlerImpl.INSTANCE);
+		LOGGER.info("Ready to ship your stuff!");
 	}
 
 	public static ResourceLocation identifier(String path)

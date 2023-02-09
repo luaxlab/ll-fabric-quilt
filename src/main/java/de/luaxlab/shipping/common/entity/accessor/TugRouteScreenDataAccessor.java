@@ -29,7 +29,7 @@ public class TugRouteScreenDataAccessor extends DataAccessor {
     }
 
     public static class Builder {
-        SupplierIntArray arr;
+        final SupplierIntArray arr;
 
         public Builder(int uuid) {
             this.arr = new SupplierIntArray(2);

@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -44,7 +45,8 @@ public class TugGuideRailBlock extends Block {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+    public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos,
+										  @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult rayTraceResult) {
         if(InteractionUtil.doConfigure(player, hand)){
             world.setBlockAndUpdate(pos, state.setValue(FACING, state.getValue(FACING).getClockWise()));
             return InteractionResult.SUCCESS;
@@ -55,13 +57,13 @@ public class TugGuideRailBlock extends Block {
 
     @SuppressWarnings("deprecation")
     @Override
-    public BlockState rotate(BlockState state, Rotation rot) {
+    public @NotNull BlockState rotate(BlockState state, Rotation rot) {
         return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public BlockState mirror(BlockState state, Mirror mirrorIn) {
+    public @NotNull BlockState mirror(BlockState state, Mirror mirrorIn) {
         return state.rotate(mirrorIn.getRotation(state.getValue(FACING)));
     }
 
@@ -76,10 +78,6 @@ public class TugGuideRailBlock extends Block {
         return this.defaultBlockState()
                 .setValue(FACING, context.getHorizontalDirection());
 
-    }
-
-    public static Direction getArrowsDirection(BlockState state){
-        return state.getValue(CornerGuideRailBlock.FACING);
     }
 
 }

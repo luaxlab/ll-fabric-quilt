@@ -32,8 +32,8 @@ import org.jetbrains.annotations.NotNull;
 public class TugRouteContainer extends AbstractContainerMenu {
     private static final Logger LOGGER = LogManager.getLogger(TugRouteContainer.class);
 
-    private boolean isOffHand;
-    private ItemStack itemStack;
+    private final boolean isOffHand;
+    private final ItemStack itemStack;
 
     public TugRouteContainer(int windowId, Level level, TugRouteScreenDataAccessor data, Inventory playerInventory, Player player) {
         super(ModContainers.TUG_ROUTE_CONTAINER.get(), windowId);
@@ -52,8 +52,8 @@ public class TugRouteContainer extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(@NotNull Player p_38941_, int p_38942_) {
-        return null;
+    public @NotNull ItemStack quickMoveStack(@NotNull Player p_38941_, int p_38942_) {
+        return ItemStack.EMPTY;
     }
 
     @Override

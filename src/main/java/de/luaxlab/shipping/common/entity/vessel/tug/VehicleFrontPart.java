@@ -30,6 +30,7 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.LeadItem;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -41,7 +42,7 @@ public class VehicleFrontPart extends PartEntity<Entity> {
     }
 
     public boolean hurt(DamageSource pSource, float pAmount) {
-        return this.isInvulnerableTo(pSource) ? false : getParent().hurt(pSource, pAmount);
+        return !this.isInvulnerableTo(pSource) && getParent().hurt(pSource, pAmount);
 
     }
 
@@ -91,7 +92,7 @@ public class VehicleFrontPart extends PartEntity<Entity> {
     }
 
     @Override
-    public InteractionResult interact(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand hand) {
         if (getParent() instanceof AbstractTugEntity tugEntity){
             if (player.getItemInHand(hand).getItem() instanceof LeadItem || Objects.equals(tugEntity.getLeashHolder(), player)) {
                 return tugEntity.interact(player, hand);
@@ -108,12 +109,12 @@ public class VehicleFrontPart extends PartEntity<Entity> {
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag pCompound) {
+    protected void readAdditionalSaveData(@NotNull CompoundTag pCompound) {
 
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag pCompound) {
+    protected void addAdditionalSaveData(@NotNull CompoundTag pCompound) {
 
     }
 }

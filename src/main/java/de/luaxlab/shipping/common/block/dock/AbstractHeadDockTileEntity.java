@@ -71,12 +71,8 @@ public abstract class AbstractHeadDockTileEntity<T extends Entity & LinkableEnti
         List<Pair<T, AbstractTailDockTileEntity<T>>> barges = getTailDockPairs(tug);
 
 
-        if (barges.stream().map(pair -> pair.getSecond().hold(pair.getFirst(), direction)).reduce(false, Boolean::logicalOr)){
-            return true;
-        }
-
-        return false;
-    }
+		return barges.stream().map(pair -> pair.getSecond().hold(pair.getFirst(), direction)).reduce(false, Boolean::logicalOr);
+	}
 
     protected abstract boolean checkBadDirCondition(T tug, Direction direction);
 

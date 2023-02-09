@@ -52,7 +52,7 @@ public abstract class AbstractBargeEntity extends VesselEntity {
     }
 
     @Override
-    protected boolean canAddPassenger(@NotNull Entity passenger) {
+    protected boolean canAddPassenger(Entity passenger) {
         return false;
     }
 

@@ -42,11 +42,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.item.content.registry.api.ItemContentRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@SuppressWarnings("UnstableApiUsage")
 public class SteamTugEntity extends AbstractTugEntity {
     private static final int FURNACE_FUEL_MULTIPLIER = ModConfig.Server.STEAM_TUG_FUEL_MULTIPLIER.get();
     private final ItemStackHandler itemHandler = createHandler();
@@ -63,12 +65,12 @@ public class SteamTugEntity extends AbstractTugEntity {
 
     private ItemStackHandler createHandler() {
         return new ItemStackHandler(1) {
-            @Override
+            @SuppressWarnings("removal")
+			@Override
             public boolean isItemValid(int slot, @Nonnull ItemVariant stack) {
 				return ItemContentRegistries.FUEL_TIME.get(stack.getItem()).isPresent();
             }
 
-            @Nonnull
             @Override
             public long insertSlot(int slot, @Nonnull ItemVariant stack, long maxAmount, TransactionContext transaction) {
                 if (!isItemValid(slot, stack)) {
@@ -89,13 +91,13 @@ public class SteamTugEntity extends AbstractTugEntity {
 			}
 
 			@Override
-            public Component getDisplayName() {
+            public @NotNull Component getDisplayName() {
                 return Component.translatable("screen.littlelogistics.tug");
             }
 
-            @Nullable
+
             @Override
-            public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player Player) {
+            public AbstractContainerMenu createMenu(int i, @NotNull Inventory playerInventory, @NotNull Player Player) {
                 return new SteamHeadVehicleContainer<SteamTugEntity>(i, level, getDataAccessor(), playerInventory, Player);
             }
         };

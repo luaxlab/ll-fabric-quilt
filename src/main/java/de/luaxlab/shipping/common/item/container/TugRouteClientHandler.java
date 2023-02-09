@@ -31,18 +31,19 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class TugRouteClientHandler {
-    private static final Logger LOGGER = LogManager.getLogger(TugRouteClientHandler.class);
+    //private static final Logger LOGGER = LogManager.getLogger(TugRouteClientHandler.class);
 
     private TugList widget;
-    private TugRoute route;
-    private boolean isOffHand;
-    private Minecraft minecraft;
-    private TugRouteScreen screen;
+    private final TugRoute route;
+    private final boolean isOffHand;
+    private final Minecraft minecraft;
+    private final TugRouteScreen screen;
 
     public TugRouteClientHandler(TugRouteScreen screen, Minecraft minecraft, TugRoute route, boolean isOffHand) {
         this.route = route;
@@ -132,13 +133,13 @@ public class TugRouteClientHandler {
         }
 
         @Override
-        public Optional<GuiEventListener> getChildAt(double p_212930_1_, double p_212930_3_) {
+        public @NotNull Optional<GuiEventListener> getChildAt(double p_212930_1_, double p_212930_3_) {
             return super.getChildAt(p_212930_1_, p_212930_3_);
         }
 
         @Override
-        public void render(PoseStack p_230430_1_, int p_230430_2_, int p_230430_3_, float p_230430_4_) {
-            super.render(p_230430_1_, p_230430_2_, p_230430_3_, p_230430_4_);
+        public void render(@NotNull PoseStack poseStack, int p_230430_2_, int p_230430_3_, float p_230430_4_) {
+            super.render(poseStack, p_230430_2_, p_230430_3_, p_230430_4_);
         }
 
         public void add(TugRouteNode node, int index) {
@@ -156,7 +157,7 @@ public class TugRouteClientHandler {
         }
 
         public class Entry extends ObjectSelectionList.Entry<Entry> {
-            private TugRouteNode node;
+            private final TugRouteNode node;
             private int index;
             public Entry(TugRouteNode node, int index) {
                 this.node = node;
@@ -164,7 +165,7 @@ public class TugRouteClientHandler {
             }
 
             @Override
-            public void render(PoseStack matrixStack, int ind, int rowTop, int rowLeft, int width, int height, int mouseX, int mouseY, boolean hovered, float partialTicks) {
+            public void render(@NotNull PoseStack matrixStack, int ind, int rowTop, int rowLeft, int width, int height, int mouseX, int mouseY, boolean hovered, float partialTicks) {
                 String s = node.getDisplayName(index) + ": " + node.getDisplayCoords();
 
                 RenderSystem.setShaderTexture(0, TugRouteScreen.GUI);
@@ -190,7 +191,7 @@ public class TugRouteClientHandler {
             }
 
             @Override
-            public Component getNarration() {
+            public @NotNull Component getNarration() {
                 // FIXME: ????
                 return Component.literal("");
             }

@@ -60,6 +60,7 @@ public class ClientEventHandlerImpl implements ClientTextureStitchEvent.Pre, Wor
 	@Override
 	public void onEnd(WorldRenderContext event) {
 		Player player = Minecraft.getInstance().player;
+		assert player != null;
 		ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
 
 		if (stack.getItem().equals(ModItems.TUG_ROUTE.get())){

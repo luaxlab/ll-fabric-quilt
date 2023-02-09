@@ -86,8 +86,7 @@ public class TugRouteNode {
     public CompoundTag toNBT() {
         CompoundTag tag = new CompoundTag();
         if (this.hasCustomName()) {
-            //noinspection ConstantConditions
-            tag.putString(NAME_TAG, this.getName());
+			tag.putString(NAME_TAG, this.getName());
         }
 
         CompoundTag coords = new CompoundTag();

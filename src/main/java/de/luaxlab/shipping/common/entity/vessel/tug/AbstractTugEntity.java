@@ -62,6 +62,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -72,6 +73,7 @@ import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
+@SuppressWarnings("UnstableApiUsage")
 public abstract class AbstractTugEntity extends VesselEntity implements LinkableEntityHead<VesselEntity>, Container, WorldlyContainer, HeadVehicle, MultiPartEntity {
 
     protected final EnrollmentHandler enrollmentHandler;
@@ -92,7 +94,7 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
     private int dockCheckCooldown = 0;
     private boolean independentMotion = false;
     private int pathfindCooldown = 0;
-    private VehicleFrontPart frontHitbox;
+    private final VehicleFrontPart frontHitbox;
     private static final EntityDataAccessor<Boolean> INDEPENDENT_MOTION = SynchedEntityData.defineId(AbstractTugEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<String> OWNER = SynchedEntityData.defineId(AbstractTugEntity.class, EntityDataSerializers.STRING);
 
@@ -155,7 +157,7 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
                 return stack.getItem() instanceof TugRouteItem;
             }
 
-            @Nonnull
+
             @Override
             public long insertSlot(int slot, @Nonnull ItemVariant stack, long maxAmount, TransactionContext transaction) {
                 if (!isItemValid(slot, stack)) {
@@ -311,16 +313,14 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
     }
 
     @Override
-    protected PathNavigation createNavigation(Level p_175447_1_) {
-        return new TugPathNavigator(this, p_175447_1_);
+    protected @NotNull PathNavigation createNavigation(@NotNull Level world) {
+        return new TugPathNavigator(this, world);
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         if (!player.level.isClientSide()) {
 
-			//TODO: network gui
-            //NetworkHooks.openGui((ServerPlayer) player, createContainerProvider(), getDataAccessor()::write);
 			player.openMenu(createContainerProvider());
         }
         return InteractionResult.SUCCESS;
@@ -387,9 +387,9 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
     }
 
     @Override
-    public void recreateFromPacket(ClientboundAddEntityPacket p_149572_) {
-        super.recreateFromPacket(p_149572_);
-        frontHitbox.setId(p_149572_.getId());
+    public void recreateFromPacket(ClientboundAddEntityPacket addEntityPacket) {
+        super.recreateFromPacket(addEntityPacket);
+        frontHitbox.setId(addEntityPacket.getId());
     }
 
     public void tick() {
@@ -542,16 +542,16 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
 
     // Have to implement IInventory to work with hoppers
     @Override
-    public ItemStack removeItem(int p_70298_1_, int p_70298_2_) {
-        return null;
+    public @NotNull ItemStack removeItem(int p_70298_1_, int p_70298_2_) {
+        return ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack removeItemNoUpdate(int p_70304_1_) {
-        return null;
+    public ItemStack removeItemNoUpdate(int slot) {
+        return ItemStack.EMPTY;
     }
 
-    public boolean canPlaceItem(int p_94041_1_, ItemStack p_94041_2_) {
+    public boolean canPlaceItem(int p_94041_1_, @NotNull ItemStack stack) {
         return true;
     }
 
@@ -570,11 +570,11 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
     }
 
     @Override
-    public boolean stillValid(Player p_70300_1_) {
+    public boolean stillValid(@NotNull Player player) {
         if (this.isRemoved()) {
             return false;
         } else {
-            return !(p_70300_1_.distanceToSqr(this) > 64.0D);
+            return !(player.distanceToSqr(this) > 64.0D);
         }
     }
 
@@ -584,17 +584,17 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int p_180461_1_, ItemStack p_180461_2_, Direction p_180461_3_) {
+    public boolean canTakeItemThroughFace(int slot, @NotNull ItemStack stack, Direction face) {
         return false;
     }
 
     @Override
-    public int[] getSlotsForFace(Direction p_180463_1_) {
+    public int @NotNull [] getSlotsForFace(@NotNull Direction face) {
         return IntStream.range(0, getContainerSize()).toArray();
     }
 
     @Override
-    public boolean canPlaceItemThroughFace(int p_180462_1_, ItemStack p_180462_2_, @Nullable Direction p_180462_3_) {
+    public boolean canPlaceItemThroughFace(int p_180462_1_, @NotNull ItemStack stack, @Nullable Direction p_180462_3_) {
         return isDocked();
     }
     @Override
@@ -603,7 +603,7 @@ public abstract class AbstractTugEntity extends VesselEntity implements Linkable
     }
 
     @Override
-    public boolean canBeLeashed(Player p_184652_1_) {
+    public boolean canBeLeashed(@NotNull Player player) {
         return true;
     }
 

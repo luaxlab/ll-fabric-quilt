@@ -24,7 +24,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public final class TugRoutePacketHandler {
-    protected static final Logger LOGGER = LogManager.getLogger(TugRoutePacketHandler.class);
+    static final Logger LOGGER = LogManager.getLogger(TugRoutePacketHandler.class);
     public static final ResourceLocation LOCATION = ModCommon.identifier("tug_route_channel");
     public static final SimpleChannel INSTANCE = new SimpleChannel(
             LOCATION

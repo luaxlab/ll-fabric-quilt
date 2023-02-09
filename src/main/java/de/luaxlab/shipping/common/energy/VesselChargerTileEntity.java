@@ -69,13 +69,13 @@ public class VesselChargerTileEntity extends BlockEntity implements IVesselLoade
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void load(@NotNull CompoundTag compound) {
         super.load(compound);
         internalBattery.readAdditionalSaveData(compound.getCompound("energy_storage"));
     }
 
     @Override
-    public void saveAdditional(CompoundTag compound) {
+    public void saveAdditional(@NotNull CompoundTag compound) {
         super.saveAdditional(compound);
         compound.put("energy_storage", internalBattery.addAdditionalSaveData(new CompoundTag()));
     }

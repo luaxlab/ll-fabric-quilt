@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 public class FishingBargeScreen extends AbstractContainerScreen<FishingBargeContainer> {
 	private static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation("textures/gui/container/generic_54.png");
@@ -38,14 +39,14 @@ public class FishingBargeScreen extends AbstractContainerScreen<FishingBargeCont
 		this.inventoryLabelY = this.imageHeight - 94;
 	}
 
-	public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
+	public void render(@NotNull PoseStack matrices, int mouseX, int mouseY, float delta) {
 		this.renderBackground(matrices);
 		super.render(matrices, mouseX, mouseY, delta);
 		this.renderTooltip(matrices, mouseX, mouseY);
 	}
 
 	@Override
-	protected void renderBg(PoseStack matrices, float delta, int mouseX, int mouseY) {
+	protected void renderBg(@NotNull PoseStack matrices, float delta, int mouseX, int mouseY) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, CONTAINER_BACKGROUND);

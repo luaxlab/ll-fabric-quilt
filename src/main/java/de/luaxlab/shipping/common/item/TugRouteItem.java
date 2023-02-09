@@ -41,6 +41,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -62,13 +63,13 @@ public class TugRouteItem extends Item {
             }
 
             @Override
-            public Component getDisplayName() {
+            public @NotNull Component getDisplayName() {
                 return Component.translatable("screen.littlelogistics.tug_route");
             }
 
-            @Nullable
+
             @Override
-            public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player Player) {
+            public AbstractContainerMenu createMenu(int i, @NotNull Inventory playerInventory, @NotNull Player Player) {
                 return new TugRouteContainer(i, Player.level, getDataAccessor(Player, hand), playerInventory, Player);
             }
         };
@@ -76,11 +77,11 @@ public class TugRouteItem extends Item {
 
     public TugRouteScreenDataAccessor getDataAccessor(Player entity, InteractionHand hand) {
         return new TugRouteScreenDataAccessor.Builder(entity.getId())
-                .withOffHand(hand == InteractionHand.OFF_HAND.OFF_HAND)
+                .withOffHand(hand == InteractionHand.OFF_HAND)
                 .build();
     }
 
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level world, Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if(!player.level.isClientSide){
             if (player.isShiftKeyDown()) {

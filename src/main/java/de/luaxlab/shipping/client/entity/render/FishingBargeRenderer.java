@@ -26,8 +26,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Calendar;
-
 public class FishingBargeRenderer extends AbstractVesselRenderer<FishingBargeEntity> {
     private final FishingBargeModel model;
     public FishingBargeRenderer(EntityRendererProvider.Context context) {
@@ -36,7 +34,7 @@ public class FishingBargeRenderer extends AbstractVesselRenderer<FishingBargeEnt
     }
 
 	@Override
-	public void render(FishingBargeEntity vesselEntity, float yaw, float tickDelta, PoseStack matrixStack, MultiBufferSource buffer, int light) {
+	public void render(FishingBargeEntity vesselEntity, float yaw, float tickDelta, @NotNull PoseStack matrixStack, @NotNull MultiBufferSource buffer, int light) {
 		model.setBasketAnimation(vesselEntity.getAnimationProgress(tickDelta));
 		super.render(vesselEntity, yaw, tickDelta, matrixStack, buffer, light);
 	}
@@ -47,7 +45,7 @@ public class FishingBargeRenderer extends AbstractVesselRenderer<FishingBargeEnt
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(FishingBargeEntity pEntity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull FishingBargeEntity pEntity) {
 		return FishingBargeModel.TEXTURE;
     }
 }

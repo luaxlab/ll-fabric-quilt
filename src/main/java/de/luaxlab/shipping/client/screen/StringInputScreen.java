@@ -29,6 +29,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
@@ -38,7 +39,7 @@ public class StringInputScreen extends Screen {
 
     private String text;
     private EditBox textFieldWidget;
-    private Consumer<String> callback;
+    private final Consumer<String> callback;
 
 	protected Screen parent;
 
@@ -82,12 +83,12 @@ public class StringInputScreen extends Screen {
     }
 
     @Override
-    public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(@NotNull PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
-    public void renderBackground(PoseStack p_230446_1_) {
+    public void renderBackground(PoseStack poseStack) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, GUI);
@@ -95,6 +96,6 @@ public class StringInputScreen extends Screen {
         int w = 156, h = 65;
         int i = (this.width - w) / 2;
         int j = (this.height - h) / 2;
-        this.blit(p_230446_1_, i, j, 0, 0, w, h);
+        this.blit(poseStack, i, j, 0, 0, w, h);
     }
 }

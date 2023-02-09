@@ -87,14 +87,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private int xRotFromDir(Direction direction){
-        switch (direction) {
-            case DOWN:
-                return 270;
-            case UP:
-                return 90;
-            default:
-                return 0;
-        }
+		return switch (direction) {
+			case DOWN -> 270;
+			case UP -> 90;
+			default -> 0;
+		};
     }
 
 

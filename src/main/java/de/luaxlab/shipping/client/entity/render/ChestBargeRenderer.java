@@ -44,7 +44,7 @@ public class ChestBargeRenderer extends AbstractVesselRenderer<ChestBargeEntity>
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(ChestBargeEntity pEntity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull ChestBargeEntity pEntity) {
 		return isXmas ? ChestBargeModel.TEXTURE_XMAS :
 				(pEntity.hasCustomName() && "I'm different".equals(pEntity.getCustomName().getString())) ?
 						ChestBargeModel.TEXTURE_DIFF : ChestBargeModel.TEXTURE;

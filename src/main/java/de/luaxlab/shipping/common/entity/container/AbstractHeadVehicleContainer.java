@@ -29,14 +29,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 public abstract class AbstractHeadVehicleContainer<T extends HeadVehicleDataAccessor, U extends Entity & HeadVehicle> extends AbstractItemHandlerContainer{
     public static final ResourceLocation EMPTY_ATLAS_LOC = InventoryMenu.BLOCK_ATLAS;
-    protected T data;
-    protected U entity;
-    protected Player player;
+    protected final T data;
+    protected final U entity;
+    protected final Player player;
 
     public AbstractHeadVehicleContainer(@Nullable MenuType<?> containerType, int windowId, Level world, T data,
                                         Inventory playerInventory, Player player) {
@@ -94,7 +95,7 @@ public abstract class AbstractHeadVehicleContainer<T extends HeadVehicleDataAcce
     }
 
     @Override
-    public boolean stillValid(Player p_75145_1_) {
-        return entity.isValid(p_75145_1_);
+    public boolean stillValid(@NotNull Player player) {
+        return entity.isValid(player);
     }
 }

@@ -21,7 +21,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.ContainerData;
 
 public class DataAccessor implements ContainerData {
-    protected ContainerData data;
+    protected final ContainerData data;
 
     public DataAccessor(ContainerData data) {
         this.data = data;

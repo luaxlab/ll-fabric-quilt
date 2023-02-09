@@ -156,7 +156,7 @@ public class LinkingHandler<T extends Entity & LinkableEntity<T>> {
                     pos.getZ() + 2
             );
             List<Entity> entities = entity.level.getEntities(entity, searchBox, e -> e.getStringUUID().equals(uuid) && clazz.isInstance(e));
-            return entities.stream().findFirst().map(e -> clazz.cast(e));
+            return entities.stream().findFirst().map(clazz::cast);
         } catch (Exception e) {
             return Optional.empty();
         }

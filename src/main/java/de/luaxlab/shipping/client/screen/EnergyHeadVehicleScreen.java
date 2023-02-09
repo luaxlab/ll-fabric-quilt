@@ -31,8 +31,8 @@ import net.minecraft.world.entity.player.Inventory;
 public class EnergyHeadVehicleScreen<T extends Entity & HeadVehicle> extends AbstractHeadVehicleScreen<T, EnergyHeadVehicleContainer<T>> {
     private static final ResourceLocation GUI = ModCommon.identifier("textures/container/energy_locomotive.png");
 
-    public EnergyHeadVehicleScreen(EnergyHeadVehicleContainer menu, Inventory inventory, Component p_i51105_3_) {
-        super(menu, inventory, p_i51105_3_);
+    public EnergyHeadVehicleScreen(EnergyHeadVehicleContainer menu, Inventory inventory, Component component) {
+        super(menu, inventory, component);
     }
 
     @Override

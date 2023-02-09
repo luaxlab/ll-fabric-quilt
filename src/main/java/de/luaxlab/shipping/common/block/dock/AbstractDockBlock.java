@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("deprecation")
 public abstract class AbstractDockBlock extends Block implements EntityBlock {
 
 
@@ -43,13 +44,11 @@ public abstract class AbstractDockBlock extends Block implements EntityBlock {
 		DockingBlockStates.fixHopperPos(state, world, pos, Direction.UP, state.getValue(DockingBlockStates.FACING));
 	}
 
-	@SuppressWarnings("deprecation")
     @Override
     public BlockState rotate(BlockState state, Rotation rot) {
         return state.setValue(DockingBlockStates.FACING, rot.rotate(state.getValue(DockingBlockStates.FACING)));
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
         return state.rotate(mirrorIn.getRotation(state.getValue(DockingBlockStates.FACING)));

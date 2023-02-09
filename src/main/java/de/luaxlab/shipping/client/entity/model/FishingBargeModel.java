@@ -31,6 +31,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 
 // Made with Blockbench 4.1.5
 // Exported for Minecraft version 1.17 with Mojang mappings
@@ -79,7 +80,7 @@ public class FishingBargeModel extends EntityModel<FishingBargeEntity> {
 	}
 
 	@Override
-	public void setupAnim(FishingBargeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(@NotNull FishingBargeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		/* Empty on purpose */
 	}
 
@@ -94,7 +95,7 @@ public class FishingBargeModel extends EntityModel<FishingBargeEntity> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		root.render(poseStack, buffer, packedLight, packedOverlay);
 		left.render(poseStack, buffer, packedLight, packedOverlay);
 		right.render(poseStack, buffer, packedLight, packedOverlay);
