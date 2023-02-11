@@ -1,6 +1,6 @@
 plugins {
 	id 'maven-publish'
-	id 'org.quiltmc.loom' version '1.+'
+	id 'org.quiltmc.loom' version '1.1.+'
 	id 'io.github.juuxel.loom-quiltflower' version '1.8.+'
 }
 
@@ -78,7 +78,7 @@ dependencies {
 	modRuntimeOnly "mcp.mobius.waila:wthit:quilt-${wthit_version}"
 	modRuntimeOnly "lol.bai:badpackets:fabric-0.2.0"
 
-	include modApi('teamreborn:energy:{energy_version}') {
+	include modApi("teamreborn:energy:${energy_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
