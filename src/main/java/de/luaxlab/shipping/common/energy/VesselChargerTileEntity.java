@@ -41,7 +41,7 @@ public class VesselChargerTileEntity extends BlockEntity implements IVesselLoade
     private int cooldownTime = 0;
 
     public VesselChargerTileEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.VESSEL_CHARGER.get(), pos, state);
+        super(IntegratedEnergyExtension.VESSEL_CHARGER_ENTITY.get(), pos, state);
         internalBattery.amount = 0;
     }
 

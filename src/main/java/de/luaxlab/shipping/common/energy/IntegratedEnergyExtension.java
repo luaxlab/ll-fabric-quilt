@@ -17,13 +17,37 @@
  */
 package de.luaxlab.shipping.common.energy;
 
+import de.luaxlab.shipping.common.core.ModBlockEntities;
+import de.luaxlab.shipping.common.core.ModBlocks;
+import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.material.Material;
+
 /**
  * This class is mandantory to not load energy stuff when the energy API is not present
  * TODO: Implement registration via this class to make TRE an optional dependency
  */
 public class IntegratedEnergyExtension {
 
-	public void register()
+	public static final RegistryObject<Block> VESSEL_CHARGER_BLOCK = ModBlocks.register(
+			"vessel_charger",
+			() -> new VesselChargerBlock(Block.Properties.of(Material.METAL)
+					.destroyTime(0.5f)
+			),
+			CreativeModeTab.TAB_TRANSPORTATION);
+
+	public static final RegistryObject<BlockEntityType<VesselChargerTileEntity>> VESSEL_CHARGER_ENTITY = ModBlockEntities.register(
+			"vessel_charger",
+			VesselChargerTileEntity::new,
+			VESSEL_CHARGER_BLOCK
+	);
+
+
+
+
+	public static void register()
 	{
 
 	}

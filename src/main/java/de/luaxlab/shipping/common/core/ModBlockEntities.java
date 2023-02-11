@@ -62,11 +62,7 @@ public class ModBlockEntities {
 //			ModBlocks.FLUID_HOPPER
 //	);
 //
-	public static final RegistryObject<BlockEntityType<VesselChargerTileEntity>> VESSEL_CHARGER = register(
-			"vessel_charger",
-			VesselChargerTileEntity::new,
-			ModBlocks.VESSEL_CHARGER
-	);
+
 //
 //	public static final RegistryObject<BlockEntityType<RapidHopperTileEntity>> RAPID_HOPPER = register(
 //			"rapid_hopper",
@@ -74,7 +70,7 @@ public class ModBlockEntities {
 //			ModBlocks.RAPID_HOPPER
 //	);
 
-	private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(
+	public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(
 			String name,
 			BlockEntityType.BlockEntitySupplier<T> factory,
 			RegistryObject<? extends Block> block) {

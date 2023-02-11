@@ -19,7 +19,6 @@ package de.luaxlab.shipping.common.energy;
 
 import de.luaxlab.shipping.common.block.dock.AbstractDockBlock;
 import de.luaxlab.shipping.common.block.dock.DockingBlockStates;
-import de.luaxlab.shipping.common.core.ModBlockEntities;
 import de.luaxlab.shipping.common.util.TickerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -103,7 +102,7 @@ public class VesselChargerBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return ModBlockEntities.VESSEL_CHARGER.get().create(pos, state);
+        return IntegratedEnergyExtension.VESSEL_CHARGER_ENTITY.get().create(pos, state);
     }
 
     @Override
@@ -162,7 +161,7 @@ public class VesselChargerBlock extends Block implements EntityBlock {
     }
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return level.isClientSide() ? null : TickerUtil.createTickerHelper(type, ModBlockEntities.VESSEL_CHARGER.get(), VesselChargerTileEntity::serverTick);
+		return level.isClientSide() ? null : TickerUtil.createTickerHelper(type, IntegratedEnergyExtension.VESSEL_CHARGER_ENTITY.get(), VesselChargerTileEntity::serverTick);
 	}
 }
 

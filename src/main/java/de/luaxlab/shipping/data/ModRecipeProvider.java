@@ -19,6 +19,7 @@ package de.luaxlab.shipping.data;
 
 import de.luaxlab.shipping.common.core.ModBlocks;
 import de.luaxlab.shipping.common.core.ModItems;
+import de.luaxlab.shipping.common.energy.IntegratedEnergyExtension;
 import me.alphamode.forgetags.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -153,7 +154,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy("has_item", has(Items.HOPPER))
                 .save(consumer);
 */
-        ShapedRecipeBuilder.shaped(ModBlocks.VESSEL_CHARGER.get(), 1)
+        ShapedRecipeBuilder.shaped(IntegratedEnergyExtension.VESSEL_CHARGER_BLOCK.get(), 1)
                 .define('_', Items.REDSTONE_BLOCK)
                 .define('$', Items.IRON_INGOT)
                 .define('.', Items.GOLD_INGOT)
@@ -207,7 +208,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         ShapedRecipeBuilder.shaped(ModItems.ENERGY_TUG.get())
                 .define('_', Items.PISTON)
-                .define('#', ModBlocks.VESSEL_CHARGER.get())
+                .define('#', IntegratedEnergyExtension.VESSEL_CHARGER_BLOCK.get())
                 .define('$', Items.IRON_INGOT)
                 .pattern(" $ ")
                 .pattern("_#_")

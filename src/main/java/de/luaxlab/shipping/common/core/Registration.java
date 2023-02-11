@@ -17,9 +17,11 @@
  */
 package de.luaxlab.shipping.common.core;
 
+import de.luaxlab.shipping.common.energy.IntegratedEnergyExtension;
 import de.luaxlab.shipping.common.network.TugRoutePacketHandler;
 import de.luaxlab.shipping.common.network.VehiclePacketHandler;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
+import net.fabricmc.loader.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -62,5 +64,10 @@ public class Registration  {
 		TILE_ENTITIES.register();
 		ENTITIES.register();
 		SOUND_EVENTS.register();
+
+		if(FabricLoader.INSTANCE.isModLoaded("team_reborn_energy"))
+		{
+			IntegratedEnergyExtension.register();
+		}
 	}
 }

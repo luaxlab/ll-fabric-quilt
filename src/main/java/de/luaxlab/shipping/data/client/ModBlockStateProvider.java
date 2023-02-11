@@ -20,6 +20,7 @@ package de.luaxlab.shipping.data.client;
 import de.luaxlab.shipping.common.block.CornerGuideRailBlock;
 import de.luaxlab.shipping.common.block.dock.DockingBlockStates;
 import de.luaxlab.shipping.common.core.ModBlocks;
+import de.luaxlab.shipping.common.energy.IntegratedEnergyExtension;
 import de.luaxlab.shipping.common.energy.VesselChargerBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
@@ -139,7 +140,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .build()
         );
 */
-        getVariantBuilder(ModBlocks.VESSEL_CHARGER.get()).forAllStates(state -> ConfiguredModel.builder()
+        getVariantBuilder(IntegratedEnergyExtension.VESSEL_CHARGER_BLOCK.get()).forAllStates(state -> ConfiguredModel.builder()
                 .modelFile(models()
                         .withExistingParent("vessel_charger", modLoc("vessel_charger_parent_model"))
                 )

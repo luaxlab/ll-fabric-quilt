@@ -18,6 +18,7 @@
 package de.luaxlab.shipping.data;
 
 import de.luaxlab.shipping.common.core.ModBlocks;
+import de.luaxlab.shipping.common.energy.IntegratedEnergyExtension;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.core.Registry;
@@ -46,7 +47,7 @@ public class ModLootTableProvider extends SimpleFabricLootTableProvider {
 		dropSelf(bc, ModBlocks.GUIDE_RAIL_CORNER.get());
 		dropSelf(bc, ModBlocks.GUIDE_RAIL_TUG.get());
 //		dropSelf(bc, ModBlocks.FLUID_HOPPER.get());
-		dropSelf(bc, ModBlocks.VESSEL_CHARGER.get());
+		dropSelf(bc, IntegratedEnergyExtension.VESSEL_CHARGER_BLOCK.get());
 //		dropSelf(bc, ModBlocks.VESSEL_DETECTOR.get());
 //		dropSelf(bc, ModBlocks.SWITCH_RAIL.get());
 //		dropSelf(bc, ModBlocks.AUTOMATIC_SWITCH_RAIL.get());
