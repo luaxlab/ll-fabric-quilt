@@ -1,6 +1,6 @@
-/**
+/*
  Little Logistics: Quilt Edition, a mod about transportation for Minecraft
- Copyright © 2022 EDToaster, LuaX, Murad Akhundov
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public

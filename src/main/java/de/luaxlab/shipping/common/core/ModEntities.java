@@ -1,6 +1,6 @@
-/**
+/*
  Little Logistics: Quilt Edition, a mod about transportation for Minecraft
- Copyright © 2022 EDToaster, LuaX, Murad Akhundov
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,8 @@
 package de.luaxlab.shipping.common.core;
 
 import de.luaxlab.shipping.common.entity.vessel.barge.ChestBargeEntity;
+import de.luaxlab.shipping.common.entity.vessel.barge.FishingBargeEntity;
+import de.luaxlab.shipping.common.entity.vessel.barge.SeaterBargeEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.EnergyTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
@@ -42,12 +44,12 @@ public class ModEntities {
 //							.clientTrackingRange(8)
 //							.build(new ResourceLocation(ModCommon.MODID, "chunk_loader_barge").toString()));
 //
-//	public static final RegistryObject<EntityType<FishingBargeEntity>> FISHING_BARGE =
-//			Registration.ENTITIES.register("fishing_barge",
-//					() -> EntityType.Builder.<FishingBargeEntity>of(FishingBargeEntity::new,
-//									MobCategory.MISC).sized(0.6f, 0.9f)
-//							.clientTrackingRange(8)
-//							.build(new ResourceLocation(ModCommon.MODID, "fishing_barge").toString()));
+	public static final RegistryObject<EntityType<FishingBargeEntity>> FISHING_BARGE =
+			Registration.ENTITIES.register("fishing_barge",
+					() -> EntityType.Builder.<FishingBargeEntity>of(FishingBargeEntity::new,
+									MobCategory.MISC).sized(0.6f, 0.9f)
+							.clientTrackingRange(8)
+							.build(new ResourceLocation(ModCommon.MODID, "fishing_barge").toString()));
 //
 //	public static final RegistryObject<EntityType<FluidTankBargeEntity>> FLUID_TANK_BARGE =
 //			Registration.ENTITIES.register("fluid_barge",
@@ -56,12 +58,12 @@ public class ModEntities {
 //							.clientTrackingRange(8)
 //							.build(new ResourceLocation(ModCommon.MODID, "fluid_barge").toString()));
 //
-//	public static final RegistryObject<EntityType<SeaterBargeEntity>> SEATER_BARGE =
-//			Registration.ENTITIES.register("seater_barge",
-//					() -> EntityType.Builder.<SeaterBargeEntity>of(SeaterBargeEntity::new,
-//									MobCategory.MISC).sized(0.6f, 0.9f)
-//							.clientTrackingRange(8)
-//							.build(new ResourceLocation(ModCommon.MODID, "seater_barge").toString()));
+	public static final RegistryObject<EntityType<SeaterBargeEntity>> SEATER_BARGE =
+			Registration.ENTITIES.register("seater_barge",
+					() -> EntityType.Builder.<SeaterBargeEntity>of(SeaterBargeEntity::new,
+									MobCategory.MISC).sized(0.6f, 0.9f)
+							.clientTrackingRange(8)
+							.build(new ResourceLocation(ModCommon.MODID, "seater_barge").toString()));
 
 	public static final RegistryObject<EntityType<SteamTugEntity>> STEAM_TUG =
 			Registration.ENTITIES.register("tug",
@@ -70,12 +72,6 @@ public class ModEntities {
 							.clientTrackingRange(8)
 							.build(new ResourceLocation(ModCommon.MODID, "tug").toString()));
 
-	public static final RegistryObject<EntityType<EnergyTugEntity>> ENERGY_TUG =
-			Registration.ENTITIES.register("energy_tug",
-					() -> EntityType.Builder.<EnergyTugEntity>of(EnergyTugEntity::new,
-									MobCategory.MISC).sized(0.7f, 0.9f)
-							.clientTrackingRange(8)
-							.build(new ResourceLocation(ModCommon.MODID, "energy_tug").toString()));
 //
 //	public static final RegistryObject<EntityType<ChestCarEntity>> CHEST_CAR =
 //			Registration.ENTITIES.register("chest_car",
@@ -131,7 +127,7 @@ public class ModEntities {
 	public static void register () {
 		FabricDefaultAttributeRegistry.register(STEAM_TUG.get(), SteamTugEntity.setCustomAttributes());
         FabricDefaultAttributeRegistry.register(CHEST_BARGE.get(), ChestBargeEntity.setCustomAttributes());
-		FabricDefaultAttributeRegistry.register(ENERGY_TUG.get(), EnergyTugEntity.setCustomAttributes());
-        //FabricDefaultAttributeRegistry.register(FISHING_BARGE, FishingBargeEntity.setCustomAttributes());
+		FabricDefaultAttributeRegistry.register(SEATER_BARGE.get(), FishingBargeEntity.setCustomAttributes());
+        FabricDefaultAttributeRegistry.register(FISHING_BARGE.get(), FishingBargeEntity.setCustomAttributes());
 	}
 }

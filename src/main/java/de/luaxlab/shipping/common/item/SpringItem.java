@@ -1,29 +1,21 @@
-package de.luaxlab.shipping.common.item;
-
 /*
-MIT License
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
 
-Copyright (c) 2018 Xavier "jglrxavpok" Niochaut
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-
+package de.luaxlab.shipping.common.item;
 
 import de.luaxlab.shipping.common.entity.vessel.tug.VehicleFrontPart;
 import de.luaxlab.shipping.common.util.LinkableEntity;
@@ -37,14 +29,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 @Log4j2
 public class SpringItem extends Item {
 
-    private Component springInfo = Component.translatable("item.littlelogistics.spring.description");
+    private final Component springInfo = Component.translatable("item.littlelogistics.spring.description");
 
     public SpringItem(Properties properties) {
         super(properties);
@@ -59,17 +53,11 @@ public class SpringItem extends Item {
         }
         if(world.isClientSide)
             return;
-        switch(getState(stack)) {
-            case WAITING_NEXT: {
-                createSpringHelper(stack, player, world, target);
-            }
-            break;
-
-            default: {
-                setDominant(world, stack, target);
-            }
-            break;
-        }
+		if (getState(stack) == State.WAITING_NEXT) {
+			createSpringHelper(stack, player, world, target);
+		} else {
+			setDominant(world, stack, target);
+		}
     }
 
     private void createSpringHelper(ItemStack stack, Player player, Level world, Entity target) {
@@ -86,7 +74,7 @@ public class SpringItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(springInfo);
     }
@@ -110,7 +98,7 @@ public class SpringItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         resetLinked(playerIn.getItemInHand(handIn));
         return super.use(worldIn, playerIn, handIn);
     }

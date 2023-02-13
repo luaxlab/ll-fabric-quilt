@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.entity.navigator;
 
 import de.luaxlab.shipping.common.core.ModConfig;
@@ -8,6 +25,7 @@ import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class TugPathNavigator extends WaterBoundPathNavigation {
     public TugPathNavigator(Mob p_i45873_1_, Level p_i45873_2_) {
@@ -27,14 +45,14 @@ public class TugPathNavigator extends WaterBoundPathNavigation {
     }
 
     @Override
-    protected void doStuckDetection(Vec3 p_179677_1_) {
+    protected void doStuckDetection(@NotNull Vec3 currentPos) {
         if (this.tick - this.lastStuckCheck > 100) {
-            if (p_179677_1_.distanceToSqr(this.lastStuckCheckPos) < 2.25D) {
+            if (currentPos.distanceToSqr(this.lastStuckCheckPos) < 2.25D) {
                 this.stop();
             }
 
             this.lastStuckCheck = this.tick;
-            this.lastStuckCheckPos = p_179677_1_;
+            this.lastStuckCheckPos = currentPos;
         }
 
         if (this.path != null && !this.path.isDone()) {
@@ -43,7 +61,7 @@ public class TugPathNavigator extends WaterBoundPathNavigation {
                 this.timeoutTimer += Util.getMillis() - this.lastTimeoutCheck;
             } else {
                 this.timeoutCachedNode = vector3i;
-                double d0 = p_179677_1_.distanceTo(Vec3.atCenterOf(this.timeoutCachedNode));
+                double d0 = currentPos.distanceTo(Vec3.atCenterOf(this.timeoutCachedNode));
                 this.timeoutLimit = this.mob.getSpeed() > 0.0F ? (d0 / (double)this.mob.getSpeed()) * 1000 : 0.0D;
             }
 

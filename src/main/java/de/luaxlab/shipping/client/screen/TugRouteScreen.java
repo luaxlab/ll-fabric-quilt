@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -18,6 +35,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -25,15 +43,14 @@ public class TugRouteScreen extends FixedAbstractContainerScreen<TugRouteContain
     private static final Logger LOGGER = LogManager.getLogger(TugRouteScreen.class);
     public static final ResourceLocation GUI = new ResourceLocation(ModCommon.MODID, "textures/container/tug_route.png");
 
-    private final ItemStack stack;
-    private final TugRouteClientHandler route;
+	private final TugRouteClientHandler route;
 
     public TugRouteScreen(TugRouteContainer menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
         this.imageWidth = 256;
         this.imageHeight = 233;
 
-        this.stack = this.menu.getItemStack();
+		ItemStack stack = this.menu.getItemStack();
         this.route = new TugRouteClientHandler(this, this.minecraft, TugRouteItem.getRoute(stack), menu.isOffHand());
     }
 
@@ -64,7 +81,7 @@ public class TugRouteScreen extends FixedAbstractContainerScreen<TugRouteContain
                 topPos + 40, topPos + TugRouteScreen.this.imageHeight - 45, 20));
 
         this.addRenderableWidget(new Button(getRight() - 92, getBot() - 24, 20, 20,
-                Component.literal("..\uA56F").withStyle(ChatFormatting.BOLD),
+                Component.literal("..ꕯ").withStyle(ChatFormatting.BOLD),
                 button -> {
                     Optional<Pair<Integer, TugRouteNode>> selectedOpt = route.getSelected();
                     if (selectedOpt.isPresent()) {
@@ -76,17 +93,17 @@ public class TugRouteScreen extends FixedAbstractContainerScreen<TugRouteContain
                 getTooltip(Component.translatable("screen.littlelogistics.tug_route.rename_button"))));
 
         this.addRenderableWidget(new Button(getRight() - 70, getBot() - 24, 20, 20,
-                Component.literal("\u25B2"),
+                Component.literal("▲"),
                 button -> route.moveSelectedUp(),
                 getTooltip(Component.translatable("screen.littlelogistics.tug_route.up_button"))));
 
         this.addRenderableWidget(new Button(getRight() - 47, getBot() - 24, 20, 20,
-                Component.literal("\u25BC"),
+                Component.literal("▼"),
                 button -> route.moveSelectedDown(),
                 getTooltip(Component.translatable("screen.littlelogistics.tug_route.down_button"))));
 
         this.addRenderableWidget(new Button(getRight() - 24, getBot() - 24, 20, 20,
-                Component.literal("\u2718"),
+                Component.literal("✘"),
                 button -> route.deleteSelected(),
                 getTooltip(Component.translatable("screen.littlelogistics.tug_route.delete_button"))));
     }
@@ -147,7 +164,7 @@ public class TugRouteScreen extends FixedAbstractContainerScreen<TugRouteContain
     }
 
     // remove inventory tag
-    protected void renderLabels(PoseStack stack, int p_230451_2_, int p_230451_3_) {
+    protected void renderLabels(@NotNull PoseStack stack, int p_230451_2_, int p_230451_3_) {
         this.font.draw(stack, this.title, (float)this.titleLabelX, (float)this.titleLabelY, 4210752);
     }
 

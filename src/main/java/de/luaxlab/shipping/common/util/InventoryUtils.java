@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.util;
 
 import de.luaxlab.shipping.common.core.ModComponents;
@@ -40,9 +57,8 @@ public class InventoryUtils {
                     if (canMergeItems(targetStack, stack))
                         return true;
                 }
-            } else if (!airList.isEmpty() && target instanceof Entity){
-                Entity e = (Entity) target;
-                boolean validSlot = ModComponents.ITEM_HANDLER.maybeGet(e)
+            } else if (!airList.isEmpty() && target instanceof Entity e){
+				boolean validSlot = ModComponents.ITEM_HANDLER.maybeGet(e)
                         .map(itemHandler -> airList.stream()
                                 .map(j -> itemHandler.getHandler().isItemValid(j, ItemVariant.of(stack)))
                                 .reduce(false, Boolean::logicalOr)).orElse(true);
@@ -70,17 +86,44 @@ public class InventoryUtils {
         return -1;
     }
 
-    public static boolean canMergeItems(ItemStack p_145894_0_, ItemStack p_145894_1_) {
-        if (p_145894_0_.getItem() != p_145894_1_.getItem()) {
+    public static boolean canMergeItems(ItemStack first, ItemStack second) {
+        if (first.getItem() != second.getItem()) {
             return false;
-        } else if (p_145894_0_.getDamageValue() != p_145894_1_.getDamageValue()) {
+        } else if (first.getDamageValue() != second.getDamageValue()) {
             return false;
-        } else if (p_145894_0_.getCount() > p_145894_0_.getMaxStackSize()) {
+        } else if (first.getCount() > first.getMaxStackSize()) {
             return false;
         } else {
-            return ItemStack.tagMatches(p_145894_0_, p_145894_1_);
+            return ItemStack.tagMatches(first, second);
         }
     }
+
+	public static boolean allowMergeInSlot(ItemStack slot, ItemStack canidate) {
+		if (slot.getItem() != canidate.getItem()) {
+			return false;
+		} else if (slot.getDamageValue() != canidate.getDamageValue()) {
+			return false;
+		} else if (slot.getCount() >= slot.getMaxStackSize()) {
+			return false;
+		} else {
+			return ItemStack.tagMatches(slot, canidate);
+		}
+	}
+
+	public static ItemStack inventoryAutoMergeStacks(ItemStack[] stacks, ItemStack stack)
+	{
+		for (ItemStack canidate : stacks)
+		{
+			if(allowMergeInSlot(canidate, stack))
+			{
+				int num = Math.min(canidate.getMaxStackSize() - canidate.getCount(),stack.getCount());
+				canidate.setCount(canidate.getCount()+num);
+				stack.setCount(stack.getCount()-num);
+				if(stack.isEmpty()) return ItemStack.EMPTY;
+			}
+		}
+		return stack;
+	}
 
 	/*
     @Nullable

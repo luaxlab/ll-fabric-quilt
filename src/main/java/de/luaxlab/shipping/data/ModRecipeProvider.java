@@ -1,7 +1,25 @@
+/*
+ Little Logistics: Quilt Edition Data Generation
+ Copyright © 2023 LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.data;
 
 import de.luaxlab.shipping.common.core.ModBlocks;
 import de.luaxlab.shipping.common.core.ModItems;
+import de.luaxlab.shipping.common.energy.IntegratedEnergyExtension;
 import me.alphamode.forgetags.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -136,7 +154,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy("has_item", has(Items.HOPPER))
                 .save(consumer);
 */
-        ShapedRecipeBuilder.shaped(ModBlocks.VESSEL_CHARGER.get(), 1)
+        ShapedRecipeBuilder.shaped(IntegratedEnergyExtension.VESSEL_CHARGER_BLOCK.get(), 1)
                 .define('_', Items.REDSTONE_BLOCK)
                 .define('$', Items.IRON_INGOT)
                 .define('.', Items.GOLD_INGOT)
@@ -188,9 +206,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .save(consumer);
 
 
-        ShapedRecipeBuilder.shaped(ModItems.ENERGY_TUG.get())
+        ShapedRecipeBuilder.shaped(IntegratedEnergyExtension.ENERGY_TUG_ITEM.get())
                 .define('_', Items.PISTON)
-                .define('#', ModBlocks.VESSEL_CHARGER.get())
+                .define('#', IntegratedEnergyExtension.VESSEL_CHARGER_BLOCK.get())
                 .define('$', Items.IRON_INGOT)
                 .pattern(" $ ")
                 .pattern("_#_")

@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.client.entity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -22,6 +39,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractVesselRenderer<T extends VesselEntity> extends EntityRenderer<T> {
 
@@ -37,7 +55,7 @@ public abstract class AbstractVesselRenderer<T extends VesselEntity> extends Ent
         chainModel = new ChainModel(context.bakeLayer(ChainModel.LAYER_LOCATION));
     }
 
-    public void render(T vesselEntity, float yaw, float p_225623_3_, PoseStack matrixStack, MultiBufferSource buffer, int p_225623_6_) {
+    public void render(@NotNull T vesselEntity, float yaw, float p_225623_3_, PoseStack matrixStack, MultiBufferSource buffer, int p_225623_6_) {
         matrixStack.pushPose();
         matrixStack.translate(0.0D, getModelYoffset(), 0.0D);
         matrixStack.translate(0.0D, 0.07, 0.0D);
@@ -69,7 +87,7 @@ public abstract class AbstractVesselRenderer<T extends VesselEntity> extends Ent
 
     private void getAndRenderChain(T bargeEntity, PoseStack matrixStack, MultiBufferSource buffer, int p_225623_6_) {
         if(bargeEntity.getDominant().isPresent()) {
-            double dist = ((Entity) bargeEntity.getDominant().get()).distanceTo(bargeEntity);
+            double dist = (bargeEntity.getDominant().get()).distanceTo(bargeEntity);
             VertexConsumer ivertexbuilderChain = buffer.getBuffer(chainModel.renderType(CHAIN_TEXTURE));
             int segments = (int) Math.ceil(dist * 4);
             matrixStack.pushPose();
@@ -98,7 +116,7 @@ public abstract class AbstractVesselRenderer<T extends VesselEntity> extends Ent
     @Override
     public boolean shouldRender(T p_225626_1_, Frustum p_225626_2_, double p_225626_3_, double p_225626_5_, double p_225626_7_) {
         if(p_225626_1_.getDominant().isPresent()){
-            if(((Entity) p_225626_1_.getDominant().get()).shouldRender(p_225626_3_, p_225626_5_, p_225626_7_)){
+            if((p_225626_1_.getDominant().get()).shouldRender(p_225626_3_, p_225626_5_, p_225626_7_)){
                 return true;
             }
             if(p_225626_1_.getDominant().get().shouldRender(p_225626_3_, p_225626_5_, p_225626_7_)){
@@ -123,14 +141,13 @@ public abstract class AbstractVesselRenderer<T extends VesselEntity> extends Ent
         Vec3 vec31 = pEntityLiving.getLeashOffset();
         double d1 = Math.cos(d0) * vec31.z + Math.sin(d0) * vec31.x;
         double d2 = Math.sin(d0) * vec31.z - Math.cos(d0) * vec31.x;
-        double d3 = Mth.lerp((double)pPartialTicks, pEntityLiving.xo, pEntityLiving.getX()) + d1;
-        double d4 = Mth.lerp((double)pPartialTicks, pEntityLiving.yo, pEntityLiving.getY()) + vec31.y;
-        double d5 = Mth.lerp((double)pPartialTicks, pEntityLiving.zo, pEntityLiving.getZ()) + d2;
+        double d3 = Mth.lerp(pPartialTicks, pEntityLiving.xo, pEntityLiving.getX()) + d1;
+        double d4 = Mth.lerp(pPartialTicks, pEntityLiving.yo, pEntityLiving.getY()) + vec31.y;
+        double d5 = Mth.lerp(pPartialTicks, pEntityLiving.zo, pEntityLiving.getZ()) + d2;
         pMatrixStack.translate(d1, vec31.y, d2);
         float f = (float)(vec3.x - d3);
         float f1 = (float)(vec3.y - d4);
         float f2 = (float)(vec3.z - d5);
-        float f3 = 0.025F;
         VertexConsumer vertexconsumer = pBuffer.getBuffer(RenderType.leash());
         Matrix4f matrix4f = pMatrixStack.last().pose();
         float f4 = Mth.fastInvSqrt(f * f + f2 * f2) * 0.025F / 2.0F;
@@ -139,16 +156,15 @@ public abstract class AbstractVesselRenderer<T extends VesselEntity> extends Ent
         BlockPos blockpos = new BlockPos(pEntityLiving.getEyePosition(pPartialTicks));
         BlockPos blockpos1 = new BlockPos(pLeashHolder.getEyePosition(pPartialTicks));
         int i = this.getBlockLightLevel(pEntityLiving, blockpos);
-        int j = i;
-        int k = pEntityLiving.level.getBrightness(LightLayer.SKY, blockpos);
+		int k = pEntityLiving.level.getBrightness(LightLayer.SKY, blockpos);
         int l = pEntityLiving.level.getBrightness(LightLayer.SKY, blockpos1);
 
         for(int i1 = 0; i1 <= 24; ++i1) {
-            addVertexPair(vertexconsumer, matrix4f, f, f1, f2, i, j, k, l, 0.025F, 0.025F, f5, f6, i1, false);
+            addVertexPair(vertexconsumer, matrix4f, f, f1, f2, i, i, k, l, 0.025F, 0.025F, f5, f6, i1, false);
         }
 
         for(int j1 = 24; j1 >= 0; --j1) {
-            addVertexPair(vertexconsumer, matrix4f, f, f1, f2, i, j, k, l, 0.025F, 0.0F, f5, f6, j1, true);
+            addVertexPair(vertexconsumer, matrix4f, f, f1, f2, i, i, k, l, 0.025F, 0.0F, f5, f6, j1, true);
         }
 
         pMatrixStack.popPose();

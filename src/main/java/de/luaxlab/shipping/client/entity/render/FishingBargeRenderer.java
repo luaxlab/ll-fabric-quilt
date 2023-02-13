@@ -17,39 +17,35 @@
  */
 package de.luaxlab.shipping.client.entity.render;
 
-import de.luaxlab.shipping.common.entity.vessel.VesselEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import de.luaxlab.shipping.client.entity.model.FishingBargeModel;
+import de.luaxlab.shipping.common.entity.vessel.barge.FishingBargeEntity;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class StaticVesselRenderer<T extends VesselEntity> extends AbstractVesselRenderer<T> {
-    private final EntityModel<T> model;
-    private final ResourceLocation textureLocation;
-
-    public StaticVesselRenderer(EntityRendererProvider.Context context,
-                                ModelSupplier<T> supplier,
-                                ModelLayerLocation location,
-                                ResourceLocation texture) {
+public class FishingBargeRenderer extends AbstractVesselRenderer<FishingBargeEntity> {
+    private final FishingBargeModel model;
+    public FishingBargeRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.model = supplier.supply(context.bakeLayer(location));
-        this.textureLocation = texture;
+		this.model = new FishingBargeModel(context.bakeLayer(FishingBargeModel.LAYER_LOCATION));
     }
 
-    @Override
-	EntityModel<T> getModel(T entity) {
+	@Override
+	public void render(FishingBargeEntity vesselEntity, float yaw, float tickDelta, @NotNull PoseStack matrixStack, @NotNull MultiBufferSource buffer, int light) {
+		model.setBasketAnimation(vesselEntity.getAnimationProgress(tickDelta));
+		super.render(vesselEntity, yaw, tickDelta, matrixStack, buffer, light);
+	}
+
+	@Override
+	EntityModel<FishingBargeEntity> getModel(FishingBargeEntity entity) {
         return model;
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull T pEntity) {
-        return textureLocation;
-    }
-
-    @FunctionalInterface
-    public interface ModelSupplier<T extends VesselEntity> {
-        EntityModel<T> supply(ModelPart root);
+    public @NotNull ResourceLocation getTextureLocation(@NotNull FishingBargeEntity pEntity) {
+		return FishingBargeModel.TEXTURE;
     }
 }

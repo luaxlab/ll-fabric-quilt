@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.item;
 
 import com.mojang.datafixers.util.Function4;
@@ -14,9 +31,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class VesselItem extends Item {
@@ -35,21 +54,20 @@ public class VesselItem extends Item {
         this.addEntity = addEntity;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level world, Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         BlockHitResult raytraceresult = getPlayerPOVHitResult(world, player, ClipContext.Fluid.ANY);
         if (raytraceresult.getType() == BlockHitResult.Type.MISS) {
             return InteractionResultHolder.pass(itemstack);
         } else {
             Vec3 vector3d = player.getViewVector(1.0F);
-            double d0 = 5.0D;
             List<Entity> list = world.getEntities(player, player.getBoundingBox().expandTowards(vector3d.scale(5.0D)).inflate(1.0D),
                     EntitySelector.NO_SPECTATORS.and(Entity::isPickable));
             if (!list.isEmpty()) {
                 Vec3 vector3d1 = player.getEyePosition(1.0F);
 
                 for(Entity entity : list) {
-                    AABB axisalignedbb = entity.getBoundingBox().inflate((double)entity.getPickRadius());
+                    AABB axisalignedbb = entity.getBoundingBox().inflate(entity.getPickRadius());
                     if (axisalignedbb.contains(vector3d1)) {
                         return InteractionResultHolder.pass(itemstack);
                     }
@@ -85,8 +103,8 @@ public class VesselItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
+        super.appendHoverText(Objects.requireNonNull(stack), worldIn, tooltip, flagIn);
         tooltipLocation.ifPresent(loc ->
                 tooltip.add(Component.translatable(loc))
         );

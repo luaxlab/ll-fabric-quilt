@@ -1,9 +1,27 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.core;
 
 import de.luaxlab.shipping.common.entity.accessor.EnergyHeadVehicleDataAccessor;
 import de.luaxlab.shipping.common.entity.accessor.SteamHeadVehicleDataAccessor;
 import de.luaxlab.shipping.common.entity.accessor.TugRouteScreenDataAccessor;
 import de.luaxlab.shipping.common.entity.container.EnergyHeadVehicleContainer;
+import de.luaxlab.shipping.common.entity.container.FishingBargeContainer;
 import de.luaxlab.shipping.common.entity.container.SteamHeadVehicleContainer;
 import de.luaxlab.shipping.common.entity.vessel.tug.EnergyTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
@@ -49,11 +67,11 @@ public class ModContainers {
 //							(windowId, inv, data) ->
 //									new EnergyHeadVehicleContainer<>(windowId, inv.player.level, new EnergyHeadVehicleDataAccessor(makeIntArray(data)), inv, inv.player)));
 
-//	public static final RegistryObject<MenuType<FishingBargeContainer>> FISHING_BARGE_CONTAINER =
-//			Registration.CONTAINERS.register("fishing_barge_container",
-//					() -> new ExtendedScreenHandlerType<>(
-//							(windowId, inv, data) ->
-//									new FishingBargeContainer(windowId, inv.player.level, data.readInt(), inv, inv.player)));
+	public static final RegistryObject<MenuType<FishingBargeContainer>> FISHING_BARGE_CONTAINER =
+			Registration.CONTAINERS.register("fishing_barge_container",
+					() -> new ExtendedScreenHandlerType<>(
+							(windowId, inv, data) ->
+									new FishingBargeContainer(windowId, inv.player.level, data.readInt(), inv, inv.player)));
 
 	public static final RegistryObject<MenuType<TugRouteContainer>> TUG_ROUTE_CONTAINER =
 			Registration.CONTAINERS.register("tug_route_container",

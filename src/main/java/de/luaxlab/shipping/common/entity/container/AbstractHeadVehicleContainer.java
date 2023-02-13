@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.entity.container;
 
 import de.luaxlab.shipping.common.entity.accessor.HeadVehicleDataAccessor;
@@ -12,14 +29,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 public abstract class AbstractHeadVehicleContainer<T extends HeadVehicleDataAccessor, U extends Entity & HeadVehicle> extends AbstractItemHandlerContainer{
     public static final ResourceLocation EMPTY_ATLAS_LOC = InventoryMenu.BLOCK_ATLAS;
-    protected T data;
-    protected U entity;
-    protected Player player;
+    protected final T data;
+    protected final U entity;
+    protected final Player player;
 
     public AbstractHeadVehicleContainer(@Nullable MenuType<?> containerType, int windowId, Level world, T data,
                                         Inventory playerInventory, Player player) {
@@ -77,7 +95,7 @@ public abstract class AbstractHeadVehicleContainer<T extends HeadVehicleDataAcce
     }
 
     @Override
-    public boolean stillValid(Player p_75145_1_) {
-        return entity.isValid(p_75145_1_);
+    public boolean stillValid(@NotNull Player player) {
+        return entity.isValid(player);
     }
 }

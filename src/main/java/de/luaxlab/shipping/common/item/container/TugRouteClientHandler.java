@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.item.container;
 
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -14,18 +31,19 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class TugRouteClientHandler {
-    private static final Logger LOGGER = LogManager.getLogger(TugRouteClientHandler.class);
+    //private static final Logger LOGGER = LogManager.getLogger(TugRouteClientHandler.class);
 
     private TugList widget;
-    private TugRoute route;
-    private boolean isOffHand;
-    private Minecraft minecraft;
-    private TugRouteScreen screen;
+    private final TugRoute route;
+    private final boolean isOffHand;
+    private final Minecraft minecraft;
+    private final TugRouteScreen screen;
 
     public TugRouteClientHandler(TugRouteScreen screen, Minecraft minecraft, TugRoute route, boolean isOffHand) {
         this.route = route;
@@ -115,13 +133,13 @@ public class TugRouteClientHandler {
         }
 
         @Override
-        public Optional<GuiEventListener> getChildAt(double p_212930_1_, double p_212930_3_) {
+        public @NotNull Optional<GuiEventListener> getChildAt(double p_212930_1_, double p_212930_3_) {
             return super.getChildAt(p_212930_1_, p_212930_3_);
         }
 
         @Override
-        public void render(PoseStack p_230430_1_, int p_230430_2_, int p_230430_3_, float p_230430_4_) {
-            super.render(p_230430_1_, p_230430_2_, p_230430_3_, p_230430_4_);
+        public void render(@NotNull PoseStack poseStack, int p_230430_2_, int p_230430_3_, float p_230430_4_) {
+            super.render(poseStack, p_230430_2_, p_230430_3_, p_230430_4_);
         }
 
         public void add(TugRouteNode node, int index) {
@@ -139,7 +157,7 @@ public class TugRouteClientHandler {
         }
 
         public class Entry extends ObjectSelectionList.Entry<Entry> {
-            private TugRouteNode node;
+            private final TugRouteNode node;
             private int index;
             public Entry(TugRouteNode node, int index) {
                 this.node = node;
@@ -147,7 +165,7 @@ public class TugRouteClientHandler {
             }
 
             @Override
-            public void render(PoseStack matrixStack, int ind, int rowTop, int rowLeft, int width, int height, int mouseX, int mouseY, boolean hovered, float partialTicks) {
+            public void render(@NotNull PoseStack matrixStack, int ind, int rowTop, int rowLeft, int width, int height, int mouseX, int mouseY, boolean hovered, float partialTicks) {
                 String s = node.getDisplayName(index) + ": " + node.getDisplayCoords();
 
                 RenderSystem.setShaderTexture(0, TugRouteScreen.GUI);
@@ -173,7 +191,7 @@ public class TugRouteClientHandler {
             }
 
             @Override
-            public Component getNarration() {
+            public @NotNull Component getNarration() {
                 // FIXME: ????
                 return Component.literal("");
             }

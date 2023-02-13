@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.entity.vessel.barge;
 
 import de.luaxlab.shipping.common.component.ItemHandlerComponent;
@@ -15,6 +32,7 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.stream.IntStream;
@@ -67,19 +85,19 @@ public class ChestBargeEntity extends AbstractBargeEntity implements Container, 
     }
 
     @Override
-    public ItemStack getItem(int slot) {
+    public @NotNull ItemStack getItem(int slot) {
         return itemHandler.getStackInSlot(slot);
     }
 
     @Override
-    public ItemStack removeItem(int slot, int count) {
+    public @NotNull ItemStack removeItem(int slot, int count) {
         return slot >= 0 && slot < itemHandler.getSlots() && !itemHandler.getStackInSlot(slot).isEmpty() && count > 0
                 ? (itemHandler.getStackInSlot(slot)).split(count)
                 : ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack removeItemNoUpdate(int slot) {
+    public @NotNull ItemStack removeItemNoUpdate(int slot) {
         ItemStack itemstack = itemHandler.getStackInSlot(slot);
         if (itemstack.isEmpty()) {
             return ItemStack.EMPTY;
@@ -117,7 +135,7 @@ public class ChestBargeEntity extends AbstractBargeEntity implements Container, 
     }
 
     @Nullable
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
+    public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory, Player pPlayer) {
         if (pPlayer.isSpectator()) {
             return null;
         } else {
@@ -138,17 +156,17 @@ public class ChestBargeEntity extends AbstractBargeEntity implements Container, 
     }
 
     @Override
-    public int[] getSlotsForFace(Direction face) {
+    public int @NotNull [] getSlotsForFace(@NotNull Direction face) {
         return IntStream.range(0, getContainerSize()).toArray();
     }
 
     @Override
-    public boolean canPlaceItemThroughFace(int p_180462_1_, ItemStack p_180462_2_, @Nullable Direction p_180462_3_) {
+    public boolean canPlaceItemThroughFace(int p_180462_1_, @NotNull ItemStack stack, @Nullable Direction p_180462_3_) {
         return isDockable();
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int p_180461_1_, ItemStack p_180461_2_, Direction p_180461_3_) {
+    public boolean canTakeItemThroughFace(int p_180461_1_, @NotNull ItemStack stack, @NotNull Direction face) {
         return isDockable();
     }
 

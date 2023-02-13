@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.entity.container;
 
 import de.luaxlab.shipping.common.component.ItemHandlerComponent;
@@ -18,10 +35,9 @@ public class EnergyHeadVehicleContainer<T extends Entity & HeadVehicle> extends 
         super(ModContainers.ENERGY_TUG_CONTAINER.get(), windowId, world, data, playerInventory, player);
 
 		if(entity != null) {
-			//If the component does not exist, its safe to assume something is very wrong.
-			ItemHandlerComponent component = entity.getComponent(ModComponents.ITEM_HANDLER);
-			ItemStackHandler h = component.getHandler();
-			addSlot(new SlotItemHandler(h, 0, 32, 35));
+			var component = ModComponents.ITEM_HANDLER.maybeGet(entity);
+			component.ifPresent(itemHandlerComponent -> addSlot(new SlotItemHandler(itemHandlerComponent.getHandler(), 0, 32, 35)));
+
 		}
 		//this.addDataSlots(data.getRawData()); //Not for energy tug
     }

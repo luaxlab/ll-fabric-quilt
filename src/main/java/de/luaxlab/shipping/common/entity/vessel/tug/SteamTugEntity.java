@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.entity.vessel.tug;
 
 import de.luaxlab.shipping.common.component.ItemHandlerComponent;
@@ -25,11 +42,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.item.content.registry.api.ItemContentRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@SuppressWarnings("UnstableApiUsage")
 public class SteamTugEntity extends AbstractTugEntity {
     private static final int FURNACE_FUEL_MULTIPLIER = ModConfig.Server.STEAM_TUG_FUEL_MULTIPLIER.get();
     private final ItemStackHandler itemHandler = createHandler();
@@ -46,12 +65,12 @@ public class SteamTugEntity extends AbstractTugEntity {
 
     private ItemStackHandler createHandler() {
         return new ItemStackHandler(1) {
-            @Override
+            @SuppressWarnings("removal")
+			@Override
             public boolean isItemValid(int slot, @Nonnull ItemVariant stack) {
 				return ItemContentRegistries.FUEL_TIME.get(stack.getItem()).isPresent();
             }
 
-            @Nonnull
             @Override
             public long insertSlot(int slot, @Nonnull ItemVariant stack, long maxAmount, TransactionContext transaction) {
                 if (!isItemValid(slot, stack)) {
@@ -72,13 +91,13 @@ public class SteamTugEntity extends AbstractTugEntity {
 			}
 
 			@Override
-            public Component getDisplayName() {
+            public @NotNull Component getDisplayName() {
                 return Component.translatable("screen.littlelogistics.tug");
             }
 
-            @Nullable
+
             @Override
-            public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player Player) {
+            public AbstractContainerMenu createMenu(int i, @NotNull Inventory playerInventory, @NotNull Player Player) {
                 return new SteamHeadVehicleContainer<SteamTugEntity>(i, level, getDataAccessor(), playerInventory, Player);
             }
         };

@@ -1,6 +1,6 @@
-/**
+/*
  Little Logistics: Quilt Edition, a mod about transportation for Minecraft
- Copyright © 2022 EDToaster, LuaX, Murad Akhundov
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("deprecation")
 public abstract class AbstractDockBlock extends Block implements EntityBlock {
 
 
@@ -43,13 +44,11 @@ public abstract class AbstractDockBlock extends Block implements EntityBlock {
 		DockingBlockStates.fixHopperPos(state, world, pos, Direction.UP, state.getValue(DockingBlockStates.FACING));
 	}
 
-	@SuppressWarnings("deprecation")
     @Override
     public BlockState rotate(BlockState state, Rotation rot) {
         return state.setValue(DockingBlockStates.FACING, rot.rotate(state.getValue(DockingBlockStates.FACING)));
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
         return state.rotate(mirrorIn.getRotation(state.getValue(DockingBlockStates.FACING)));

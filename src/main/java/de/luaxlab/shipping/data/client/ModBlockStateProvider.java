@@ -1,8 +1,26 @@
+/*
+ Little Logistics: Quilt Edition Data Generation
+ Copyright © 2023 LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.data.client;
 
 import de.luaxlab.shipping.common.block.CornerGuideRailBlock;
 import de.luaxlab.shipping.common.block.dock.DockingBlockStates;
 import de.luaxlab.shipping.common.core.ModBlocks;
+import de.luaxlab.shipping.common.energy.IntegratedEnergyExtension;
 import de.luaxlab.shipping.common.energy.VesselChargerBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
@@ -70,14 +88,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private int xRotFromDir(Direction direction){
-        switch (direction) {
-            case DOWN:
-                return 270;
-            case UP:
-                return 90;
-            default:
-                return 0;
-        }
+		return switch (direction) {
+			case DOWN -> 270;
+			case UP -> 90;
+			default -> 0;
+		};
     }
 
 
@@ -125,7 +140,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .build()
         );
 */
-        getVariantBuilder(ModBlocks.VESSEL_CHARGER.get()).forAllStates(state -> ConfiguredModel.builder()
+        getVariantBuilder(IntegratedEnergyExtension.VESSEL_CHARGER_BLOCK.get()).forAllStates(state -> ConfiguredModel.builder()
                 .modelFile(models()
                         .withExistingParent("vessel_charger", modLoc("vessel_charger_parent_model"))
                 )

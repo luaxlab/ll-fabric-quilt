@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.entity.navigator;
 
 import de.luaxlab.shipping.common.block.guiderail.TugGuideRailBlock;
@@ -27,13 +44,13 @@ public class TugNodeProcessor extends SwimNodeEvaluator {
     }
 
     @Override
-    public int getNeighbors(Node[] p_222859_1_, Node p_222859_2_) {
+    public int getNeighbors(Node[] nodes, Node node) {
         int i = 0;
 
         for(Direction direction : Arrays.asList(Direction.WEST, Direction.EAST, Direction.SOUTH, Direction.NORTH)) {
-            Node Node = this.getWaterNode(p_222859_2_.x + direction.getStepX(), p_222859_2_.y + direction.getStepY(), p_222859_2_.z + direction.getStepZ());
+            Node Node = this.getWaterNode(node.x + direction.getStepX(), node.y + direction.getStepY(), node.z + direction.getStepZ());
             if (Node != null && !Node.closed && !isOppositeGuideRail(Node, direction)) {
-                p_222859_1_[i++] = Node;
+                nodes[i++] = Node;
             }
         }
 
@@ -94,8 +111,8 @@ public class TugNodeProcessor extends SwimNodeEvaluator {
     }
 
     private Node getWaterNode(int p_186328_1_, int p_186328_2_, int p_186328_3_) {
-        BlockPathTypes BlockPathTypes = this.isFree(p_186328_1_, p_186328_2_, p_186328_3_);
-        return  BlockPathTypes != BlockPathTypes.WATER ? null : this.getNode(p_186328_1_, p_186328_2_, p_186328_3_);
+        BlockPathTypes pathTypes = this.isFree(p_186328_1_, p_186328_2_, p_186328_3_);
+        return  pathTypes != BlockPathTypes.WATER ? null : this.getNode(p_186328_1_, p_186328_2_, p_186328_3_);
     }
 
     private BlockPathTypes isFree(int p_186327_1_, int p_186327_2_, int p_186327_3_) {

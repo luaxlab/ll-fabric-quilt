@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.entity.vessel.tug;
 
 import de.luaxlab.shipping.common.component.EnergyComponent;
@@ -6,6 +23,7 @@ import de.luaxlab.shipping.common.core.ModConfig;
 import de.luaxlab.shipping.common.core.ModEntities;
 import de.luaxlab.shipping.common.core.ModItems;
 import de.luaxlab.shipping.common.energy.EnergyUtils;
+import de.luaxlab.shipping.common.energy.IntegratedEnergyExtension;
 import de.luaxlab.shipping.common.energy.SimpleReadWriteEnergyStorage;
 import de.luaxlab.shipping.common.entity.accessor.EnergyHeadVehicleDataAccessor;
 import de.luaxlab.shipping.common.entity.container.EnergyHeadVehicleContainer;
@@ -48,14 +66,14 @@ public class EnergyTugEntity extends AbstractTugEntity {
     }
 
     public EnergyTugEntity(Level worldIn, double x, double y, double z) {
-        super(ModEntities.ENERGY_TUG.get(), worldIn, x, y, z);
+        super(IntegratedEnergyExtension.ENERGY_TUG.get(), worldIn, x, y, z);
         internalBattery.amount = 0;
     }
 
     // todo: Store contents?
     @Override
     public Item getDropItem() {
-        return ModItems.ENERGY_TUG.get();
+        return IntegratedEnergyExtension.ENERGY_TUG_ITEM.get();
     }
 
     @Override

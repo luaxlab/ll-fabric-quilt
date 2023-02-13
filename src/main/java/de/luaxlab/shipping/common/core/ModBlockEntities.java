@@ -1,3 +1,20 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.core;
 
 import de.luaxlab.shipping.common.block.dock.BargeDockTileEntity;
@@ -45,11 +62,7 @@ public class ModBlockEntities {
 //			ModBlocks.FLUID_HOPPER
 //	);
 //
-	public static final RegistryObject<BlockEntityType<VesselChargerTileEntity>> VESSEL_CHARGER = register(
-			"vessel_charger",
-			VesselChargerTileEntity::new,
-			ModBlocks.VESSEL_CHARGER
-	);
+
 //
 //	public static final RegistryObject<BlockEntityType<RapidHopperTileEntity>> RAPID_HOPPER = register(
 //			"rapid_hopper",
@@ -57,7 +70,7 @@ public class ModBlockEntities {
 //			ModBlocks.RAPID_HOPPER
 //	);
 
-	private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(
+	public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(
 			String name,
 			BlockEntityType.BlockEntitySupplier<T> factory,
 			RegistryObject<? extends Block> block) {

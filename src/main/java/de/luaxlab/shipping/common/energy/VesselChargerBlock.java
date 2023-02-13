@@ -1,8 +1,24 @@
+/*
+ Little Logistics: Quilt Edition, a mod about transportation for Minecraft
+ Copyright © 2022 EDToaster, Murad Akhundov, LuaX, Abbie
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package de.luaxlab.shipping.common.energy;
 
 import de.luaxlab.shipping.common.block.dock.AbstractDockBlock;
 import de.luaxlab.shipping.common.block.dock.DockingBlockStates;
-import de.luaxlab.shipping.common.core.ModBlockEntities;
 import de.luaxlab.shipping.common.util.TickerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,6 +40,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -69,7 +86,8 @@ public class VesselChargerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+    public @NotNull InteractionResult use(@NotNull BlockState state, Level world, @NotNull BlockPos pos,
+										  @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult rayTraceResult) {
         if (!world.isClientSide){
             BlockEntity entity = world.getBlockEntity(pos);
             if(entity instanceof VesselChargerTileEntity){
@@ -83,8 +101,8 @@ public class VesselChargerBlock extends Block implements EntityBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModBlockEntities.VESSEL_CHARGER.get().create(pos, state);
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+        return IntegratedEnergyExtension.VESSEL_CHARGER_ENTITY.get().create(pos, state);
     }
 
     @Override
@@ -104,18 +122,13 @@ public class VesselChargerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState p_220053_1_, BlockGetter p_220053_2_, BlockPos p_220053_3_, CollisionContext p_220053_4_) {
-        switch (p_220053_1_.getValue(FACING)){
-            case SOUTH:
-                return SHAPE_S;
-            case WEST:
-                return SHAPE_W;
-            case EAST:
-                return SHAPE_E;
-            case NORTH:
-            default:
-                return SHAPE_N;
-        }
+    public @NotNull VoxelShape getShape(BlockState p_220053_1_, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return switch (p_220053_1_.getValue(FACING)) {
+			case SOUTH -> SHAPE_S;
+			case WEST -> SHAPE_W;
+			case EAST -> SHAPE_E;
+			default -> SHAPE_N;
+		};
     }
 
     public Optional<Direction> getPlaceDir(BlockPos pos, Level level){
@@ -147,8 +160,8 @@ public class VesselChargerBlock extends Block implements EntityBlock {
 
     }
 	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return level.isClientSide() ? null : TickerUtil.createTickerHelper(type, ModBlockEntities.VESSEL_CHARGER.get(), VesselChargerTileEntity::serverTick);
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
+		return level.isClientSide() ? null : TickerUtil.createTickerHelper(type, IntegratedEnergyExtension.VESSEL_CHARGER_ENTITY.get(), VesselChargerTileEntity::serverTick);
 	}
 }
 
