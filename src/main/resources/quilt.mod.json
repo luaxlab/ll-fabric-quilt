@@ -7,11 +7,15 @@
 		"metadata": {
 			"name": "Little Logistics: Quilt Edition",
 			"description": "What a cute little logistics mod thingy...",
+			"authors": {
+				"The Little Logistics Quilt Team": ""
+			},
 			"contributors": {
 				"LuaX": "Clothier",
 				"Abbie": "Clothier",
 				"Murad Akhundov": "Lead",
-				"EDToaster": "Lead"
+				"EDToaster": "Lead",
+				"The Little Logistics Clothiers": "Owner"
 			},
 			"contact": {
 				"homepage": "https://luaxlab.de/en/mod/littlelogistics",
@@ -40,12 +44,41 @@
 			{
 				"id": "minecraft",
 				"versions": ">=1.19"
+			},
+			{
+				"id": "architectury",
+				"versions": ">=6.4.62"
+			},
+			{
+				"id": "cardinal-components-base",
+				"versions": ">=5.1.0"
+			},
+			{
+				"id": "cardinal-components-entity",
+				"versions": ">=5.1.0"
+			},
+			{
+				"id": "cardinal-components-block",
+				"versions": ">=5.1.0"
+			},
+			{
+				"id": "forgeconfigapiport",
+				"versions": ">=4.2.10"
+			},
+			{
+				"id": "porting_lib",
+				"versions": ">=2.1.687+1.19.2"
 			}
 		],
 		"recommends": [
 			{
 				"id": "team_reborn_energy",
 				"versions": ">=2.3.0"
+			}
+		],
+		"suggests": [
+			{
+				"id": "wthit"
 			}
 		]
 	},

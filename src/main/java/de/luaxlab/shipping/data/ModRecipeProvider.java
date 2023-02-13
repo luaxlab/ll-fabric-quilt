@@ -25,6 +25,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 
 import java.util.function.Consumer;
@@ -215,7 +216,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern("$$$")
                 .unlockedBy("has_item", has(Items.PISTON))
                 .save(consumer);
-/*
+
 
         ShapedRecipeBuilder.shaped(ModItems.CHEST_BARGE.get())
                 .define('_', Items.CHEST)
@@ -243,7 +244,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy("has_item", has(Items.FISHING_ROD))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.FLUID_BARGE.get())
+       /* ShapedRecipeBuilder.shaped(ModItems.FLUID_BARGE.get())
                 .define('#', Items.GLASS)
                 .define('$', Items.IRON_INGOT)
                 .pattern("# #")
