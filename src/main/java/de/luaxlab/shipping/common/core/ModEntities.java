@@ -72,12 +72,6 @@ public class ModEntities {
 							.clientTrackingRange(8)
 							.build(new ResourceLocation(ModCommon.MODID, "tug").toString()));
 
-	public static final RegistryObject<EntityType<EnergyTugEntity>> ENERGY_TUG =
-			Registration.ENTITIES.register("energy_tug",
-					() -> EntityType.Builder.<EnergyTugEntity>of(EnergyTugEntity::new,
-									MobCategory.MISC).sized(0.7f, 0.9f)
-							.clientTrackingRange(8)
-							.build(new ResourceLocation(ModCommon.MODID, "energy_tug").toString()));
 //
 //	public static final RegistryObject<EntityType<ChestCarEntity>> CHEST_CAR =
 //			Registration.ENTITIES.register("chest_car",
@@ -133,7 +127,6 @@ public class ModEntities {
 	public static void register () {
 		FabricDefaultAttributeRegistry.register(STEAM_TUG.get(), SteamTugEntity.setCustomAttributes());
         FabricDefaultAttributeRegistry.register(CHEST_BARGE.get(), ChestBargeEntity.setCustomAttributes());
-		FabricDefaultAttributeRegistry.register(ENERGY_TUG.get(), EnergyTugEntity.setCustomAttributes());
 		FabricDefaultAttributeRegistry.register(SEATER_BARGE.get(), FishingBargeEntity.setCustomAttributes());
         FabricDefaultAttributeRegistry.register(FISHING_BARGE.get(), FishingBargeEntity.setCustomAttributes());
 	}

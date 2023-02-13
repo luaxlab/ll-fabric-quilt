@@ -62,7 +62,7 @@ public class VesselChargerTileEntity extends BlockEntity implements IVesselLoade
     private boolean tryChargeEntity() {
 		//return level.getEntitiesOfClass()
         var vsl = IVesselLoader.getEntityCapability(getBlockPos().relative(getBlockState().getValue(VesselChargerBlock.FACING)),
-                ModComponents.ENERGY_HANDLER, level);
+                IntegratedEnergyExtension.ENERGY_HANDLER, level);
 
 		return vsl.map(energyComponent -> EnergyStorageUtil.move(internalBattery, energyComponent.getHandler(), MAX_TRANSFER, null) > 0)
 				.orElse(false);
@@ -82,7 +82,7 @@ public class VesselChargerTileEntity extends BlockEntity implements IVesselLoade
 
     @Override
     public<T extends Entity & LinkableEntity<T>> boolean hold(T vehicle, @NotNull Mode mode) {
-		return ModComponents.ENERGY_HANDLER.maybeGet(vehicle).map(energyComponent -> {
+		return IntegratedEnergyExtension.ENERGY_HANDLER.maybeGet(vehicle).map(energyComponent -> {
 			if (mode == Mode.EXPORT) {
 				return (energyComponent.getHandler().getAmount() < energyComponent.getHandler().getCapacity() - 50) && internalBattery.getAmount() > 50;
 			}

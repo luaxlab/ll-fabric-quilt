@@ -25,15 +25,18 @@ import de.luaxlab.shipping.client.screen.EnergyHeadVehicleScreen;
 import de.luaxlab.shipping.client.screen.FishingBargeScreen;
 import de.luaxlab.shipping.client.screen.SteamHeadVehicleScreen;
 import de.luaxlab.shipping.client.screen.TugRouteScreen;
+import de.luaxlab.shipping.common.core.ModCommon;
 import de.luaxlab.shipping.common.core.ModContainers;
 import de.luaxlab.shipping.common.core.ModEntities;
 import de.luaxlab.shipping.common.core.ModItemModelProperties;
+import de.luaxlab.shipping.common.energy.IntegratedEnergyExtension;
 import de.luaxlab.shipping.common.entity.vessel.tug.EnergyTugEntity;
 import de.luaxlab.shipping.common.entity.vessel.tug.SteamTugEntity;
 import dev.architectury.event.events.client.ClientTextureStitchEvent;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.loader.FabricLoader;
 import net.minecraft.client.gui.screens.MenuScreens;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
@@ -57,23 +60,27 @@ public class ModClient implements ClientModInitializer {
 				return 0;
 			}
 		});
-		EntityRendererRegistry.register(ModEntities.ENERGY_TUG.get(), (ctx) -> new StaticVesselRenderer<>(ctx, EnergyTugModel::new, EnergyTugModel.LAYER_LOCATION,
-				EnergyTugModel.TEXTURE) {
-			// todo: fix in models itself
-			@Override
-			protected double getModelYoffset() {
-				return 1.45D;
-			}
 
-			@Override
-			protected float getModelYrot() {
-				return 0;
-			}
-		});
 		EntityRendererRegistry.register(ModEntities.CHEST_BARGE.get(), ChestBargeRenderer::new);
 		EntityRendererRegistry.register(ModEntities.SEATER_BARGE.get(), (ctx) -> new StaticVesselRenderer<>(ctx, SeaterBargeModel::new, SeaterBargeModel.LAYER_LOCATION,
 				SeaterBargeModel.TEXTURE));
 		EntityRendererRegistry.register(ModEntities.FISHING_BARGE.get(), FishingBargeRenderer::new);
+
+		if(FabricLoader.INSTANCE.isModLoaded(ModCommon.REBORN_ENERGY_MODID)) {
+			EntityRendererRegistry.register(IntegratedEnergyExtension.ENERGY_TUG.get(), (ctx) -> new StaticVesselRenderer<>(ctx, EnergyTugModel::new, EnergyTugModel.LAYER_LOCATION,
+					EnergyTugModel.TEXTURE) {
+				// todo: fix in models itself
+				@Override
+				protected double getModelYoffset() {
+					return 1.45D;
+				}
+
+				@Override
+				protected float getModelYrot() {
+					return 0;
+				}
+			});
+		}
 
 		//EntityModelLayerRegistry
 		EntityModelLayerRegistry.registerModelLayer(ChainModel.LAYER_LOCATION, ChainModel::createBodyLayer);

@@ -23,6 +23,7 @@ import de.luaxlab.shipping.common.core.ModConfig;
 import de.luaxlab.shipping.common.core.ModEntities;
 import de.luaxlab.shipping.common.core.ModItems;
 import de.luaxlab.shipping.common.energy.EnergyUtils;
+import de.luaxlab.shipping.common.energy.IntegratedEnergyExtension;
 import de.luaxlab.shipping.common.energy.SimpleReadWriteEnergyStorage;
 import de.luaxlab.shipping.common.entity.accessor.EnergyHeadVehicleDataAccessor;
 import de.luaxlab.shipping.common.entity.container.EnergyHeadVehicleContainer;
@@ -65,14 +66,14 @@ public class EnergyTugEntity extends AbstractTugEntity {
     }
 
     public EnergyTugEntity(Level worldIn, double x, double y, double z) {
-        super(ModEntities.ENERGY_TUG.get(), worldIn, x, y, z);
+        super(IntegratedEnergyExtension.ENERGY_TUG.get(), worldIn, x, y, z);
         internalBattery.amount = 0;
     }
 
     // todo: Store contents?
     @Override
     public Item getDropItem() {
-        return ModItems.ENERGY_TUG.get();
+        return IntegratedEnergyExtension.ENERGY_TUG_ITEM.get();
     }
 
     @Override

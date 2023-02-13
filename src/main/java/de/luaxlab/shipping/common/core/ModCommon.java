@@ -30,6 +30,7 @@ public class ModCommon implements ModInitializer {
 
 	public static final String MODID = "littlelogistics";
 	public static final Logger LOGGER = LoggerFactory.getLogger("Little Logistics");
+	public static final String REBORN_ENERGY_MODID = "team_reborn_energy";
 
 	@Override
 	public void onInitialize(ModContainer mod) {

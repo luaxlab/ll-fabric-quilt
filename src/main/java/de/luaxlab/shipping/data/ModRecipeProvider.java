@@ -206,7 +206,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .save(consumer);
 
 
-        ShapedRecipeBuilder.shaped(ModItems.ENERGY_TUG.get())
+        ShapedRecipeBuilder.shaped(IntegratedEnergyExtension.ENERGY_TUG_ITEM.get())
                 .define('_', Items.PISTON)
                 .define('#', IntegratedEnergyExtension.VESSEL_CHARGER_BLOCK.get())
                 .define('$', Items.IRON_INGOT)

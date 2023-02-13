@@ -19,11 +19,11 @@ package de.luaxlab.shipping.common.entity.vessel;
 
 import de.luaxlab.shipping.common.core.ModConfig;
 import de.luaxlab.shipping.common.core.ModItems;
+import de.luaxlab.shipping.common.entity.vessel.tug.AbstractTugEntity;
 import de.luaxlab.shipping.common.util.LinkableEntity;
 import de.luaxlab.shipping.common.util.LinkingHandler;
 import de.luaxlab.shipping.common.util.SpringPhysicsUtil;
 import de.luaxlab.shipping.common.util.Train;
-import de.luaxlab.shipping.common.entity.vessel.tug.AbstractTugEntity;
 import io.github.fabricators_of_create.porting_lib.attributes.PortingLibAttributes;
 import lombok.Getter;
 import lombok.Setter;

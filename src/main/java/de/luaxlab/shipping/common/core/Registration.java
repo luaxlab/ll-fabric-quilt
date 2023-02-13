@@ -57,6 +57,13 @@ public class Registration  {
 		VehiclePacketHandler.register();
 		ModSounds.register();
 
+		if(FabricLoader.INSTANCE.isModLoaded(ModCommon.REBORN_ENERGY_MODID))
+		{
+			IntegratedEnergyExtension.register();
+		} else {
+			ModCommon.LOGGER.info("Team Reborn Energy, where are you? :(");
+		}
+
 		BLOCKS.register();
 		ITEMS.register();
 		CONTAINERS.register();
@@ -64,10 +71,5 @@ public class Registration  {
 		TILE_ENTITIES.register();
 		ENTITIES.register();
 		SOUND_EVENTS.register();
-
-		if(FabricLoader.INSTANCE.isModLoaded("team_reborn_energy"))
-		{
-			IntegratedEnergyExtension.register();
-		}
 	}
 }

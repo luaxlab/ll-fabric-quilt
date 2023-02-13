@@ -55,9 +55,6 @@ public class ModItems {
 	public static final RegistryObject<Item> SPRING = Registration.ITEMS.register("spring",
 			() -> new SpringItem(new Item.Properties().stacksTo(64).tab(CreativeModeTab.TAB_TRANSPORTATION)));
 
-	public static final RegistryObject<Item> CREATIVE_CAPACITOR = Registration.ITEMS.register("creative_capacitor",
-			() -> new Item(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
-
 	/**
 	 * Vessels
 	 */
@@ -79,9 +76,6 @@ public class ModItems {
 
 	public static final RegistryObject<Item> STEAM_TUG = Registration.ITEMS.register("tug",
 			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), SteamTugEntity::new));
-
-	public static final RegistryObject<Item> ENERGY_TUG = Registration.ITEMS.register("energy_tug",
-			() -> new VesselItem(new Item.Properties().tab(CreativeModeTab.TAB_TRANSPORTATION), EnergyTugEntity::new));
 
 	/**
 	 * Trains
@@ -118,10 +112,7 @@ public class ModItems {
 //			() -> new LocoRouteItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_TRANSPORTATION)));
 
 
-	@SuppressWarnings("UnstableApiUsage")
 	public static void register () {
-		//Register the creative capacitor
-		EnergyStorage.ITEM.registerForItems((itemStack, context) -> EnergyUtils.CREATIVE_SUPPLY, CREATIVE_CAPACITOR.get());
-	}
+		}
 
 }
