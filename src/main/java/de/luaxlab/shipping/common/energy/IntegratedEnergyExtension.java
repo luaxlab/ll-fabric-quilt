@@ -81,8 +81,9 @@ public class IntegratedEnergyExtension {
 	@SuppressWarnings("deprecation")
 	public static void register()
 	{
-		//Register the creative capacitor
+		//Register energy-stuff
 		EnergyStorage.ITEM.registerForItems((itemStack, context) -> EnergyUtils.CREATIVE_SUPPLY, CREATIVE_CAPACITOR.get());
+		EnergyStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.getInternalBattery(), VESSEL_CHARGER_ENTITY.get());
 		//Register entities
 		FabricDefaultAttributeRegistry.register(ENERGY_TUG.get(), EnergyTugEntity.setCustomAttributes());
 

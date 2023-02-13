@@ -22,6 +22,8 @@ import de.luaxlab.shipping.common.core.ModBlockEntities;
 import de.luaxlab.shipping.common.core.ModComponents;
 import de.luaxlab.shipping.common.core.ModConfig;
 import de.luaxlab.shipping.common.util.LinkableEntity;
+import lombok.AccessLevel;
+import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -37,6 +39,7 @@ import team.reborn.energy.api.EnergyStorageUtil;
 public class VesselChargerTileEntity extends BlockEntity implements IVesselLoader {
     private static final int MAX_TRANSFER = ModConfig.Server.VESSEL_CHARGER_BASE_MAX_TRANSFER.get();
     private static final int MAX_CAPACITY = ModConfig.Server.VESSEL_CHARGER_BASE_CAPACITY.get();
+	@Getter(AccessLevel.PUBLIC)
     private final SimpleReadWriteEnergyStorage internalBattery = new SimpleReadWriteEnergyStorage(MAX_CAPACITY, MAX_TRANSFER, MAX_TRANSFER);
     private int cooldownTime = 0;
 
