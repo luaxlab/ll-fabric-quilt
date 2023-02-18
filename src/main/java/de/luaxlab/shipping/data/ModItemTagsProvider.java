@@ -17,6 +17,8 @@
  */
 package de.luaxlab.shipping.data;
 
+import de.luaxlab.shipping.common.core.ModItems;
+import de.luaxlab.shipping.common.core.ModTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -28,6 +30,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     }
 
     protected void addTags() {
-//        tag(ModTags.Items.WRENCHES).add(ModItems.CONDUCTORS_WRENCH.get());
+        tag(ModTags.Items.WRENCHES).add(ModItems.CONDUCTORS_WRENCH.get());
     }
 }

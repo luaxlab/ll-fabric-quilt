@@ -355,7 +355,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy("has_item", has(Items.ENDER_EYE))
                 .save(consumer);
 
-/*
         ShapedRecipeBuilder.shaped(ModItems.CONDUCTORS_WRENCH.get(), 1)
                 .define('-', Items.IRON_INGOT)
                 .define('^', ModItems.SPRING.get())
@@ -365,6 +364,5 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern("-  ")
                 .unlockedBy("has_item", has(ModItems.SPRING.get()))
                 .save(consumer);
-*/
     }
 }
